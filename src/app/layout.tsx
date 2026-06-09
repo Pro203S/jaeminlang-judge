@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
     title: "jaeminlang judge",
@@ -13,7 +14,11 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ko">
-            <body>{children}</body>
+            <body>
+                <Suspense defer fallback={null}>
+                    {children}
+                </Suspense>
+            </body>
         </html>
     );
 }
