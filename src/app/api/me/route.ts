@@ -9,6 +9,12 @@ import {
     requestToken,
     setTokenCookies,
 } from "@/modules/pro203sAuth";
+import { createAPIErrorResponse } from "@/modules/apiError";
+import type {
+    AuthConfigErrorResponse,
+    AuthMeResponse,
+    OAuthErrorResponse,
+} from "@/modules/pro203sAuthTypes";
 
 export async function GET(request: NextRequest) {
     let config;
@@ -16,11 +22,10 @@ export async function GET(request: NextRequest) {
     try {
         config = getAuthConfig(request.url);
     } catch (error) {
-        const payload: AuthSessionResponse = {
-            authenticated: false,
-            error: "server_misconfigured",
-            message: error instanceof Error ? error.message : "OAuth 설정이 없습니다.",
-        };
+        const payload: AuthConfigErrorResponse = createAPIErrorResponse(
+            "server_misconfigured",
+            error instanceof Error ? error.message : "OAuth 설정이 없습니다.",
+        );
 
         return NextResponse.json(payload, { status: 500 });
     }
@@ -28,18 +33,13 @@ export async function GET(request: NextRequest) {
     const accessToken = request.cookies.get(ACCESS_TOKEN_COOKIE)?.value;
 
     if (!accessToken) {
-        const payload: AuthSessionResponse = { authenticated: false };
-
-        return NextResponse.json(payload);
+        return unauthorizedResponse();
     }
 
     const userResult = await fetchCurrentUser(config, accessToken);
 
     if (userResult.ok) {
-        const payload: AuthSessionResponse = {
-            authenticated: true,
-            user: userResult.data,
-        };
+        const payload: AuthMeResponse = userResult.data;
 
         return NextResponse.json(payload);
     }
@@ -57,35 +57,49 @@ export async function GET(request: NextRequest) {
                 config,
                 refreshResult.data.access_token,
             );
-            const payload: AuthSessionResponse = refreshedUserResult.ok
-                ? {
-                    authenticated: true,
-                    user: refreshedUserResult.data,
-                }
-                : {
-                    authenticated: false,
-                    error: refreshedUserResult.data,
-                };
-            const response = NextResponse.json(payload);
+
+            if (refreshedUserResult.ok) {
+                const payload: AuthMeResponse = refreshedUserResult.data;
+                const response = NextResponse.json(payload);
+
+                setTokenCookies(response, refreshResult.data);
+
+                return response;
+            }
+
+            const response = authFailureResponse(
+                refreshedUserResult.status,
+                refreshedUserResult.data,
+            );
 
             setTokenCookies(response, refreshResult.data);
-
-            if (!refreshedUserResult.ok) {
-                clearAuthCookies(response);
-            }
+            clearAuthCookies(response);
 
             return response;
         }
     }
 
-    const payload: AuthSessionResponse = {
-        authenticated: false,
-        error: userResult.data,
-    };
-    const response = NextResponse.json(payload, {
-        status: userResult.status === 401 ? 200 : userResult.status,
-    });
+    const response = authFailureResponse(userResult.status, userResult.data);
     clearAuthCookies(response);
 
     return response;
+}
+
+function authFailureResponse(status: number, detail: OAuthErrorResponse) {
+    if (status === 401) {
+        return unauthorizedResponse(detail);
+    }
+
+    const responseStatus = status >= 200 && status < 300 ? 502 : status;
+
+    return NextResponse.json(detail, { status: responseStatus });
+}
+
+function unauthorizedResponse(detail?: OAuthErrorResponse) {
+    const payload = createAPIErrorResponse(
+        "unauthorized",
+        detail?.message ?? "로그인이 필요합니다.",
+    );
+
+    return NextResponse.json(payload, { status: 401 });
 }

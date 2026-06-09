@@ -1,7 +1,9 @@
-import rest from "./rest";
+import REST from "./rest";
+import type { APIErrorResponse } from "./apiError";
+import type { AuthRefreshResponse } from "./pro203sAuthTypes";
 
-export async function refreshSession(): Promise<AuthRefreshResponse> {
-    const result = await rest("/api/auth/refresh", {
+export async function refreshSession(): Promise<AuthRefreshResponse | APIErrorResponse> {
+    const result = await REST("/api/auth/refresh", {
         method: "POST",
     });
 
@@ -9,8 +11,5 @@ export async function refreshSession(): Promise<AuthRefreshResponse> {
         return result.data;
     }
 
-    return {
-        success: false,
-        error: "refresh_failed",
-    };
+    return result.data;
 }

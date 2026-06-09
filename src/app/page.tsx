@@ -1,7 +1,13 @@
 "use client";
 
-export default function Page() {
-    return <div>
+import Header from '@/components/header';
+import css from './page.module.css';
 
-    </div>;
+export default function Page() {
+    return <>
+        <Header />
+        <div className={css.container}>
+
+        </div>
+    </>;
 }

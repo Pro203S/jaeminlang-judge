@@ -7,6 +7,8 @@ import {
     requestToken,
     setTokenCookies,
 } from "@/modules/pro203sAuth";
+import { createAPIErrorResponse } from "@/modules/apiError";
+import type { AuthRefreshResponse } from "@/modules/pro203sAuthTypes";
 
 export async function POST(request: NextRequest) {
     let config;
@@ -14,11 +16,10 @@ export async function POST(request: NextRequest) {
     try {
         config = getAuthConfig(request.url);
     } catch (error) {
-        const payload: AuthRefreshResponse = {
-            success: false,
-            error: "server_misconfigured",
-            message: error instanceof Error ? error.message : "OAuth 설정이 없습니다.",
-        };
+        const payload = createAPIErrorResponse(
+            "server_misconfigured",
+            error instanceof Error ? error.message : "OAuth 설정이 없습니다.",
+        );
 
         return NextResponse.json(payload, { status: 500 });
     }
@@ -26,10 +27,10 @@ export async function POST(request: NextRequest) {
     const refreshToken = request.cookies.get(REFRESH_TOKEN_COOKIE)?.value;
 
     if (!refreshToken) {
-        const payload: AuthRefreshResponse = {
-            success: false,
-            error: "missing_refresh_token",
-        };
+        const payload = createAPIErrorResponse(
+            "missing_refresh_token",
+            "갱신 토큰이 없습니다.",
+        );
 
         return NextResponse.json(payload, { status: 401 });
     }
@@ -40,11 +41,10 @@ export async function POST(request: NextRequest) {
     });
 
     if (!tokenResult.ok) {
-        const payload: AuthRefreshResponse = {
-            success: false,
-            error: "refresh_failed",
-            detail: tokenResult.data,
-        };
+        const payload = createAPIErrorResponse(
+            "refresh_failed",
+            tokenResult.data.message,
+        );
         const response = NextResponse.json(payload, { status: tokenResult.status });
         clearAuthCookies(response);
 

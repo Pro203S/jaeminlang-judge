@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    width: calc(100vw - 30px);
+    padding: 15px;
+    margin: 0 auto;
+    height: 34px;
+    border-bottom: #616161 solid 1.5px;
+}
+
+.logo {
+    color: #fff;
+    font-family: 'Continuous';
+    font-size: 24px;
+    padding: 3px 7px;
+    text-decoration: none;
+}
+
+.logo:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

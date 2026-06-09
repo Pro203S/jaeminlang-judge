@@ -2,6 +2,16 @@ import { randomBytes } from "node:crypto";
 
 import axios from "axios";
 import { NextResponse } from "next/server";
+import { toAPIErrorResponse } from "./apiError";
+import type {
+    AuthConfig,
+    OAuthErrorResponse,
+    OAuthState,
+    OAuthTokenResponse,
+    OAuthTokenResult,
+    OAuthUserResponse,
+    OAuthUserResult,
+} from "./pro203sAuthTypes";
 
 const DEFAULT_AUTH_BASE_URL = "https://user.pro203s.kr";
 const DEFAULT_SCOPE = "profile email";
@@ -19,7 +29,7 @@ const baseCookieOptions = {
     path: "/",
 };
 
-export function getAuthConfig(requestUrl?: string): Pro203sAuthConfig {
+export function getAuthConfig(requestUrl?: string): AuthConfig {
     const authBaseUrl = trimTrailingSlash(
         process.env.PRO203S_AUTH_BASE_URL ?? DEFAULT_AUTH_BASE_URL,
     );
@@ -54,18 +64,18 @@ export function getAuthConfig(requestUrl?: string): Pro203sAuthConfig {
     };
 }
 
-export function createOAuthState(nextPath: string): Pro203sOAuthState {
+export function createOAuthState(nextPath: string): OAuthState {
     return {
         state: randomBytes(32).toString("base64url"),
         next: sanitizeReturnPath(nextPath),
     };
 }
 
-export function encodeOAuthState(value: Pro203sOAuthState): string {
+export function encodeOAuthState(value: OAuthState): string {
     return Buffer.from(JSON.stringify(value), "utf8").toString("base64url");
 }
 
-export function decodeOAuthState(value: string | undefined): Pro203sOAuthState | null {
+export function decodeOAuthState(value: string | undefined): OAuthState | null {
     if (!value) {
         return null;
     }
@@ -73,7 +83,7 @@ export function decodeOAuthState(value: string | undefined): Pro203sOAuthState |
     try {
         const parsed = JSON.parse(
             Buffer.from(value, "base64url").toString("utf8"),
-        ) as Partial<Pro203sOAuthState>;
+        ) as Partial<OAuthState>;
 
         if (typeof parsed.state !== "string" || typeof parsed.next !== "string") {
             return null;
@@ -97,11 +107,11 @@ export function sanitizeReturnPath(value: string | null | undefined): string {
 }
 
 export async function requestToken(
-    config: Pro203sAuthConfig,
+    config: AuthConfig,
     params: Record<string, string | undefined>,
-): Promise<Pro203sTokenResult> {
+): Promise<OAuthTokenResult> {
     const response = await axios.post<
-        Pro203sOAuthTokenResponse | Pro203sOAuthErrorResponse
+        OAuthTokenResponse | OAuthErrorResponse
     >(
         config.tokenUrl,
         createFormBody(config, params),
@@ -132,11 +142,11 @@ export async function requestToken(
 }
 
 export async function fetchCurrentUser(
-    config: Pro203sAuthConfig,
+    config: AuthConfig,
     accessToken: string,
-): Promise<Pro203sUserResult> {
+): Promise<OAuthUserResult> {
     const response = await axios.get<
-        Pro203sOAuthUserResponse | Pro203sOAuthErrorResponse
+        OAuthUserResponse | OAuthErrorResponse
     >(config.meUrl, {
         validateStatus: () => true,
         headers: {
@@ -160,7 +170,7 @@ export async function fetchCurrentUser(
 }
 
 export async function revokeToken(
-    config: Pro203sAuthConfig,
+    config: AuthConfig,
     token: string,
     tokenTypeHint?: "access_token" | "refresh_token",
 ) {
@@ -183,7 +193,7 @@ export async function revokeToken(
 
 export function setOAuthStateCookie(
     response: NextResponse,
-    value: Pro203sOAuthState,
+    value: OAuthState,
 ) {
     response.cookies.set(OAUTH_STATE_COOKIE, encodeOAuthState(value), {
         ...baseCookieOptions,
@@ -193,7 +203,7 @@ export function setOAuthStateCookie(
 
 export function setTokenCookies(
     response: NextResponse,
-    tokens: Pro203sOAuthTokenResponse,
+    tokens: OAuthTokenResponse,
 ) {
     const accessMaxAge = normalizeMaxAge(tokens.expires_in, 60 * 60);
 
@@ -241,7 +251,7 @@ export function authErrorRedirect(
 }
 
 function createFormBody(
-    config: Pro203sAuthConfig,
+    config: AuthConfig,
     params: Record<string, string | undefined>,
 ) {
     const body = new URLSearchParams();
@@ -258,40 +268,28 @@ function createFormBody(
     return body;
 }
 
-function isTokenResponse(value: unknown): value is Pro203sOAuthTokenResponse {
+function isTokenResponse(value: unknown): value is OAuthTokenResponse {
     return (
         typeof value === "object" &&
         value !== null &&
-        typeof (value as Pro203sOAuthTokenResponse).access_token === "string"
+        typeof (value as OAuthTokenResponse).access_token === "string"
     );
 }
 
-function isUserResponse(value: unknown): value is Pro203sOAuthUserResponse {
+function isUserResponse(value: unknown): value is OAuthUserResponse {
     return (
         typeof value === "object" &&
         value !== null &&
-        typeof (value as Pro203sOAuthUserResponse).id === "string"
+        typeof (value as OAuthUserResponse).id === "string"
     );
 }
 
-function toOAuthErrorResponse(value: unknown): Pro203sOAuthErrorResponse {
-    if (typeof value !== "object" || value === null) {
-        return {
-            message: "Unexpected Pro203S response.",
-        };
-    }
-
-    const data = value as Partial<Pro203sOAuthErrorResponse>;
-
-    return {
-        error: typeof data.error === "string" ? data.error : undefined,
-        error_description:
-            typeof data.error_description === "string"
-                ? data.error_description
-                : undefined,
-        code: typeof data.code === "number" ? data.code : undefined,
-        message: typeof data.message === "string" ? data.message : undefined,
-    };
+function toOAuthErrorResponse(value: unknown): OAuthErrorResponse {
+    return toAPIErrorResponse(
+        value,
+        "pro203s_request_failed",
+        "Pro203S 요청에 실패했습니다.",
+    );
 }
 
 function normalizeMaxAge(value: number | undefined, fallback: number) {

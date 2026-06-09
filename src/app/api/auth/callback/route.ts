@@ -9,6 +9,8 @@ import {
     requestToken,
     setTokenCookies,
 } from "@/modules/pro203sAuth";
+import { createAPIErrorResponse } from "@/modules/apiError";
+import type { AuthCallbackResponse } from "@/modules/pro203sAuthTypes";
 
 export async function GET(request: NextRequest) {
     let config;
@@ -16,10 +18,10 @@ export async function GET(request: NextRequest) {
     try {
         config = getAuthConfig(request.url);
     } catch (error) {
-        const payload: AuthCallbackResponse = {
-            error: "server_misconfigured",
-            message: error instanceof Error ? error.message : "OAuth 설정이 없습니다.",
-        };
+        const payload: AuthCallbackResponse = createAPIErrorResponse(
+            "server_misconfigured",
+            error instanceof Error ? error.message : "OAuth 설정이 없습니다.",
+        );
 
         return NextResponse.json(payload, { status: 500 });
     }
