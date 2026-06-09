@@ -1,4 +1,5 @@
 declare global {
+    //#region Internal Type
     type RestResult<T> =
         | {
             success: true;
@@ -127,6 +128,50 @@ declare global {
 
     type AuthApiResponse<Path extends keyof AuthApiResponseMap> =
         AuthApiResponseMap[Path];
+    //#endregion
+
+    //#region DB Type
+    type Tier = {
+        "category": "bronze" | "silver" | "gold" | "platinum" | "diamond" | "god";
+        "stage": 5 | 4 | 3 | 2 | 1;
+    };
+
+    type DBProblem = {
+        "id": number,
+        "tier": Tier,
+        "name": string,
+        "description": string,
+        "input": {
+            "description": string,
+            "content": string
+        },
+        "output": {
+            "description": string,
+            "content": string
+        },
+        "cases": {
+            "in": string
+            "out": string,
+        }[]
+    };
+
+    type DBUser = {
+        "id": string,
+        "registerAt": number,
+        "score": number,
+        "stat": {
+            "correct": number,
+            "incorrect": number,
+            "submits": number
+        },
+        "problems": number[]
+    }
+
+    type Database = {
+        "problems": DBProblem[],
+        "users": DBUser[]
+    };
+    //#endregion
 }
 
 export { };

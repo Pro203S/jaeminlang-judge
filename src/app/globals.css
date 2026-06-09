@@ -3,11 +3,6 @@
     src: url("/PretendardVariable.ttf") format("truetype");
 }
 
-@font-face {
-    font-family: 'Continuous';
-    src: url("/continuous.ttf") format("truetype");
-}
-
 * {
     font-family: 'Pretendard';
     user-select: none;
@@ -19,7 +14,7 @@
 html,
 body {
     margin: 0;
-    background-color: #111;
+    background-color: #000;
 
     width: 100vw;
     height: 100vh;
@@ -40,7 +35,7 @@ body {
 }
 
 ::selection {
-    color: #111;
+    color: #000;
     background-color: #fff;
 }
 

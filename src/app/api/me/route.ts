@@ -59,13 +59,13 @@ export async function GET(request: NextRequest) {
             );
             const payload: AuthSessionResponse = refreshedUserResult.ok
                 ? {
-                      authenticated: true,
-                      user: refreshedUserResult.data,
-                  }
+                    authenticated: true,
+                    user: refreshedUserResult.data,
+                }
                 : {
-                      authenticated: false,
-                      error: refreshedUserResult.data,
-                  };
+                    authenticated: false,
+                    error: refreshedUserResult.data,
+                };
             const response = NextResponse.json(payload);
 
             setTokenCookies(response, refreshResult.data);
