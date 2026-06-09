@@ -62,7 +62,7 @@ export default function Header(props: Props) {
     };
 
     return <div className={css.container}>
-        <Link className={css.logo} href="/">{width > 800 ? "Jaeminlang Online Judge" : "JOL"}</Link>
+        <Link className={css.logo} href="/">{width > 800 ? "Jaeminlang Online Judge" : "JOJ"}</Link>
         <div className={css.links}>
             <Link href="/problems">문제 풀기</Link>
             <Link href="/ranking">랭킹</Link>
