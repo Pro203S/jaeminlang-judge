@@ -1,8 +1,12 @@
+"use client";
+
 import Link from 'next/link';
 import css from './styles.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import REST from '@/modules/rest';
 import type { OAuthUserResponse } from '@/modules/pro203sAuthTypes';
+import InOutAnimation from '../InOutAnimation';
+import useWindowDimensions from '@/modules/useWindowDimensions';
 
 type Props = {
     sessionOverride?: OAuthUserResponse;
@@ -10,6 +14,9 @@ type Props = {
 
 export default function Header(props: Props) {
     const [user, setUser] = useState<Props["sessionOverride"]>(props.sessionOverride);
+    const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
+    const accountMenuRef = useRef<HTMLDivElement>(null);
+    const { width } = useWindowDimensions();
 
     useEffect(() => {
         (async () => {
@@ -22,13 +29,88 @@ export default function Header(props: Props) {
         })();
     }, []);
 
-    return <div className={css.container}>
-        <Link className={css.logo} href="/">Jaeminlang Online Judge</Link>
-        <div className={css.links}>
+    useEffect(() => {
+        if (!isAccountMenuOpen) return;
 
+        const closeAccountMenu = (event: MouseEvent) => {
+            if (
+                event.target instanceof Node &&
+                accountMenuRef.current?.contains(event.target)
+            ) {
+                return;
+            }
+
+            setIsAccountMenuOpen(false);
+        };
+
+        document.addEventListener("mousedown", closeAccountMenu);
+
+        return () => document.removeEventListener("mousedown", closeAccountMenu);
+    }, [isAccountMenuOpen]);
+
+    const accountName = user?.displayName || user?.username || user?.email || "로그인 필요";
+
+    const logout = async () => {
+        const result = await REST("/api/auth/logout", {
+            method: "POST",
+        });
+
+        if (!result.success) return;
+
+        setUser(undefined);
+        setIsAccountMenuOpen(false);
+    };
+
+    return <div className={css.container}>
+        <Link className={css.logo} href="/">{width > 800 ? "Jaeminlang Online Judge" : "JOL"}</Link>
+        <div className={css.links}>
+            <Link href="/problems">문제 풀기</Link>
+            <Link href="/ranking">랭킹</Link>
+            <Link href="https://github.com/Pro203S/jaeminlang#jaeminlang" target='_blank'>재민랭 알아보기</Link>
         </div>
-        <img
-            src={user?.profile ?? "https://user.pro203s.kr/defaultUser.png"}
-        />
+        <div className={css.accountMenu} ref={accountMenuRef}>
+            <button
+                className={css.avatarButton}
+                type="button"
+                aria-haspopup="menu"
+                aria-expanded={isAccountMenuOpen}
+                onClick={() => setIsAccountMenuOpen((value) => !value)}
+            >
+                <img
+                    className={css.avatar}
+                    src={user?.profile ?? "https://user.pro203s.kr/defaultUser.png"}
+                    alt={accountName}
+                />
+            </button>
+            <InOutAnimation animate={isAccountMenuOpen} className={css.dropdown}>
+                <div className={css.currentAccount}>
+                    <span>현재 계정</span>
+                    <strong>{accountName}</strong>
+                </div>
+                <Link
+                    className={css.dropdownAction}
+                    href="/users/@me"
+                    role="menuitem"
+                    onClick={() => setIsAccountMenuOpen(false)}
+                >
+                    프로필 이동
+                </Link>
+                {user ? <button
+                    className={css.dropdownAction}
+                    style={{ "width": 230 }}
+                    type="button"
+                    role="menuitem"
+                    onClick={logout}
+                >
+                    로그아웃
+                </button> : <Link
+                    className={css.dropdownAction}
+                    role="menuitem"
+                    href="/api/auth/login"
+                >
+                    로그인
+                </Link>}
+            </InOutAnimation>
+        </div>
     </div>
 }

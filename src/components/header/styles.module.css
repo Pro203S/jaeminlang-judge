@@ -1,10 +1,13 @@
 .container {
     display: flex;
     flex-direction: row;
+    position: relative;
+    z-index: 10;
     width: calc(100vw - 30px);
     padding: 15px;
     margin: 0 auto;
     height: 34px;
+    overflow: visible;
     border-bottom: #616161 solid 1.5px;
 }
 
@@ -19,4 +22,117 @@
 .logo:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+.links {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    gap: 15px;
+}
+
+.links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.01rem;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+.accountMenu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+}
+
+.avatarButton {
+    display: flex;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    overflow: hidden;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+}
+
+.avatarButton:hover,
+.avatarButton:focus-visible {
+    border-color: #fff;
+}
+
+.avatarButton:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+.avatar {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    min-width: 210px;
+    padding: 8px;
+    border: 1px solid #616161;
+    border-radius: 8px;
+    background: #141414;
+    box-shadow: 0 10px 24px rgb(0 0 0 / 35%);
+}
+
+.currentAccount {
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 8px 10px 10px;
+    border-bottom: 1px solid #333;
+    color: #fff;
+}
+
+.currentAccount span {
+    color: #aaa;
+    font-size: 0.78rem;
+}
+
+.currentAccount strong {
+    max-width: 180px;
+    overflow: hidden;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dropdownAction {
+    width: 210px;
+    padding: 9px 10px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: #fff;
+    font: inherit;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+    will-change: background;
+    transition-property: background;
+    transition-duration: .25s;
+}
+
+.dropdownAction:hover,
+.dropdownAction:focus-visible {
+    background: #2b2b2b;
 }

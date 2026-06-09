@@ -4,24 +4,28 @@ import React, { useEffect } from "react"
 type Props = {
     animate: boolean,
     children: React.ReactNode;
+    className?: string;
+    delay?: number;
 
     onAnimateEnd?: () => any;
 }
 
 export default function InOutAnimation(props: Props) {
-    const { animate, children, onAnimateEnd } = props;
+    const { animate, children, className, delay, onAnimateEnd } = props;
 
     const opacity = useSpringValue(0, {
         "config": {
             "duration": 480,
             "easing": easings.easeOutCubic
-        }
+        },
+        delay
     });
     const translateY = useSpringValue(15, {
         "config": {
             "duration": 480,
             "easing": easings.easeOutBack
-        }
+        },
+        delay
     });
 
     useEffect(() => {
@@ -38,7 +42,7 @@ export default function InOutAnimation(props: Props) {
         }
     }, [animate]);
 
-    return <animated.div style={{
+    return <animated.div className={className} style={{
         opacity,
         "transform": translateY.to(v => `translateY(${v}px)`)
     }}>
