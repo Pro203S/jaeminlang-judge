@@ -13,7 +13,7 @@
 
 .logo {
     color: #fff;
-    font-family: 'Continuous';
+    font-family: var(--font-continuous), sans-serif;
     font-size: 24px;
     padding: 3px 7px;
     text-decoration: none;

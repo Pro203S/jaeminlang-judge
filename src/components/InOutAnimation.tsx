@@ -7,7 +7,7 @@ type Props = {
     className?: string;
     delay?: number;
 
-    onAnimateEnd?: () => any;
+    onAnimateEnd?: () => void;
 }
 
 export default function InOutAnimation(props: Props) {
@@ -17,30 +17,45 @@ export default function InOutAnimation(props: Props) {
         "config": {
             "duration": 480,
             "easing": easings.easeOutCubic
-        },
-        delay
+        }
     });
     const translateY = useSpringValue(15, {
         "config": {
             "duration": 480,
             "easing": easings.easeOutBack
-        },
-        delay
+        }
     });
 
     useEffect(() => {
-        if (animate) {
-            Promise.all([
-                opacity.start(1),
-                translateY.start(0)
-            ]).then(onAnimateEnd);
-        } else {
-            Promise.all([
-                opacity.start(0),
-                translateY.start(10)
-            ]).then(onAnimateEnd);
-        }
-    }, [animate]);
+        let isCancelled = false;
+
+        const runAnimation = async () => {
+            const animationDelay = delay ?? 0;
+
+            if (animationDelay > 0) {
+                await new Promise((resolve) => setTimeout(resolve, animationDelay));
+            }
+
+            if (isCancelled) return;
+
+            await Promise.all([
+                opacity.start(animate ? 1 : 0),
+                translateY.start(animate ? 0 : 10)
+            ]);
+
+            if (!isCancelled) {
+                onAnimateEnd?.();
+            }
+        };
+
+        void runAnimation();
+
+        return () => {
+            isCancelled = true;
+            opacity.stop();
+            translateY.stop();
+        };
+    }, [animate, delay, onAnimateEnd, opacity, translateY]);
 
     return <animated.div className={className} style={{
         opacity,

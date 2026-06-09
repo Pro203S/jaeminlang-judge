@@ -1,15 +1,5 @@
-@font-face {
-    font-family: 'Pretendard';
-    src: url("/PretendardVariable.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: 'Continuous';
-    src: url("/continuous.ttf") format("truetype");
-}
-
 * {
-    font-family: 'Pretendard';
+    font-family: var(--font-pretendard), sans-serif;
     user-select: none;
     overflow: hidden;
     touch-action: none;
@@ -23,6 +13,14 @@ body {
 
     width: 100vw;
     height: 100vh;
+}
+
+body.fontLoading {
+    visibility: hidden;
+}
+
+body.fontReady {
+    visibility: visible;
 }
 
 ::-webkit-scrollbar {
