@@ -16,29 +16,32 @@ export async function GET(request: NextRequest) {
     try {
         config = getAuthConfig(request.url);
     } catch (error) {
-        return NextResponse.json(
-            {
-                authenticated: false,
-                error: "server_misconfigured",
-                message: error instanceof Error ? error.message : "OAuth 설정이 없습니다.",
-            },
-            { status: 500 },
-        );
+        const payload: AuthSessionResponse = {
+            authenticated: false,
+            error: "server_misconfigured",
+            message: error instanceof Error ? error.message : "OAuth 설정이 없습니다.",
+        };
+
+        return NextResponse.json(payload, { status: 500 });
     }
 
     const accessToken = request.cookies.get(ACCESS_TOKEN_COOKIE)?.value;
 
     if (!accessToken) {
-        return NextResponse.json({ authenticated: false });
+        const payload: AuthSessionResponse = { authenticated: false };
+
+        return NextResponse.json(payload);
     }
 
     const userResult = await fetchCurrentUser(config, accessToken);
 
     if (userResult.ok) {
-        return NextResponse.json({
+        const payload: AuthSessionResponse = {
             authenticated: true,
             user: userResult.data,
-        });
+        };
+
+        return NextResponse.json(payload);
     }
 
     const refreshToken = request.cookies.get(REFRESH_TOKEN_COOKIE)?.value;
@@ -54,10 +57,16 @@ export async function GET(request: NextRequest) {
                 config,
                 refreshResult.data.access_token,
             );
-            const response = NextResponse.json({
-                authenticated: refreshedUserResult.ok,
-                user: refreshedUserResult.ok ? refreshedUserResult.data : undefined,
-            });
+            const payload: AuthSessionResponse = refreshedUserResult.ok
+                ? {
+                      authenticated: true,
+                      user: refreshedUserResult.data,
+                  }
+                : {
+                      authenticated: false,
+                      error: refreshedUserResult.data,
+                  };
+            const response = NextResponse.json(payload);
 
             setTokenCookies(response, refreshResult.data);
 
@@ -69,13 +78,13 @@ export async function GET(request: NextRequest) {
         }
     }
 
-    const response = NextResponse.json(
-        {
-            authenticated: false,
-            error: userResult.data,
-        },
-        { status: userResult.status === 401 ? 200 : userResult.status },
-    );
+    const payload: AuthSessionResponse = {
+        authenticated: false,
+        error: userResult.data,
+    };
+    const response = NextResponse.json(payload, {
+        status: userResult.status === 401 ? 200 : userResult.status,
+    });
     clearAuthCookies(response);
 
     return response;

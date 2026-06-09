@@ -20,7 +20,8 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     await revokeExistingTokens(request);
 
-    const response = NextResponse.json({ success: true });
+    const payload: AuthLogoutResponse = { success: true };
+    const response = NextResponse.json(payload);
     clearAuthCookies(response);
 
     return response;

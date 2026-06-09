@@ -12,13 +12,12 @@ export async function GET(request: NextRequest) {
     try {
         config = getAuthConfig(request.url);
     } catch (error) {
-        return NextResponse.json(
-            {
-                error: "server_misconfigured",
-                message: error instanceof Error ? error.message : "OAuth 설정이 없습니다.",
-            },
-            { status: 500 },
-        );
+        const payload: AuthLoginResponse = {
+            error: "server_misconfigured",
+            message: error instanceof Error ? error.message : "OAuth 설정이 없습니다.",
+        };
+
+        return NextResponse.json(payload, { status: 500 });
     }
 
     const next = request.nextUrl.searchParams.get("next") ?? "/";

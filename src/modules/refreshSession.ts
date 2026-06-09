@@ -1,12 +1,9 @@
 import rest from "./rest";
 
-export async function refreshSession() {
-    const result = await rest<{ success: boolean; error?: string }>(
-        "/api/auth/refresh",
-        {
-            method: "POST",
-        },
-    );
+export async function refreshSession(): Promise<AuthRefreshResponse> {
+    const result = await rest("/api/auth/refresh", {
+        method: "POST",
+    });
 
     if (result.success) {
         return result.data;

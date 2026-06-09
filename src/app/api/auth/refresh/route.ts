@@ -14,26 +14,24 @@ export async function POST(request: NextRequest) {
     try {
         config = getAuthConfig(request.url);
     } catch (error) {
-        return NextResponse.json(
-            {
-                success: false,
-                error: "server_misconfigured",
-                message: error instanceof Error ? error.message : "OAuth 설정이 없습니다.",
-            },
-            { status: 500 },
-        );
+        const payload: AuthRefreshResponse = {
+            success: false,
+            error: "server_misconfigured",
+            message: error instanceof Error ? error.message : "OAuth 설정이 없습니다.",
+        };
+
+        return NextResponse.json(payload, { status: 500 });
     }
 
     const refreshToken = request.cookies.get(REFRESH_TOKEN_COOKIE)?.value;
 
     if (!refreshToken) {
-        return NextResponse.json(
-            {
-                success: false,
-                error: "missing_refresh_token",
-            },
-            { status: 401 },
-        );
+        const payload: AuthRefreshResponse = {
+            success: false,
+            error: "missing_refresh_token",
+        };
+
+        return NextResponse.json(payload, { status: 401 });
     }
 
     const tokenResult = await requestToken(config, {
@@ -42,20 +40,19 @@ export async function POST(request: NextRequest) {
     });
 
     if (!tokenResult.ok) {
-        const response = NextResponse.json(
-            {
-                success: false,
-                error: "refresh_failed",
-                detail: tokenResult.data,
-            },
-            { status: tokenResult.status },
-        );
+        const payload: AuthRefreshResponse = {
+            success: false,
+            error: "refresh_failed",
+            detail: tokenResult.data,
+        };
+        const response = NextResponse.json(payload, { status: tokenResult.status });
         clearAuthCookies(response);
 
         return response;
     }
 
-    const response = NextResponse.json({ success: true });
+    const payload: AuthRefreshResponse = { success: true };
+    const response = NextResponse.json(payload);
     setTokenCookies(response, tokenResult.data);
 
     return response;

@@ -1,16 +1,13 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { type AxiosRequestConfig } from "axios";
 
-export type RestResult<T> =
-    | {
-          success: true;
-          data: T;
-      }
-    | {
-          success: false;
-          status: number;
-          data: unknown;
-      };
-
+export default function rest<Path extends keyof AuthApiResponseMap>(
+    url: Path,
+    config?: AxiosRequestConfig,
+): Promise<RestResult<AuthApiResponse<Path>>>;
+export default function rest<T>(
+    url: string,
+    config?: AxiosRequestConfig,
+): Promise<RestResult<T>>;
 export default async function rest<T>(
     url: string,
     config?: AxiosRequestConfig,

@@ -19,44 +19,7 @@ const baseCookieOptions = {
     path: "/",
 };
 
-export type OAuthState = {
-    state: string;
-    next: string;
-};
-
-export type OAuthTokenResponse = {
-    access_token: string;
-    token_type?: string;
-    expires_in?: number;
-    refresh_token?: string;
-    refresh_expires_in?: number;
-    scope?: string;
-};
-
-export type AuthConfig = {
-    authBaseUrl: string;
-    authorizeUrl: string;
-    tokenUrl: string;
-    revokeUrl: string;
-    meUrl: string;
-    clientId: string;
-    clientSecret: string;
-    redirectUri: string;
-    scope: string;
-};
-
-type TokenResult =
-    | {
-          ok: true;
-          data: OAuthTokenResponse;
-      }
-    | {
-          ok: false;
-          data: unknown;
-          status: number;
-      };
-
-export function getAuthConfig(requestUrl?: string): AuthConfig {
+export function getAuthConfig(requestUrl?: string): Pro203sAuthConfig {
     const authBaseUrl = trimTrailingSlash(
         process.env.PRO203S_AUTH_BASE_URL ?? DEFAULT_AUTH_BASE_URL,
     );
@@ -91,18 +54,18 @@ export function getAuthConfig(requestUrl?: string): AuthConfig {
     };
 }
 
-export function createOAuthState(nextPath: string): OAuthState {
+export function createOAuthState(nextPath: string): Pro203sOAuthState {
     return {
         state: randomBytes(32).toString("base64url"),
         next: sanitizeReturnPath(nextPath),
     };
 }
 
-export function encodeOAuthState(value: OAuthState): string {
+export function encodeOAuthState(value: Pro203sOAuthState): string {
     return Buffer.from(JSON.stringify(value), "utf8").toString("base64url");
 }
 
-export function decodeOAuthState(value: string | undefined): OAuthState | null {
+export function decodeOAuthState(value: string | undefined): Pro203sOAuthState | null {
     if (!value) {
         return null;
     }
@@ -110,7 +73,7 @@ export function decodeOAuthState(value: string | undefined): OAuthState | null {
     try {
         const parsed = JSON.parse(
             Buffer.from(value, "base64url").toString("utf8"),
-        ) as Partial<OAuthState>;
+        ) as Partial<Pro203sOAuthState>;
 
         if (typeof parsed.state !== "string" || typeof parsed.next !== "string") {
             return null;
@@ -134,10 +97,12 @@ export function sanitizeReturnPath(value: string | null | undefined): string {
 }
 
 export async function requestToken(
-    config: AuthConfig,
+    config: Pro203sAuthConfig,
     params: Record<string, string | undefined>,
-): Promise<TokenResult> {
-    const response = await axios.post<unknown>(
+): Promise<Pro203sTokenResult> {
+    const response = await axios.post<
+        Pro203sOAuthTokenResponse | Pro203sOAuthErrorResponse
+    >(
         config.tokenUrl,
         createFormBody(config, params),
         {
@@ -155,7 +120,7 @@ export async function requestToken(
     ) {
         return {
             ok: false,
-            data: response.data,
+            data: toOAuthErrorResponse(response.data),
             status: response.status,
         };
     }
@@ -166,23 +131,36 @@ export async function requestToken(
     };
 }
 
-export async function fetchCurrentUser(config: AuthConfig, accessToken: string) {
-    const response = await axios.get<unknown>(config.meUrl, {
+export async function fetchCurrentUser(
+    config: Pro203sAuthConfig,
+    accessToken: string,
+): Promise<Pro203sUserResult> {
+    const response = await axios.get<
+        Pro203sOAuthUserResponse | Pro203sOAuthErrorResponse
+    >(config.meUrl, {
         validateStatus: () => true,
         headers: {
             Authorization: `Bearer ${accessToken}`,
         },
     });
 
+    if (response.status >= 200 && response.status < 300 && isUserResponse(response.data)) {
+        return {
+            ok: true,
+            status: response.status,
+            data: response.data,
+        };
+    }
+
     return {
-        ok: response.status >= 200 && response.status < 300,
+        ok: false,
         status: response.status,
-        data: response.data,
+        data: toOAuthErrorResponse(response.data),
     };
 }
 
 export async function revokeToken(
-    config: AuthConfig,
+    config: Pro203sAuthConfig,
     token: string,
     tokenTypeHint?: "access_token" | "refresh_token",
 ) {
@@ -203,14 +181,20 @@ export async function revokeToken(
     return response.status === 204;
 }
 
-export function setOAuthStateCookie(response: NextResponse, value: OAuthState) {
+export function setOAuthStateCookie(
+    response: NextResponse,
+    value: Pro203sOAuthState,
+) {
     response.cookies.set(OAUTH_STATE_COOKIE, encodeOAuthState(value), {
         ...baseCookieOptions,
         maxAge: 60 * 10,
     });
 }
 
-export function setTokenCookies(response: NextResponse, tokens: OAuthTokenResponse) {
+export function setTokenCookies(
+    response: NextResponse,
+    tokens: Pro203sOAuthTokenResponse,
+) {
     const accessMaxAge = normalizeMaxAge(tokens.expires_in, 60 * 60);
 
     response.cookies.set(ACCESS_TOKEN_COOKIE, tokens.access_token, {
@@ -257,7 +241,7 @@ export function authErrorRedirect(
 }
 
 function createFormBody(
-    config: AuthConfig,
+    config: Pro203sAuthConfig,
     params: Record<string, string | undefined>,
 ) {
     const body = new URLSearchParams();
@@ -274,12 +258,40 @@ function createFormBody(
     return body;
 }
 
-function isTokenResponse(value: unknown): value is OAuthTokenResponse {
+function isTokenResponse(value: unknown): value is Pro203sOAuthTokenResponse {
     return (
         typeof value === "object" &&
         value !== null &&
-        typeof (value as OAuthTokenResponse).access_token === "string"
+        typeof (value as Pro203sOAuthTokenResponse).access_token === "string"
     );
+}
+
+function isUserResponse(value: unknown): value is Pro203sOAuthUserResponse {
+    return (
+        typeof value === "object" &&
+        value !== null &&
+        typeof (value as Pro203sOAuthUserResponse).id === "string"
+    );
+}
+
+function toOAuthErrorResponse(value: unknown): Pro203sOAuthErrorResponse {
+    if (typeof value !== "object" || value === null) {
+        return {
+            message: "Unexpected Pro203S response.",
+        };
+    }
+
+    const data = value as Partial<Pro203sOAuthErrorResponse>;
+
+    return {
+        error: typeof data.error === "string" ? data.error : undefined,
+        error_description:
+            typeof data.error_description === "string"
+                ? data.error_description
+                : undefined,
+        code: typeof data.code === "number" ? data.code : undefined,
+        message: typeof data.message === "string" ? data.message : undefined,
+    };
 }
 
 function normalizeMaxAge(value: number | undefined, fallback: number) {
