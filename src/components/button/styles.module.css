@@ -1,6 +1,6 @@
 .button {
     display: flex;
-    padding: 7px 10px;
+    padding: 7px 14px;
     border-radius: 25px;
     text-decoration: none;
     cursor: pointer;
@@ -14,7 +14,7 @@
 
 .button span {
     color: #000;
-    font-size: 1.01rem;
+    font-size: .98rem;
     will-change: color;
     transition-property: color;
     transition-duration: .2s;
