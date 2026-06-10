@@ -1,8 +1,8 @@
 import z from "zod";
 
 export const ZodTier = z.object({
-    "category": z.literal(["bronze", "silver", "gold", "platinum", "diamond", "god"]),
-    "stage": z.literal([1,2,3,4,5])
+    "category": z.enum(["bronze", "silver", "gold", "platinum", "diamond", "god"]),
+    "stage": z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4), z.literal(5)])
 });
 
 export const ZodIO = z.object({

@@ -4,12 +4,11 @@ import Link from 'next/link';
 import css from './styles.module.css';
 import { useEffect, useRef, useState } from 'react';
 import REST from '@/modules/rest';
-import type { OAuthUserResponse } from '@/modules/pro203sAuthTypes';
 import InOutAnimation from '../InOutAnimation';
 import useWindowDimensions from '@/modules/useWindowDimensions';
 
 type Props = {
-    sessionOverride?: OAuthUserResponse;
+    sessionOverride?: APIUser;
 };
 
 export default function Header(props: Props) {
@@ -48,7 +47,7 @@ export default function Header(props: Props) {
         return () => document.removeEventListener("mousedown", closeAccountMenu);
     }, [isAccountMenuOpen]);
 
-    const accountName = user?.displayName || user?.username || user?.email || "로그인 필요";
+    const accountName = user?.displayName || "로그인 필요";
 
     const logout = async () => {
         const result = await REST("/api/auth/logout", {

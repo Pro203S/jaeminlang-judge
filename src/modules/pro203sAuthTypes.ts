@@ -67,7 +67,7 @@ export type AuthLoginResponse = AuthConfigErrorResponse;
 
 export type AuthCallbackResponse = AuthConfigErrorResponse;
 
-export type AuthMeResponse = OAuthUserResponse;
+export type AuthMeResponse = APIUser;
 
 export type AuthRefreshResponse = {
     success: true;

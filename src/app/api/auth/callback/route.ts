@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
+import { upsertOAuthUser } from "@/modules/database";
 
 import {
     OAUTH_STATE_COOKIE,
     authErrorRedirect,
     clearOAuthStateCookie,
     decodeOAuthState,
+    fetchCurrentUser,
     getAuthConfig,
     requestToken,
     setTokenCookies,
@@ -62,6 +64,18 @@ export async function GET(request: NextRequest) {
         clearOAuthStateCookie(response);
         return response;
     }
+
+    const userResult = await fetchCurrentUser(config, tokenResult.data.access_token);
+
+    if (!userResult.ok) {
+        const response = NextResponse.redirect(
+            authErrorRedirect(request.url, "user_fetch_failed", userResult.data.message),
+        );
+        clearOAuthStateCookie(response);
+        return response;
+    }
+
+    upsertOAuthUser(userResult.data);
 
     const response = NextResponse.redirect(new URL(storedState.next, request.url));
     setTokenCookies(response, tokenResult.data);

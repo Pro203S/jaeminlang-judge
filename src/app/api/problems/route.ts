@@ -1,7 +1,7 @@
 import { APIErrorResponse } from "@/modules/apiError";
 import { getDatabase } from "@/modules/database";
 import { MakeApiProblem } from "@/modules/makeApiType";
-import { getCurrentSessionUser } from "@/modules/pro203sAuth";
+import { Pro203SSessionError, getCurrentSessionUser } from "@/modules/pro203sAuth";
 import { POSTApiProblems } from "@/modules/zod";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -11,6 +11,13 @@ export async function GET() {
         const problems = database.get("problems").value();
         return NextResponse.json(problems.map(MakeApiProblem));
     } catch (err) {
+        if (err instanceof Pro203SSessionError) {
+            return NextResponse.json({
+                "code": err.status === 401 ? "unauthorized" : err.detail.code,
+                "message": err.detail.message
+            } satisfies APIErrorResponse, { "status": err.status });
+        }
+
         const e = err as Error;
         return NextResponse.json({
             "code": e.name,
@@ -43,6 +50,13 @@ export async function POST(req: NextRequest) {
 
         return new Response(null, { "status": 204 });
     } catch (err) {
+        if (err instanceof Pro203SSessionError) {
+            return NextResponse.json({
+                "code": err.status === 401 ? "unauthorized" : err.detail.code,
+                "message": err.detail.message
+            } satisfies APIErrorResponse, { "status": err.status });
+        }
+
         const e = err as Error;
         return NextResponse.json({
             "code": e.name,

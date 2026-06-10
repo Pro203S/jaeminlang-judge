@@ -1,7 +1,7 @@
 import { APIErrorResponse } from "@/modules/apiError";
 import { getDatabase } from "@/modules/database";
 import { MakeApiProblem } from "@/modules/makeApiType";
-import { getCurrentSessionUser } from "@/modules/pro203sAuth";
+import { Pro203SSessionError, getCurrentSessionUser } from "@/modules/pro203sAuth";
 import { PATCHApiProblemsId } from "@/modules/zod";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -19,6 +19,13 @@ export async function GET(req: NextRequest, { params }: Params) {
 
         return NextResponse.json(MakeApiProblem(problem));
     } catch (err) {
+        if (err instanceof Pro203SSessionError) {
+            return NextResponse.json({
+                "code": err.status === 401 ? "unauthorized" : err.detail.code,
+                "message": err.detail.message
+            } satisfies APIErrorResponse, { "status": err.status });
+        }
+
         const e = err as Error;
         return NextResponse.json({
             "code": e.name,
@@ -59,6 +66,13 @@ export async function PATCH(req: NextRequest, { params }: Params) {
 
         return new Response(null, { "status": 204 });
     } catch (err) {
+        if (err instanceof Pro203SSessionError) {
+            return NextResponse.json({
+                "code": err.status === 401 ? "unauthorized" : err.detail.code,
+                "message": err.detail.message
+            } satisfies APIErrorResponse, { "status": err.status });
+        }
+
         const e = err as Error;
         return NextResponse.json({
             "code": e.name,
@@ -70,12 +84,6 @@ export async function PATCH(req: NextRequest, { params }: Params) {
 export async function DELETE(req: NextRequest, { params }: Params) {
     try {
         const id = Number((await params).id);
-        const parsed = PATCHApiProblemsId.safeParse(await req.json());
-        if (!parsed.success) return NextResponse.json({
-            "code": "type_mismatch",
-            "message": "어쩔"
-        }, { "status": 400 });
-
         const session = await getCurrentSessionUser(req);
         if (session.id !== "pro203s") return NextResponse.json({
             "code": "forbidden",
@@ -93,6 +101,13 @@ export async function DELETE(req: NextRequest, { params }: Params) {
 
         return new Response(null, { "status": 204 });
     } catch (err) {
+        if (err instanceof Pro203SSessionError) {
+            return NextResponse.json({
+                "code": err.status === 401 ? "unauthorized" : err.detail.code,
+                "message": err.detail.message
+            } satisfies APIErrorResponse, { "status": err.status });
+        }
+
         const e = err as Error;
         return NextResponse.json({
             "code": e.name,

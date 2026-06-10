@@ -1,6 +1,10 @@
+import { OAuthUserResult } from "@/modules/pro203sAuthTypes";
+
 declare global {
     type APIUser = {
         "id": string,
+        "displayName": string,
+        "profile"?: string,
         "registerAt": number,
         "score": number,
         "stat": {
@@ -53,6 +57,7 @@ declare global {
 
     type DBUser = {
         "id": string,
+        "userData": OAuthUserResult,
         "registerAt": number,
         "score": number,
         "stat": {
