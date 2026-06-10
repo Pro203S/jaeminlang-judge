@@ -23,3 +23,12 @@ export const POSTApiProblems = z.object({
     "output": ZodIO,
     "cases": z.array(ZodCase)
 });
+
+export const PATCHApiProblemsId = z.object({
+    "tier": z.optional(ZodTier),
+    "name": z.optional(z.string()),
+    "description": z.optional(z.string()),
+    "input": z.optional(ZodIO),
+    "output": z.optional(ZodIO),
+    "cases": z.optional(z.array(ZodCase))
+});
