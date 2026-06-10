@@ -9,7 +9,7 @@
     transition-property: background-color, border;
     transition-duration: .2s;
     background-color: #fff;
-    border: #fff solid 1.5px;
+    border: #fff solid 1px;
 }
 
 .button span {
@@ -23,7 +23,7 @@
 
 .button:hover {
     background-color: #2c2c2c55;
-    border: #949494 solid 1.5px;
+    border: #949494 solid 1px;
 }
 
 .button:hover span {
