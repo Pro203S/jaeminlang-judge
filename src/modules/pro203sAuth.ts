@@ -1,8 +1,9 @@
 import { randomBytes } from "node:crypto";
 
 import axios from "axios";
+import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { toAPIErrorResponse } from "./apiError";
+import { createAPIErrorResponse, toAPIErrorResponse } from "./apiError";
 import type {
     AuthConfig,
     OAuthErrorResponse,
@@ -28,6 +29,18 @@ const baseCookieOptions = {
     secure: secureCookie,
     path: "/",
 };
+
+export class Pro203SSessionError extends Error {
+    status: number;
+    detail: OAuthErrorResponse;
+
+    constructor(status: number, detail: OAuthErrorResponse) {
+        super(detail.message);
+        this.name = "Pro203SSessionError";
+        this.status = status;
+        this.detail = detail;
+    }
+}
 
 export function getAuthConfig(requestUrl?: string): AuthConfig {
     const authBaseUrl = trimTrailingSlash(
@@ -167,6 +180,70 @@ export async function fetchCurrentUser(
         status: response.status,
         data: toOAuthErrorResponse(response.data),
     };
+}
+
+export async function getCurrentSessionUser(
+    request: NextRequest,
+): Promise<OAuthUserResponse> {
+    let config: AuthConfig;
+
+    try {
+        config = getAuthConfig(request.url);
+    } catch (error) {
+        throw new Pro203SSessionError(
+            500,
+            createAPIErrorResponse(
+                "server_misconfigured",
+                error instanceof Error
+                    ? error.message
+                    : "OAuth 설정이 없습니다.",
+            ),
+        );
+    }
+
+    const accessToken = request.cookies.get(ACCESS_TOKEN_COOKIE)?.value;
+
+    if (!accessToken) {
+        throw new Pro203SSessionError(
+            401,
+            createAPIErrorResponse("unauthorized", "로그인이 필요합니다."),
+        );
+    }
+
+    const userResult = await fetchCurrentUser(config, accessToken);
+
+    if (userResult.ok) {
+        return userResult.data;
+    }
+
+    const refreshToken = request.cookies.get(REFRESH_TOKEN_COOKIE)?.value;
+
+    if (userResult.status === 401 && refreshToken) {
+        const refreshResult = await requestToken(config, {
+            grant_type: "refresh_token",
+            refresh_token: refreshToken,
+        });
+
+        if (!refreshResult.ok) {
+            throw new Pro203SSessionError(refreshResult.status, refreshResult.data);
+        }
+
+        const refreshedUserResult = await fetchCurrentUser(
+            config,
+            refreshResult.data.access_token,
+        );
+
+        if (refreshedUserResult.ok) {
+            return refreshedUserResult.data;
+        }
+
+        throw new Pro203SSessionError(
+            refreshedUserResult.status,
+            refreshedUserResult.data,
+        );
+    }
+
+    throw new Pro203SSessionError(userResult.status, userResult.data);
 }
 
 export async function revokeToken(
