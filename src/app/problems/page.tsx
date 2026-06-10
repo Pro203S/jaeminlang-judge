@@ -17,11 +17,13 @@ export default function Page() {
         })();
     }, []);
 
-    return <>
-        <Header sessionOverride={user} />
-        <div className={css.container}>
-            <div className={css.stats}>
 
+    return <>
+        <Header sessionOverride={user} doNotRequest />
+        <div className={css.container}>
+            <div className={css.search}>
+                <input
+                />
             </div>
             <div className={css.problems}>
 
