@@ -9,6 +9,7 @@ import useWindowDimensions from '@/modules/useWindowDimensions';
 
 type Props = {
     sessionOverride?: APIUser;
+    doNotRequest?: boolean;
 };
 
 export default function Header(props: Props) {
@@ -19,7 +20,7 @@ export default function Header(props: Props) {
 
     useEffect(() => {
         (async () => {
-            if (props.sessionOverride) return;
+            if (props.sessionOverride || props.doNotRequest) return;
 
             const r = await REST("/api/me");
             if (!r.success) return;
@@ -79,6 +80,7 @@ export default function Header(props: Props) {
                     className={css.avatar}
                     src={user?.profile ?? "https://user.pro203s.kr/defaultUser.png"}
                     alt={accountName}
+                    draggable={false}
                 />
             </button>
             <InOutAnimation animate={isAccountMenuOpen} className={css.dropdown}>
