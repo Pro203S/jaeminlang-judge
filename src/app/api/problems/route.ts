@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
 
         database.add(prob);
 
-        return NextResponse.json(prob);
+        return new Response(null, { "status": 204 });
     } catch (err) {
         const e = err as Error;
         return NextResponse.json({
