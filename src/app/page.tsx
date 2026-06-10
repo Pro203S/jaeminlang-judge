@@ -12,10 +12,10 @@ export default function Page() {
             <InOutAnimation animate delay={100}>
                 <span className={css.logo}>Jaeminlang Online Judge</span>
             </InOutAnimation>
-            <InOutAnimation animate delay={400}>
+            <InOutAnimation animate delay={500}>
                 <span className={css.description}>재민랭을 즐기는 또 다른 방법</span>
             </InOutAnimation>
-            <InOutAnimation animate delay={700}>
+            <InOutAnimation animate delay={900}>
                 <div className={css.buttons}>
                     <Button
                         label="문제 풀기"
@@ -23,6 +23,7 @@ export default function Page() {
                     />
                     <Button
                         label="랭킹 보기"
+                        href="/ranking"
                     />
                 </div>
             </InOutAnimation>
