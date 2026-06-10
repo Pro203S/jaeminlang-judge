@@ -1,6 +1,7 @@
 import { APIErrorResponse } from "@/modules/apiError";
 import { getDatabase } from "@/modules/database";
 import { MakeApiProblem } from "@/modules/makeApiType";
+import { getCurrentSessionUser } from "@/modules/pro203sAuth";
 import { POSTApiProblems } from "@/modules/zod";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -23,11 +24,24 @@ export async function POST(req: NextRequest) {
         const parsed = POSTApiProblems.safeParse(await req.json());
         if (!parsed.success) return NextResponse.json({
             "code": "type_mismatch",
-            "message": "Malformed body"
+            "message": "어쩔"
         }, { "status": 400 });
 
-        const database = getDatabase().get("problems");
+        const session = await getCurrentSessionUser(req);
+        if (session.id !== "pro203s") return NextResponse.json({
+            "code": "forbidden",
+            "message": "관리자만 문제를 만들 수 있습니다."
+        }, { "status": 403 });
         
+        const database = getDatabase().get("problems");
+        const prob: DBProblem = {
+            "id": database.value().length + 1,
+            ...parsed.data
+        };
+
+        database.add(prob);
+
+        return NextResponse.json(prob);
     } catch (err) {
         const e = err as Error;
         return NextResponse.json({
