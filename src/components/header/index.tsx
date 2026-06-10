@@ -50,17 +50,6 @@ export default function Header(props: Props) {
 
     const accountName = user?.displayName || "로그인 필요";
 
-    const logout = async () => {
-        const result = await REST("/api/auth/logout", {
-            method: "POST",
-        });
-
-        if (!result.success) return;
-
-        setUser(undefined);
-        setIsAccountMenuOpen(false);
-    };
-
     return <div className={css.container}>
         <Link className={css.logo} href="/">{width > 800 ? "Jaeminlang Online Judge" : "JOJ"}</Link>
         <div className={css.links}>
@@ -101,7 +90,16 @@ export default function Header(props: Props) {
                     style={{ "width": 230 }}
                     type="button"
                     role="menuitem"
-                    onClick={logout}
+                    onClick={async () => {
+                        const result = await REST("/api/auth/logout", {
+                            method: "POST",
+                        });
+
+                        if (!result.success) return;
+
+                        setUser(undefined);
+                        setIsAccountMenuOpen(false);
+                    }}
                 >
                     로그아웃
                 </button> : <Link
