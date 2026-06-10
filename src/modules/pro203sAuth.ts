@@ -1,6 +1,7 @@
 import { randomBytes } from "node:crypto";
 
 import axios from "axios";
+import { cookies } from "next/headers";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { createAPIErrorResponse, toAPIErrorResponse } from "./apiError";
@@ -185,6 +186,7 @@ export async function fetchCurrentUser(
 export async function getCurrentSessionUser(
     request: NextRequest,
 ): Promise<OAuthUserResponse> {
+    const cookieStore = await cookies();
     let config: AuthConfig;
 
     try {
@@ -201,7 +203,7 @@ export async function getCurrentSessionUser(
         );
     }
 
-    const accessToken = request.cookies.get(ACCESS_TOKEN_COOKIE)?.value;
+    const accessToken = cookieStore.get(ACCESS_TOKEN_COOKIE)?.value;
 
     if (!accessToken) {
         throw new Pro203SSessionError(
@@ -216,7 +218,7 @@ export async function getCurrentSessionUser(
         return userResult.data;
     }
 
-    const refreshToken = request.cookies.get(REFRESH_TOKEN_COOKIE)?.value;
+    const refreshToken = cookieStore.get(REFRESH_TOKEN_COOKIE)?.value;
 
     if (userResult.status === 401 && refreshToken) {
         const refreshResult = await requestToken(config, {
