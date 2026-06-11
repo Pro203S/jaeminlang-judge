@@ -1,6 +1,15 @@
 import { OAuthUserResult } from "@/modules/pro203sAuthTypes";
+import { AuthLoginResponse, AuthCallbackResponse, AuthRefreshResponse, AuthLogoutResponse } from "@/modules/pro203sAuthTypes";
 
 declare global {
+    type RESTResponseMap = {
+        "/api/auth/login": AuthLoginResponse;
+        "/api/auth/callback": AuthCallbackResponse;
+        "/api/auth/refresh": AuthRefreshResponse;
+        "/api/auth/logout": AuthLogoutResponse;
+        "/api/me": AuthMeResponse;
+    };
+
     type APIUser = {
         "id": string,
         "displayName": string,

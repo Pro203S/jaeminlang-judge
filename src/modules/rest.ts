@@ -2,20 +2,8 @@ import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios";
 import { toAPIErrorResponse } from "./apiError";
 import type { APIErrorResponse } from "./apiError";
 import type {
-    AuthCallbackResponse,
-    AuthLoginResponse,
-    AuthLogoutResponse,
-    AuthMeResponse,
     AuthRefreshResponse,
 } from "./pro203sAuthTypes";
-
-type RESTResponseMap = {
-    "/api/auth/login": AuthLoginResponse;
-    "/api/auth/callback": AuthCallbackResponse;
-    "/api/auth/refresh": AuthRefreshResponse;
-    "/api/auth/logout": AuthLogoutResponse;
-    "/api/me": AuthMeResponse;
-};
 
 const AUTH_REFRESH_URL = "/api/auth/refresh";
 
