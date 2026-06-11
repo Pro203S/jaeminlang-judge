@@ -12,7 +12,7 @@
     border: #fff solid 1px;
 }
 
-.button span {
+.button * {
     color: #000;
     font-size: .98rem;
     will-change: color;
@@ -26,6 +26,6 @@
     border: #949494 solid 1px;
 }
 
-.button:hover span {
+.button:hover * {
     color: #fff;
 }
