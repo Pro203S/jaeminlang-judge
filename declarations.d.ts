@@ -8,6 +8,8 @@ declare global {
         "/api/auth/refresh": AuthRefreshResponse;
         "/api/auth/logout": AuthLogoutResponse;
         "/api/me": AuthMeResponse;
+        "/api/problems": APIProblem[];
+        
     };
 
     type APIUser = {

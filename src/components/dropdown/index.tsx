@@ -10,7 +10,8 @@ import {
     SetStateAction,
     useEffect,
     useId,
-    useRef
+    useRef,
+    useState
 } from "react";
 import css from "./style.module.css";
 import InOutAnimation from "../InOutAnimation";
@@ -64,6 +65,7 @@ export default function Dropdown(props: Props) {
     } = props;
     const dropdownRef = useRef<HTMLDivElement>(null);
     const menuId = useId();
+    const [isFirstAnim, setIsFirstAnim] = useState(true);
 
     useEffect(() => {
         if (!open) return;
@@ -95,6 +97,7 @@ export default function Dropdown(props: Props) {
     }, [open, setOpen]);
 
     const handleTriggerClick = () => {
+        setIsFirstAnim(false);
         setOpen((value) => !value);
     };
 
@@ -131,7 +134,10 @@ export default function Dropdown(props: Props) {
             id={menuId}
             role="menu"
             className={`${css.dropdown} ${menuClassName ?? ""}`.trim()}
-            style={menuStyle}
+            style={{
+                ...menuStyle,
+                "display": isFirstAnim ? "none" : undefined
+            }}
         >
             {items.map((item, index) => {
                 if (item.type === "line") {

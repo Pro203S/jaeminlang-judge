@@ -11,6 +11,7 @@ import Dropdown, { DropdownItem } from "@/components/dropdown";
 import { animated, easings, useSpringValue } from "@react-spring/web";
 import { AVAILABLE_TAGS } from "@/modules/constants";
 import { AVAILABLE_TIERS, TierToString } from "@/modules/tier";
+import TierBadge from "@/components/tierbadge";
 
 const AnimatedFA = animated(FontAwesomeIcon);
 
@@ -47,8 +48,15 @@ export default function Page() {
             if (!r.success) return;
 
             setUser(r.data);
+
+            const r2 = await REST("/api/problems");
+            if (!r2.success) return;
+
+            setProblems(r2.data);
         })();
     }, []);
+
+    if (problems.length === 0) return;
 
     return <>
         <Header sessionOverride={user} doNotRequest />
@@ -123,7 +131,10 @@ export default function Page() {
                 </div>
             </div>
             <div className={css.problems}>
-
+                <div className={css.problem}>
+                    <TierBadge tier={{ "category": "bronze", "stage": 5 }}/>
+                    <span className={css.title}>Hello World 출력하기</span>
+                </div>
             </div>
         </div>
     </>;

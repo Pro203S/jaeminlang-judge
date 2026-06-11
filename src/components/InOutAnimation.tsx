@@ -70,7 +70,8 @@ export default function InOutAnimation(props: Props) {
     }} className={className} style={{
         opacity,
         "transform": translateY.to(v => `translateY(${v}px)`),
-        pointerEvents
+        pointerEvents,
+        ...props.style
     }} onClick={onClick}>
         {children}
     </animated.div>

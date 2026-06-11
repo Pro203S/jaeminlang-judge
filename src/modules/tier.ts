@@ -1,15 +1,7 @@
 export const AVAILABLE_TIERS: Tier[] = [
     {
         "category": "bronze",
-        "stage": 1
-    },
-    {
-        "category": "bronze",
-        "stage": 2
-    },
-    {
-        "category": "bronze",
-        "stage": 3
+        "stage": 5
     },
     {
         "category": "bronze",
@@ -17,20 +9,20 @@ export const AVAILABLE_TIERS: Tier[] = [
     },
     {
         "category": "bronze",
-        "stage": 5
+        "stage": 3
+    },
+    {
+        "category": "bronze",
+        "stage": 2
+    },
+    {
+        "category": "bronze",
+        "stage": 1
     },
     
     {
         "category": "silver",
-        "stage": 1
-    },
-    {
-        "category": "silver",
-        "stage": 2
-    },
-    {
-        "category": "silver",
-        "stage": 3
+        "stage": 5
     },
     {
         "category": "silver",
@@ -38,20 +30,20 @@ export const AVAILABLE_TIERS: Tier[] = [
     },
     {
         "category": "silver",
-        "stage": 5
+        "stage": 3
+    },
+    {
+        "category": "silver",
+        "stage": 2
+    },
+    {
+        "category": "silver",
+        "stage": 1
     },
 
     {
         "category": "gold",
-        "stage": 1
-    },
-    {
-        "category": "gold",
-        "stage": 2
-    },
-    {
-        "category": "gold",
-        "stage": 3
+        "stage": 5
     },
     {
         "category": "gold",
@@ -59,20 +51,20 @@ export const AVAILABLE_TIERS: Tier[] = [
     },
     {
         "category": "gold",
-        "stage": 5
+        "stage": 3
+    },
+    {
+        "category": "gold",
+        "stage": 2
+    },
+    {
+        "category": "gold",
+        "stage": 1
     },
 
     {
         "category": "platinum",
-        "stage": 1
-    },
-    {
-        "category": "platinum",
-        "stage": 2
-    },
-    {
-        "category": "platinum",
-        "stage": 3
+        "stage": 5
     },
     {
         "category": "platinum",
@@ -80,20 +72,20 @@ export const AVAILABLE_TIERS: Tier[] = [
     },
     {
         "category": "platinum",
-        "stage": 5
+        "stage": 3
+    },
+    {
+        "category": "platinum",
+        "stage": 2
+    },
+    {
+        "category": "platinum",
+        "stage": 1
     },
 
     {
         "category": "diamond",
-        "stage": 1
-    },
-    {
-        "category": "diamond",
-        "stage": 2
-    },
-    {
-        "category": "diamond",
-        "stage": 3
+        "stage": 5
     },
     {
         "category": "diamond",
@@ -101,20 +93,20 @@ export const AVAILABLE_TIERS: Tier[] = [
     },
     {
         "category": "diamond",
-        "stage": 5
+        "stage": 3
+    },
+    {
+        "category": "diamond",
+        "stage": 2
+    },
+    {
+        "category": "diamond",
+        "stage": 1
     },
 
     {
         "category": "god",
-        "stage": 1
-    },
-    {
-        "category": "god",
-        "stage": 2
-    },
-    {
-        "category": "god",
-        "stage": 3
+        "stage": 5
     },
     {
         "category": "god",
@@ -122,7 +114,15 @@ export const AVAILABLE_TIERS: Tier[] = [
     },
     {
         "category": "god",
-        "stage": 5
+        "stage": 3
+    },
+    {
+        "category": "god",
+        "stage": 2
+    },
+    {
+        "category": "god",
+        "stage": 1
     }
 ]
 
