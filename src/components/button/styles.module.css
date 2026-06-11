@@ -29,3 +29,7 @@
 .button:hover * {
     color: #fff;
 }
+
+.button svg {
+    margin: auto 0;
+}
