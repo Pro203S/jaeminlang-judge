@@ -22,114 +22,134 @@
     padding: 15px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 10px;
     border: #464646 solid 1.5px;
     border-radius: 23px;
     margin: 0 auto;
 }
 
-.section .titleBox {
+.titleRow,
+.caseHeader {
     display: flex;
-    flex-direction: row;
-    gap: 7px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
 }
 
-.section .title {
+.title {
     color: #fff;
     font-size: 1.674839rem;
     font-weight: 600;
     margin: auto 0;
 }
 
-.section .subtitle {
+.subtitle {
     color: #fff;
-    font-size: 1.171428rem;
+    font-size: 1.071428rem;
     font-weight: 600;
     margin: auto 0;
 }
 
-.section .desc {
-    color: #adadad;
-    margin: auto 0;
-    font-size: .87rem;
-}
-
-.codeEditorFrame {
-    box-sizing: border-box;
-    width: 100%;
-    height: 260px;
-    border: 1px solid #464646;
-    border-radius: 12px;
+.field {
     display: flex;
-    overflow: hidden;
-    background: #101010;
-}
-
-.codeEditorFrame:focus-within {
-    border-color: #7a7a7a;
-}
-
-.lineNumbers {
-    flex: 0 0 24px;
-    padding: 14px 10px;
-    overflow: hidden;
-    border-right: 1px solid #2c2c2c;
-    background: #0c0c0c;
-    color: #777;
-    letter-spacing: 5%;
-    font-size: .95rem;
-    line-height: 1.55;
-    text-align: right;
-    user-select: none;
-}
-
-.lineNumbers span {
-    display: block;
-}
-
-.codeEditor {
-    box-sizing: border-box;
-    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 7px;
     min-width: 0;
-    height: 100%;
-    padding: 14px;
-    border: 0;
-    outline: none;
-    resize: none;
-    background: transparent;
-    color: #fff;
-    letter-spacing: 5%;
-    font-size: .95rem;
-    line-height: 1.55;
-    tab-size: 2;
 }
 
-.outputBox {
+.input,
+.textarea,
+.select {
     box-sizing: border-box;
     width: 100%;
-    min-height: 96px;
-    padding: 14px;
-    margin: 0;
     border: 1px solid #464646;
     border-radius: 12px;
-    overflow: auto;
+    outline: none;
     background: #101010;
     color: #fff;
     font: inherit;
     font-size: .95rem;
-    line-height: 1.55;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-    user-select: text;
 }
 
+.input,
+.select {
+    height: 44px;
+    padding: 0 12px;
+}
+
+.textarea {
+    min-height: 112px;
+    padding: 12px;
+    resize: vertical;
+    line-height: 1.55;
+    white-space: pre-wrap;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+    border-color: #7a7a7a;
+}
+
+.select {
+    cursor: pointer;
+}
+
+.tagList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tagOption {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 34px;
+    padding: 0 10px;
+    border: 1px solid #464646;
+    border-radius: 999px;
+    color: #fff;
+    background: #101010;
+    font-size: .95rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.tagOption input {
+    accent-color: #fff;
+}
+
+.caseList {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.caseItem {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px solid #333;
+}
+
+.caseItem:first-child {
+    padding-top: 0;
+    border-top: 0;
+}
+
+.caseGrid,
 .linearV {
     box-sizing: border-box;
-    width: 90%;
-    margin: 0 auto;
     display: flex;
     flex-direction: row;
     gap: 15px;
+}
+
+.linearV {
+    width: 90%;
+    margin: 0 auto;
 }
 
 .linearV .section {
@@ -139,8 +159,50 @@
     margin: 0;
 }
 
+.caseGrid .field {
+    flex: 1 1 0;
+}
+
+.iconButton {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #464646;
+    border-radius: 12px;
+    background: #101010;
+    color: #fff;
+    cursor: pointer;
+}
+
+.iconButton:disabled {
+    opacity: .38;
+    cursor: default;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
 @media (max-width: 600px) {
+    .section,
     .linearV {
+        width: 100%;
+    }
+
+    .linearV,
+    .caseGrid,
+    .buttons {
         flex-direction: column;
     }
 
@@ -150,8 +212,6 @@
     }
 }
 
-.buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.container textarea {
+    resize: none;
 }

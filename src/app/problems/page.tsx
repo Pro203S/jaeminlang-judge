@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faChevronDown, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import Dropdown, { DropdownItem } from "@/components/dropdown";
 import { animated, easings, useSpringValue } from "@react-spring/web";
-import { AVAILABLE_TAGS, TAG_TO_STRING } from "@/modules/constants";
+import { ADMIN_ID, AVAILABLE_TAGS, TAG_TO_STRING } from "@/modules/constants";
 import { AVAILABLE_TIERS, TierToString } from "@/modules/tier";
 import TierBadge from "@/components/tierbadge";
 import Link from "next/link";
@@ -129,9 +129,9 @@ export default function Page() {
                         <span>{selectedTier ? TierToString(selectedTier) : "난이도 선택"}</span>
                         <AnimatedFA icon={faChevronDown} style={{ "transform": tierArrowRotation.to(v => `rotate(${v}deg)`) }} />
                     </Dropdown>
-                    <Button containerStyle={{ "marginLeft": "auto" }} href="/problems/make">
+                    {user?.id === ADMIN_ID && <Button containerStyle={{ "marginLeft": "auto" }} href="/problems/make">
                         <span style={{ "margin": "auto 0" }}>만들기</span>
-                    </Button>
+                    </Button>}
                 </div>
             </div>
             <div className={css.problems}>
