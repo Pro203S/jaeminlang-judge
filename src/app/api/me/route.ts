@@ -5,22 +5,24 @@ import { getDatabase, upsertOAuthUser } from "@/modules/database";
 import { MakeApiUser } from "@/modules/makeApiType";
 import {
     Pro203SSessionError,
+    attachSessionCookies,
     clearAuthCookies,
-    getCurrentSessionUser,
+    getCurrentSession,
 } from "@/modules/pro203sAuth";
 import type { AuthMeResponse } from "@/modules/pro203sAuthTypes";
 
 export async function GET(request: NextRequest) {
     try {
-        const oauthUser = await getCurrentSessionUser(request);
+        const session = await getCurrentSession(request);
         const database = getDatabase();
-        const user = upsertOAuthUser(oauthUser);
+        const user = upsertOAuthUser(session.user);
         const payload: AuthMeResponse = MakeApiUser(
             user,
             database.get("problems").value(),
         );
+        const response = NextResponse.json(payload);
 
-        return NextResponse.json(payload);
+        return attachSessionCookies(response, session);
     } catch (error) {
         if (error instanceof Pro203SSessionError) {
             return sessionErrorResponse(error);

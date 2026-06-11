@@ -1,3 +1,5 @@
+// do u finding AVAILABLE_TIERS? it's in tier.ts
+
 export const AVAILABLE_TAGS = [
     {
         "label": "입출력",
@@ -17,6 +19,6 @@ export const AVAILABLE_TAGS = [
     },
     {
         "label": "구현",
-        "value": ""
+        "value": "implement"
     }
 ];

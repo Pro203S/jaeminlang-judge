@@ -59,7 +59,11 @@ export async function GET(request: NextRequest) {
 
     if (!tokenResult.ok) {
         const response = NextResponse.redirect(
-            authErrorRedirect(request.url, "token_exchange_failed"),
+            authErrorRedirect(
+                request.url,
+                "token_exchange_failed",
+                `${tokenResult.data.code}: ${tokenResult.data.message}`,
+            ),
         );
         clearOAuthStateCookie(response);
         return response;

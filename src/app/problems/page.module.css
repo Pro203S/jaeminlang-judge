@@ -44,6 +44,13 @@
 }
 
 .problems {
+    margin-top: 15px;
+    width: 90%;
+    padding: 15px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 15px;
+    border: #464646 solid 1.5px;
+    border-radius: 23px;
+    overflow: visible;
 }

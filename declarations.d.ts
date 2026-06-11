@@ -41,16 +41,16 @@ declare global {
         "tier": Tier,
         "name": string,
         "description": string,
-        "input": {
+        "input"?: {
             "description": string,
             "content": string
         },
-        "output": {
+        "output"?: {
             "description": string,
             "content": string
         },
         "cases": {
-            "in": string
+            "in"?: string
             "out": string,
         }[]
     };

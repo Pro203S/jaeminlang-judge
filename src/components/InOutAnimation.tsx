@@ -1,5 +1,5 @@
 import { animated, easings, useSpringValue } from "@react-spring/web";
-import React, { DetailedHTMLProps, HTMLAttributes, useEffect } from "react"
+import React, { DetailedHTMLProps, HTMLAttributes, useEffect, useState } from "react"
 
 type DivProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
@@ -12,6 +12,7 @@ type Props = {
 
 export default function InOutAnimation(props: Props) {
     const { animate, children, className, delay, onAnimateEnd, onClick } = props;
+    const [pointerEvents, setPointerEvents] = useState<"auto" | "none">("auto");
 
     const opacity = useSpringValue(0, {
         "config": {
@@ -44,6 +45,11 @@ export default function InOutAnimation(props: Props) {
             ]);
 
             if (!isCancelled) {
+                if (animate) {
+                    setPointerEvents("auto");
+                } else {
+                    setPointerEvents("none");
+                }
                 onAnimateEnd?.();
             }
         };
@@ -63,7 +69,8 @@ export default function InOutAnimation(props: Props) {
         delay: undefined
     }} className={className} style={{
         opacity,
-        "transform": translateY.to(v => `translateY(${v}px)`)
+        "transform": translateY.to(v => `translateY(${v}px)`),
+        pointerEvents
     }} onClick={onClick}>
         {children}
     </animated.div>

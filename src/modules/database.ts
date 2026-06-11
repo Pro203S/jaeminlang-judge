@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import Shadowly from 'shadowly';
-import type { OAuthUserResponse } from './pro203sAuthTypes';
+import type { OAuthUserResponse, OAuthUserResult } from './pro203sAuthTypes';
 
 if (!fs.existsSync("./database.json")) {
     fs.writeFileSync("./database.json", JSON.stringify({

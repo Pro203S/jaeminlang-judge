@@ -1,7 +1,6 @@
 import { randomBytes } from "node:crypto";
 
 import axios from "axios";
-import { cookies } from "next/headers";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { createAPIErrorResponse, toAPIErrorResponse } from "./apiError";
@@ -42,6 +41,11 @@ export class Pro203SSessionError extends Error {
         this.detail = detail;
     }
 }
+
+export type Pro203SSession = {
+    user: OAuthUserResponse;
+    tokens?: OAuthTokenResponse;
+};
 
 export function getAuthConfig(requestUrl?: string): AuthConfig {
     const authBaseUrl = trimTrailingSlash(
@@ -132,15 +136,17 @@ export async function requestToken(
         {
             validateStatus: () => true,
             headers: {
+                "Accept": "application/json",
                 "Content-Type": "application/x-www-form-urlencoded",
             },
         },
     );
+    const tokenData = parseOAuthTokenResponse(response.data);
 
     if (
         response.status < 200 ||
         response.status >= 300 ||
-        !isTokenResponse(response.data)
+        !tokenData
     ) {
         return {
             ok: false,
@@ -151,7 +157,7 @@ export async function requestToken(
 
     return {
         ok: true,
-        data: response.data,
+        data: tokenData,
     };
 }
 
@@ -186,7 +192,14 @@ export async function fetchCurrentUser(
 export async function getCurrentSessionUser(
     request: NextRequest,
 ): Promise<OAuthUserResponse> {
-    const cookieStore = await cookies();
+    const session = await getCurrentSession(request);
+
+    return session.user;
+}
+
+export async function getCurrentSession(
+    request: NextRequest,
+): Promise<Pro203SSession> {
     let config: AuthConfig;
 
     try {
@@ -203,49 +216,64 @@ export async function getCurrentSessionUser(
         );
     }
 
-    const accessToken = cookieStore.get(ACCESS_TOKEN_COOKIE)?.value;
+    const accessToken = request.cookies.get(ACCESS_TOKEN_COOKIE)?.value;
+    const refreshToken = request.cookies.get(REFRESH_TOKEN_COOKIE)?.value;
 
-    if (!accessToken) {
+    if (!accessToken && !refreshToken) {
         throw new Pro203SSessionError(
             401,
             createAPIErrorResponse("unauthorized", "로그인이 필요합니다."),
         );
     }
 
-    const userResult = await fetchCurrentUser(config, accessToken);
+    if (accessToken) {
+        const userResult = await fetchCurrentUser(config, accessToken);
 
-    if (userResult.ok) {
-        return userResult.data;
-    }
-
-    const refreshToken = cookieStore.get(REFRESH_TOKEN_COOKIE)?.value;
-
-    if (userResult.status === 401 && refreshToken) {
-        const refreshResult = await requestToken(config, {
-            grant_type: "refresh_token",
-            refresh_token: refreshToken,
-        });
-
-        if (!refreshResult.ok) {
-            throw new Pro203SSessionError(refreshResult.status, refreshResult.data);
+        if (userResult.ok) {
+            return { user: userResult.data };
         }
 
-        const refreshedUserResult = await fetchCurrentUser(
-            config,
-            refreshResult.data.access_token,
-        );
-
-        if (refreshedUserResult.ok) {
-            return refreshedUserResult.data;
+        if (userResult.status !== 401 || !refreshToken) {
+            throw new Pro203SSessionError(userResult.status, userResult.data);
         }
-
-        throw new Pro203SSessionError(
-            refreshedUserResult.status,
-            refreshedUserResult.data,
-        );
     }
 
-    throw new Pro203SSessionError(userResult.status, userResult.data);
+    const refreshResult = await requestToken(config, {
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
+    });
+
+    if (!refreshResult.ok) {
+        throw new Pro203SSessionError(refreshResult.status, refreshResult.data);
+    }
+
+    const refreshedUserResult = await fetchCurrentUser(
+        config,
+        refreshResult.data.access_token,
+    );
+
+    if (refreshedUserResult.ok) {
+        return {
+            user: refreshedUserResult.data,
+            tokens: refreshResult.data,
+        };
+    }
+
+    throw new Pro203SSessionError(
+        refreshedUserResult.status,
+        refreshedUserResult.data,
+    );
+}
+
+export function attachSessionCookies(
+    response: NextResponse,
+    session: Pro203SSession,
+) {
+    if (session.tokens) {
+        setTokenCookies(response, session.tokens);
+    }
+
+    return response;
 }
 
 export async function revokeToken(
@@ -347,12 +375,61 @@ function createFormBody(
     return body;
 }
 
-function isTokenResponse(value: unknown): value is OAuthTokenResponse {
-    return (
-        typeof value === "object" &&
-        value !== null &&
-        typeof (value as OAuthTokenResponse).access_token === "string"
-    );
+function parseOAuthTokenResponse(value: unknown): OAuthTokenResponse | null {
+    if (typeof value === "string") {
+        const trimmed = value.trim();
+
+        if (!trimmed) {
+            return null;
+        }
+
+        if (trimmed.startsWith("{")) {
+            try {
+                return parseOAuthTokenResponse(JSON.parse(trimmed));
+            } catch {
+                return null;
+            }
+        }
+
+        return parseOAuthTokenParams(new URLSearchParams(trimmed));
+    }
+
+    if (typeof value !== "object" || value === null) {
+        return null;
+    }
+
+    const data = value as Record<string, unknown>;
+    const accessToken = getString(data.access_token);
+
+    if (!accessToken) {
+        return null;
+    }
+
+    return {
+        access_token: accessToken,
+        token_type: getString(data.token_type),
+        expires_in: getNumber(data.expires_in),
+        refresh_token: getString(data.refresh_token),
+        refresh_expires_in: getNumber(data.refresh_expires_in),
+        scope: getString(data.scope),
+    };
+}
+
+function parseOAuthTokenParams(params: URLSearchParams): OAuthTokenResponse | null {
+    const accessToken = getString(params.get("access_token"));
+
+    if (!accessToken) {
+        return null;
+    }
+
+    return {
+        access_token: accessToken,
+        token_type: getString(params.get("token_type")),
+        expires_in: getNumber(params.get("expires_in")),
+        refresh_token: getString(params.get("refresh_token")),
+        refresh_expires_in: getNumber(params.get("refresh_expires_in")),
+        scope: getString(params.get("scope")),
+    };
 }
 
 function isUserResponse(value: unknown): value is OAuthUserResponse {
@@ -364,11 +441,62 @@ function isUserResponse(value: unknown): value is OAuthUserResponse {
 }
 
 function toOAuthErrorResponse(value: unknown): OAuthErrorResponse {
+    if (typeof value === "string") {
+        const trimmed = value.trim();
+
+        if (trimmed.startsWith("{")) {
+            try {
+                return toOAuthErrorResponse(JSON.parse(trimmed));
+            } catch {
+                return toAPIErrorResponse(value);
+            }
+        }
+
+        if (trimmed.includes("=")) {
+            const params = new URLSearchParams(trimmed);
+            const code = getString(params.get("code")) ??
+                getString(params.get("error"));
+            const message = getString(params.get("message")) ??
+                getString(params.get("error_description"));
+
+            if (code || message) {
+                return createAPIErrorResponse(
+                    code ?? "pro203s_request_failed",
+                    message ?? "Pro203S 요청에 실패했습니다.",
+                );
+            }
+        }
+    }
+
     return toAPIErrorResponse(
         value,
         "pro203s_request_failed",
         "Pro203S 요청에 실패했습니다.",
     );
+}
+
+function getString(value: unknown) {
+    if (typeof value !== "string") {
+        return undefined;
+    }
+
+    const trimmed = value.trim();
+
+    return trimmed || undefined;
+}
+
+function getNumber(value: unknown) {
+    if (typeof value === "number" && Number.isFinite(value)) {
+        return value;
+    }
+
+    if (typeof value !== "string") {
+        return undefined;
+    }
+
+    const parsed = Number(value);
+
+    return Number.isFinite(parsed) ? parsed : undefined;
 }
 
 function normalizeMaxAge(value: number | undefined, fallback: number) {

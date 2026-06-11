@@ -36,7 +36,7 @@ type DropdownItemLine = {
     "type": "line";
 };
 
-type DropdownItem = DropdownItemButton | DropdownItemLink | DropdownItemLine;
+export type DropdownItem = DropdownItemButton | DropdownItemLink | DropdownItemLine;
 
 type Props = {
     "children": ReactNode;

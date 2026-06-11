@@ -7,25 +7,39 @@ import REST from "@/modules/rest";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faSearch } from "@fortawesome/free-solid-svg-icons";
 import Button from "@/components/button";
-import Dropdown from "@/components/dropdown";
+import Dropdown, { DropdownItem } from "@/components/dropdown";
 import { animated, easings, useSpringValue } from "@react-spring/web";
+import { AVAILABLE_TAGS } from "@/modules/constants";
+import { AVAILABLE_TIERS, TierToString } from "@/modules/tier";
 
 const AnimatedFA = animated(FontAwesomeIcon);
 
 export default function Page() {
     const [user, setUser] = useState<APIUser>();
+    const [problems, setProblems] = useState<APIProblem[]>([]);
     const searchBox = useRef<HTMLInputElement>(null);
     const searchButton = useRef<HTMLButtonElement>(null);
 
     const [tagDropdownOpen, setTagDropdownOpen] = useState(false);
-    const [selectedTag, setSelectedTag] = useState("태그");
-
+    const [selectedTag, setSelectedTag] = useState<string>();
     const tagArrowRotation = useSpringValue(0, {
         "config": {
             "duration": 250,
             "easing": easings.easeOutCubic
         }
     });
+    useEffect(() => { tagArrowRotation.start(tagDropdownOpen ? -180 : 0) }, [tagDropdownOpen]);
+
+    const [tierDropdownOpen, setTierDropdownOpen] = useState(false);
+    const [selectedTier, setSelectedTier] = useState<Tier>();
+    const tierArrowRotation = useSpringValue(0, {
+        "config": {
+            "duration": 250,
+            "easing": easings.easeOutCubic
+        }
+    });
+    useEffect(() => { tierArrowRotation.start(tierDropdownOpen ? -180 : 0) }, [tierDropdownOpen]);
+
 
     useEffect(() => {
         (async () => {
@@ -35,8 +49,6 @@ export default function Page() {
             setUser(r.data);
         })();
     }, []);
-
-    useEffect(() => { tagArrowRotation.start(tagDropdownOpen ? -180 : 0) }, [tagDropdownOpen]);
 
     return <>
         <Header sessionOverride={user} doNotRequest />
@@ -71,13 +83,42 @@ export default function Page() {
                     <Dropdown
                         open={tagDropdownOpen}
                         setOpen={setTagDropdownOpen}
-                        label="문제 태그 선택"
+                        label="태그 선택"
                         items={[
-                            
+                            {
+                                "onClick": () => setSelectedTag(""),
+                                "type": "button",
+                                "label": "태그 선택"
+                            },
+                            ...AVAILABLE_TAGS.map(v => ({
+                                "onClick": () => setSelectedTag(v.value),
+                                "type": "button",
+                                "label": v.label
+                            }) as DropdownItem)
                         ]}
                     >
-                        <span>{selectedTag}</span>
+                        <span>{AVAILABLE_TAGS.find(v => v.value === selectedTag)?.label ?? "태그 선택"}</span>
                         <AnimatedFA icon={faChevronDown} style={{ "transform": tagArrowRotation.to(v => `rotate(${v}deg)`) }} />
+                    </Dropdown>
+                    <Dropdown
+                        open={tierDropdownOpen}
+                        setOpen={setTierDropdownOpen}
+                        label="난이도 선택"
+                        items={[
+                            {
+                                "onClick": () => setSelectedTier(undefined),
+                                "type": "button",
+                                "label": "난이도 선택"
+                            },
+                            ...AVAILABLE_TIERS.map(v => ({
+                                "onClick": () => setSelectedTier(v),
+                                "type": "button",
+                                "label": TierToString(v)
+                            }) as DropdownItem)
+                        ]}
+                    >
+                        <span>{selectedTier ? TierToString(selectedTier) : "난이도 선택"}</span>
+                        <AnimatedFA icon={faChevronDown} style={{ "transform": tierArrowRotation.to(v => `rotate(${v}deg)`) }} />
                     </Dropdown>
                 </div>
             </div>

@@ -37,8 +37,11 @@
     left: 0;
     z-index: 20;
     min-width: 210px;
+    max-height: min(360px, calc(100dvh - 140px));
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     padding: 8px;
     border: 1px solid #616161;
     border-radius: 8px;
@@ -48,6 +51,7 @@
 }
 
 .item {
+    flex-shrink: 0;
     width: 100%;
     padding: 9px 10px;
     border: 0;
@@ -72,6 +76,7 @@
 }
 
 .separator {
+    flex-shrink: 0;
     height: 1px;
     margin: 6px 0;
     background: #333;

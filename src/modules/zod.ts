@@ -11,7 +11,7 @@ export const ZodIO = z.object({
 });
 
 export const ZodCase = z.object({
-    "in": z.string(),
+    "in": z.optional(z.string()),
     "out": z.string()
 });
 
@@ -19,8 +19,8 @@ export const POSTApiProblems = z.object({
     "tier": ZodTier,
     "name": z.string(),
     "description": z.string(),
-    "input": ZodIO,
-    "output": ZodIO,
+    "input": z.optional(ZodIO),
+    "output": z.optional(ZodIO),
     "cases": z.array(ZodCase)
 });
 
