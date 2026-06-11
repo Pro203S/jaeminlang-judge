@@ -54,30 +54,54 @@ async function downloadFile(url: string, path: string): Promise<void> {
     await writeFile(path, Buffer.from(response.data));
 }
 
+function runAtMidnight(callback: () => void): void {
+    const schedule = () => {
+        const now = new Date();
+
+        const nextMidnight = new Date(now);
+        nextMidnight.setHours(24, 0, 0, 0);
+
+        const delay = nextMidnight.getTime() - now.getTime();
+
+        setTimeout(() => {
+            callback();
+            schedule();
+        }, delay);
+    };
+
+    schedule();
+}
+
 export async function register() {
     if (process.env.NEXT_RUNTIME !== 'nodejs') return;
 
-    const releases = await axios.get<GithubRelease[]>("https://api.github.com/repos/Pro203S/jaeminlang/releases");
-    const release = releases.data[0];
+    const update = async () => {
+        const releases = await axios.get<GithubRelease[]>("https://api.github.com/repos/Pro203S/jaeminlang/releases");
+        const release = releases.data[0];
 
-    console.log("[Instrumentation]", `detected platform: ${getPlatform()}`);
-    console.log("[Instrumentation]", `latest jaeminlang version: ${release.tag_name}`);
+        console.log("[update]", `detected platform: ${getPlatform()}`);
+        console.log("[update]", `latest jaeminlang version: ${release.tag_name}`);
 
-    const found = release.assets.find(v => v.name.includes(getPlatform()));
-    if (!found) throw new Error("jaeminlang platform not found.");
+        const found = release.assets.find(v => v.name.includes(getPlatform()));
+        if (!found) throw new Error("jaeminlang platform not found.");
 
-    await mkdir("./jaeminlang", { "recursive": true });
+        await mkdir("./jaeminlang", { "recursive": true });
 
-    console.log("[Instrumentation]", `downloading: ${found.browser_download_url}`);
-    await downloadFile(found.browser_download_url, "./jaeminlang/bin.zip");
+        console.log("[update]", `downloading: ${found.browser_download_url}`);
+        await downloadFile(found.browser_download_url, "./jaeminlang/bin.zip");
 
-    console.log("[Instrumentation]", `extracting...`);
-    await extract(path.join(process.cwd(), "./jaeminlang/bin.zip"), { "dir": path.join(process.cwd(), "./jaeminlang/bin") });
+        console.log("[update]", `extracting...`);
+        await extract(path.join(process.cwd(), "./jaeminlang/bin.zip"), { "dir": path.join(process.cwd(), "./jaeminlang/bin") });
 
-    if (process.platform !== "win32") {
-        console.log("[Instrumentation]", "finalizing...");
-        await execPromise("/bin/chmod", ["+x", path.join(process.cwd(), "./jaeminlang/bin/jaeminlang")]);
-    }
+        if (process.platform !== "win32") {
+            console.log("[update]", "finalizing...");
+            await execPromise("/bin/chmod", ["+x", path.join(process.cwd(), "./jaeminlang/bin/jaeminlang")]);
+        }
 
-    console.log("[Instrumentation]", `done`);
+        console.log("[update]", `done`);
+    };
+
+    runAtMidnight(update);
+
+    await update();
 }
