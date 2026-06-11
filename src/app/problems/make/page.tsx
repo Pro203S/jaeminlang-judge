@@ -183,22 +183,28 @@ export default function Page() {
                         <div className={css.field}>
                             <label className={css.subtitle} htmlFor="input-description">설명</label>
                             <textarea
-                                id="input-description"
-                                className={css.textarea}
-                                value={problemInput.description}
-                                onChange={(ev) => setProblemInput((current) => ({ ...current, "description": ev.currentTarget.value }))}
-                                placeholder="입력 설명"
-                            />
+                            id="input-description"
+                            className={css.textarea}
+                            value={problemInput.description}
+                            onChange={(ev) => {
+                                const { value } = ev.currentTarget;
+                                setProblemInput((current) => ({ ...current, "description": value }));
+                            }}
+                            placeholder="입력 설명"
+                        />
                         </div>
                         <div className={css.field}>
                             <label className={css.subtitle} htmlFor="input-content">실제 입력 값</label>
                             <textarea
-                                id="input-content"
-                                className={css.textarea}
-                                value={problemInput.content}
-                                onChange={(ev) => setProblemInput((current) => ({ ...current, "content": ev.currentTarget.value }))}
-                                placeholder="예시 입력"
-                            />
+                            id="input-content"
+                            className={css.textarea}
+                            value={problemInput.content}
+                            onChange={(ev) => {
+                                const { value } = ev.currentTarget;
+                                setProblemInput((current) => ({ ...current, "content": value }));
+                            }}
+                            placeholder="예시 입력"
+                        />
                         </div>
                     </div>
                     <div className={css.section}>
@@ -206,22 +212,28 @@ export default function Page() {
                         <div className={css.field}>
                             <label className={css.subtitle} htmlFor="output-description">설명</label>
                             <textarea
-                                id="output-description"
-                                className={css.textarea}
-                                value={problemOutput.description}
-                                onChange={(ev) => setProblemOutput((current) => ({ ...current, "description": ev.currentTarget.value }))}
-                                placeholder="출력 설명"
-                            />
+                            id="output-description"
+                            className={css.textarea}
+                            value={problemOutput.description}
+                            onChange={(ev) => {
+                                const { value } = ev.currentTarget;
+                                setProblemOutput((current) => ({ ...current, "description": value }));
+                            }}
+                            placeholder="출력 설명"
+                        />
                         </div>
                         <div className={css.field}>
                             <label className={css.subtitle} htmlFor="output-content">실제 출력 값</label>
                             <textarea
-                                id="output-content"
-                                className={css.textarea}
-                                value={problemOutput.content}
-                                onChange={(ev) => setProblemOutput((current) => ({ ...current, "content": ev.currentTarget.value }))}
-                                placeholder="예시 출력"
-                            />
+                            id="output-content"
+                            className={css.textarea}
+                            value={problemOutput.content}
+                            onChange={(ev) => {
+                                const { value } = ev.currentTarget;
+                                setProblemOutput((current) => ({ ...current, "content": value }));
+                            }}
+                            placeholder="예시 출력"
+                        />
                         </div>
                     </div>
                 </div>

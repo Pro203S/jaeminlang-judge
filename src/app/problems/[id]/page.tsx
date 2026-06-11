@@ -8,6 +8,8 @@ import { useParams, useRouter } from "next/navigation";
 import TierBadge from "@/components/tierbadge";
 import InOutAnimation from "@/components/InOutAnimation";
 import Button from "@/components/button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 const CONFETTI_PIECES = Array.from({ "length": 28 }, (_, index) => index);
 
@@ -137,6 +139,7 @@ export default function Page() {
                             className={css.submit}
                             href="/problems"
                         >
+                            <FontAwesomeIcon icon={faChevronLeft} />
                             <span>뒤로가기</span>
                         </Button>
                         <Button
@@ -161,6 +164,7 @@ export default function Page() {
                                 if (result.data.correct) setConfettiRun((run) => run + 1);
                             }}
                         >
+                            <FontAwesomeIcon icon={faPaperPlane} />
                             <span>제출하기</span>
                         </Button>
                     </div>
