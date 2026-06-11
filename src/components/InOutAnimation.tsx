@@ -7,11 +7,12 @@ type Props = {
     className?: string;
     delay?: number;
 
-    onAnimateEnd?: () => void;
+    onAnimateEnd?: () => any;
+    onClick?: () => any;
 }
 
 export default function InOutAnimation(props: Props) {
-    const { animate, children, className, delay, onAnimateEnd } = props;
+    const { animate, children, className, delay, onAnimateEnd, onClick } = props;
 
     const opacity = useSpringValue(0, {
         "config": {
@@ -60,7 +61,7 @@ export default function InOutAnimation(props: Props) {
     return <animated.div className={className} style={{
         opacity,
         "transform": translateY.to(v => `translateY(${v}px)`)
-    }}>
+    }} onClick={onClick}>
         {children}
     </animated.div>
 }
