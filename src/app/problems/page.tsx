@@ -136,7 +136,7 @@ export default function Page() {
                             <TierBadge tier={v.tier} className={css.tier} />
                             <div className={css.texts}>
                                 <span className={css.title}>{v.name}</span>
-                                <span className={css.tags}>{v.description} | 태그: {v.tags.map(TAG_TO_STRING).join(", ")}</span>
+                                <span className={css.tags}>태그: {v.tags.map(TAG_TO_STRING).join(", ")}</span>
                             </div>
                             <FontAwesomeIcon className={css.icon} icon={faChevronRight} />
                         </Link>) :
