@@ -7,4 +7,43 @@
     padding: 15px;
     margin: 0 auto;
     height: calc(100dvh - 95px);
+    overflow: visible;
+}
+
+.linearV {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    width: 100%;
+    overflow: visible;
+}
+
+.search {
+    width: 90%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: #464646 solid 1.5px;
+    border-radius: 23px;
+    overflow: visible;
+}
+
+.searchBox {
+    color: #fff;
+    background-color: #0000;
+    border: 0 solid #000;
+    border-bottom: 1px solid #464646;
+    outline: none;
+    font-size: 21px;
+    width: 100%;
+}
+
+.searchButton svg {
+    font-size: 1.1rem;
+}
+
+.problems {
+    display: flex;
+    flex-direction: row;
 }
