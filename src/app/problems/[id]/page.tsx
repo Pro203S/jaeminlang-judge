@@ -9,6 +9,8 @@ import TierBadge from "@/components/tierbadge";
 import InOutAnimation from "@/components/InOutAnimation";
 import Button from "@/components/button";
 
+const CONFETTI_PIECES = Array.from({ "length": 28 }, (_, index) => index);
+
 export default function Page() {
     const router = useRouter();
     const { id } = useParams<{ id: string }>();
@@ -17,13 +19,14 @@ export default function Page() {
     const [problem, setProblem] = useState<APIProblem>();
     const [code, setCode] = useState("");
     const [submitResult, setSubmitResult] = useState<APISubmitResponse>();
+    const [confettiRun, setConfettiRun] = useState(0);
     const lineNumbers = Array.from({ "length": code.split("\n").length }, (_, index) => index + 1);
-    const submitOutput = submitResult
-        ? submitResult.outputs.length > 1
-            ? submitResult.outputs
-                .map((output, index) => `케이스 ${index + 1}\n${output || "출력 없음"}`)
-                .join("\n\n")
-            : submitResult.output || "출력 없음"
+    const submitStatus = submitResult
+        ? submitResult.error
+            ? "오류"
+            : submitResult.correct
+                ? "정답"
+                : "오답"
         : "";
 
     useEffect(() => {
@@ -42,6 +45,13 @@ export default function Page() {
             setProblem(r2.data);
         })();
     }, []);
+
+    useEffect(() => {
+        if (confettiRun === 0) return;
+
+        const timeout = window.setTimeout(() => setConfettiRun(0), 1500);
+        return () => window.clearTimeout(timeout);
+    }, [confettiRun]);
 
     return <>
         <Header sessionOverride={user} doNotRequest />
@@ -115,12 +125,10 @@ export default function Page() {
                 </div>
                 {submitResult && <div className={css.section}>
                     <span className={css.title}>실행 결과</span>
-                    <span className={css.subtitle}>
-                        {submitResult.correct ? "정답" : "오답"} ({submitResult.passed}/{submitResult.total})
-                    </span>
-                    <pre className={css.outputBox}>
-                        {submitOutput}
-                    </pre>
+                    <span className={css.subtitle}>{submitStatus}</span>
+                    {submitResult.error && <pre className={css.outputBox}>
+                        {submitResult.output || "출력 없음"}
+                    </pre>}
                 </div>}
 
                 <div className={css.section}>
@@ -150,6 +158,7 @@ export default function Page() {
                                 }
 
                                 setSubmitResult(result.data);
+                                if (result.data.correct) setConfettiRun((run) => run + 1);
                             }}
                         >
                             <span>제출하기</span>
@@ -158,5 +167,8 @@ export default function Page() {
                 </div>
             </div>
         </InOutAnimation>}
+        {confettiRun > 0 && <div key={confettiRun} className={css.confettiLayer} aria-hidden="true">
+            {CONFETTI_PIECES.map((piece) => <span key={piece} className={css.confettiPiece} />)}
+        </div>}
     </>;
 }
