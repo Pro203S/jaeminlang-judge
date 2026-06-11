@@ -12,6 +12,7 @@ import { AVAILABLE_TAGS, TAG_TO_STRING } from "@/modules/constants";
 import { AVAILABLE_TIERS, TierToString } from "@/modules/tier";
 import TierBadge from "@/components/tierbadge";
 import Link from "next/link";
+import InOutAnimation from "@/components/InOutAnimation";
 
 const AnimatedFA = animated(FontAwesomeIcon);
 
@@ -76,7 +77,7 @@ export default function Page() {
 
     return <>
         <Header sessionOverride={user} doNotRequest />
-        <div className={css.container}>
+        <InOutAnimation className={css.container} animate>
             <div className={css.search}>
                 <div className={css.linearV}>
                     <input
@@ -145,6 +146,6 @@ export default function Page() {
                     </div>
                 }
             </div>
-        </div>
+        </InOutAnimation>
     </>;
 }
