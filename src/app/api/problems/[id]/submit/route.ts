@@ -64,7 +64,8 @@ export async function POST(req: NextRequest, { params }: Params) {
         await writeFile(path.join(tempDir, fileName), parsed.data.code, "utf8");
 
         let passed = 0;
-        const outputs: string[] = [];
+        let hasExecutionError = false;
+        let executionOutput = "";
 
         for (const testCase of problem.cases) {
             const result = await runJaeminlang(
@@ -73,13 +74,14 @@ export async function POST(req: NextRequest, { params }: Params) {
                 fileName,
                 testCase.in ?? "",
             );
-            outputs.push(result.stdout);
 
-            if (
-                result.timedOut ||
-                result.exitCode !== 0 ||
-                normalizeOutput(result.stdout) !== normalizeOutput(testCase.out)
-            ) {
+            if (result.timedOut || result.exitCode !== 0) {
+                hasExecutionError = true;
+                executionOutput = getExecutionOutput(result);
+                break;
+            }
+
+            if (normalizeOutput(result.stdout) !== normalizeOutput(testCase.out)) {
                 break;
             }
 
@@ -115,10 +117,11 @@ export async function POST(req: NextRequest, { params }: Params) {
 
         const payload: APISubmitResponse = {
             correct,
-            passed,
-            "total": problem.cases.length,
-            "output": outputs.at(-1) ?? "",
-            outputs
+            "error": hasExecutionError,
+            "output": hasExecutionError ? executionOutput
+                .slice(0, executionOutput.indexOf("at"))
+                .slice(executionOutput.indexOf("]") + 1)
+                .trim() : ""
         };
 
         return attachSessionCookies(NextResponse.json(payload), session);
@@ -212,4 +215,12 @@ function runJaeminlang(
 
 function normalizeOutput(value: string) {
     return value.replace(/\r\n/g, "\n").trimEnd();
+}
+
+function getExecutionOutput(result: RunResult) {
+    const output = [result.stdout, result.stderr].filter(Boolean).join("\n");
+    if (output) return output;
+
+    if (result.timedOut) return "실행 시간이 초과되었습니다.";
+    return "재민랭이 오류와 함께 종료되었습니다.";
 }
