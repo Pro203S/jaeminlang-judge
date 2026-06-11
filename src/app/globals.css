@@ -1,8 +1,6 @@
 * {
     font-family: var(--font-pretendard), sans-serif;
     user-select: none;
-    overflow: hidden;
-    touch-action: none;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -10,9 +8,10 @@ html,
 body {
     margin: 0;
     background-color: #000;
-
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 body.fontLoading {
