@@ -7,6 +7,7 @@ import REST from "@/modules/rest";
 import { useParams, useRouter } from "next/navigation";
 import TierBadge from "@/components/tierbadge";
 import InOutAnimation from "@/components/InOutAnimation";
+import Button from "@/components/button";
 
 export default function Page() {
     const router = useRouter();
@@ -80,20 +81,51 @@ export default function Page() {
                                 lineNumbersRef.current.scrollTop = ev.currentTarget.scrollTop;
                             }}
                             onKeyDown={(ev) => {
-                                if (ev.key !== "Tab") return;
+                                // Tab키 핸들링
+                                if (ev.key === "Tab") {
+                                    ev.preventDefault();
 
-                                ev.preventDefault();
+                                    const target = ev.currentTarget;
+                                    const { selectionStart, selectionEnd } = target;
+                                    const nextCode = `${code.slice(0, selectionStart)}  ${code.slice(selectionEnd)}`;
 
-                                const target = ev.currentTarget;
-                                const { selectionStart, selectionEnd } = target;
-                                const nextCode = `${code.slice(0, selectionStart)}    ${code.slice(selectionEnd)}`;
+                                    setCode(nextCode);
+                                    requestAnimationFrame(() => {
+                                        target.setSelectionRange(selectionStart + 4, selectionStart + 4);
+                                    });
 
-                                setCode(nextCode);
-                                requestAnimationFrame(() => {
-                                    target.setSelectionRange(selectionStart + 4, selectionStart + 4);
-                                });
+                                    return;
+                                }
+
+                                // 습관성 Ctrl S 방지
+                                if (ev.ctrlKey && ev.key === "s") {
+                                    ev.preventDefault();
+                                }
                             }}
                         />
+                    </div>
+                </div>
+                <div className={css.section}>
+                    <div className={css.buttons}>
+                        <Button
+                            className={css.submit}
+                            href="/problems"
+                        >
+                            <span>뒤로가기</span>
+                        </Button>
+                        <Button
+                            className={css.submit}
+                            onClick={async () => {
+                                if (!user) {
+                                    alert("제출하려면 로그인해주세요.");
+                                    return;
+                                }
+
+
+                            }}
+                        >
+                            <span>제출하기</span>
+                        </Button>
                     </div>
                 </div>
             </div>
