@@ -1,5 +1,5 @@
 export function MakeApiProblem(value: DBProblem): APIProblem {
-    const a: any = {...value};
+    const a: any = { ...value, "tags": value.tags ?? [] };
     delete a.cases;
     return a;
 }

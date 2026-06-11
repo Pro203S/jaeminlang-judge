@@ -9,7 +9,7 @@ declare global {
         "/api/auth/logout": AuthLogoutResponse;
         "/api/me": AuthMeResponse;
         "/api/problems": APIProblem[];
-        
+
     };
 
     type APIUser = {
@@ -29,6 +29,7 @@ declare global {
     type APIProblem = {
         "id": number,
         "tier": Tier,
+        "tags": string[],
         "name": string,
         "description": string,
         "input": {
@@ -50,6 +51,7 @@ declare global {
     type DBProblem = {
         "id": number,
         "tier": Tier,
+        "tags": string[],
         "name": string,
         "description": string,
         "input"?: {

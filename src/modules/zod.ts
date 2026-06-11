@@ -15,8 +15,11 @@ export const ZodCase = z.object({
     "out": z.string()
 });
 
+export const ZodTags = z.array(z.string());
+
 export const POSTApiProblems = z.object({
     "tier": ZodTier,
+    "tags": ZodTags,
     "name": z.string(),
     "description": z.string(),
     "input": z.optional(ZodIO),
@@ -26,6 +29,7 @@ export const POSTApiProblems = z.object({
 
 export const PATCHApiProblemsId = z.object({
     "tier": z.optional(ZodTier),
+    "tags": z.optional(ZodTags),
     "name": z.optional(z.string()),
     "description": z.optional(z.string()),
     "input": z.optional(ZodIO),

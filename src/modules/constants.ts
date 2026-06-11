@@ -22,3 +22,10 @@ export const AVAILABLE_TAGS = [
         "value": "implement"
     }
 ];
+
+export const TAG_TO_STRING = (tag: string): string => {
+    const found = AVAILABLE_TAGS.map(v => v.value).findIndex(v => v === tag);
+    if (found === -1) throw new Error("Tag " + tag + " not found");
+
+    return AVAILABLE_TAGS[found].label;
+}

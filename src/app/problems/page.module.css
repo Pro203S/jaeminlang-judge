@@ -63,14 +63,61 @@
     cursor: pointer;
     will-change: background-color;
     transition: background-color, .25s;
+    text-decoration: none;
+}
+
+.problem .tier {
+    margin: auto 0;
 }
 
 .problem:hover {
     background-color: #464646;
 }
 
+.problem .texts {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
 .problem .title {
     font-size: 1.271428rem;
     color: #fff;
     margin: auto 0;
+    font-weight: 600;
+}
+
+.problem .tags {
+    font-size: .87rem;
+    color: #adadad;
+    margin: auto 0;
+}
+
+.problem .icon {
+    font-size: 1.2rem;
+    color: #464646;
+    margin: auto 0 auto auto;
+    will-change: transform, color;
+    transition-property: transform, color;
+    transition-duration: .25s;
+}
+
+.problem:hover .icon {
+    color: #fff;
+    transform: translateX(-5px);
+}
+
+.empty {
+    width: 100%;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty .title {
+    font-size: 1.271428rem;
+    color: #fff;
+    margin: auto 0;
+    font-weight: 600;
 }
