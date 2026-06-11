@@ -9,7 +9,7 @@ declare global {
         "/api/auth/logout": AuthLogoutResponse;
         "/api/me": AuthMeResponse;
         "/api/problems": APIProblem[];
-
+        [key: `/api/problems/${string}`]: APIProblem;
     };
 
     type APIUser = {
