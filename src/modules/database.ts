@@ -1,15 +1,29 @@
 import * as fs from 'fs';
 import Shadowly from 'shadowly';
 import type { OAuthUserResponse, OAuthUserResult } from './pro203sAuthTypes';
+import { CompareTier } from './tier';
 
-if (!fs.existsSync("./database.json")) {
-    fs.writeFileSync("./database.json", JSON.stringify({
-        "problems": [],
+const DATABASE_PATH = "./database.json";
+const PROBLEMS_PATH = "./problems.json";
+
+if (!fs.existsSync(DATABASE_PATH)) {
+    fs.writeFileSync(DATABASE_PATH, JSON.stringify({
         "users": []
     } satisfies Database));
 }
 
-export const getDatabase = () => new Shadowly<Database>("./database.json");
+if (!fs.existsSync(PROBLEMS_PATH)) {
+    fs.writeFileSync(PROBLEMS_PATH, JSON.stringify({
+        "problems": []
+    } satisfies ProblemsDatabase));
+}
+
+export const getDatabase = () => new Shadowly<Database>(DATABASE_PATH);
+export const getProblemsDatabase = () => new Shadowly<ProblemsDatabase>(PROBLEMS_PATH);
+
+export function sortProblemsByDifficulty(problems: DBProblem[]): DBProblem[] {
+    return [...problems].sort((a, b) => CompareTier(a.tier, b.tier) || a.id - b.id);
+}
 
 function createOAuthUserResult(user: OAuthUserResponse): OAuthUserResult {
     return {

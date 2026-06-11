@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { createAPIErrorResponse } from "@/modules/apiError";
-import { getDatabase, upsertOAuthUser } from "@/modules/database";
+import { upsertOAuthUser } from "@/modules/database";
 import { MakeApiUser } from "@/modules/makeApiType";
 import {
     Pro203SSessionError,
@@ -14,12 +14,8 @@ import type { AuthMeResponse } from "@/modules/pro203sAuthTypes";
 export async function GET(request: NextRequest) {
     try {
         const session = await getCurrentSession(request);
-        const database = getDatabase();
         const user = upsertOAuthUser(session.user);
-        const payload: AuthMeResponse = MakeApiUser(
-            user,
-            database.get("problems").value(),
-        );
+        const payload: AuthMeResponse = MakeApiUser(user);
         const response = NextResponse.json(payload);
 
         return attachSessionCookies(response, session);

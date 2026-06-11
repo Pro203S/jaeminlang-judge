@@ -1,5 +1,5 @@
 import { APIErrorResponse } from "@/modules/apiError";
-import { getDatabase } from "@/modules/database";
+import { getProblemsDatabase, sortProblemsByDifficulty } from "@/modules/database";
 import { MakeApiProblem } from "@/modules/makeApiType";
 import { Pro203SSessionError, attachSessionCookies, getCurrentSession } from "@/modules/pro203sAuth";
 import { PATCHApiProblemsId } from "@/modules/zod";
@@ -10,8 +10,7 @@ type Params = { "params": Promise<{ id: string }> };
 export async function GET(req: NextRequest, { params }: Params) {
     try {
         const { id } = await params;
-        const database = getDatabase();
-        const problem = database.get("problems").find(v => v.id === Number(id))?.value?.();
+        const problem = getProblemsDatabase().get("problems").find(v => v.id === Number(id))?.value?.();
         if (!problem) return NextResponse.json({
             "code": "not_found",
             "message": "문제를 찾지 못했습니다."
@@ -49,7 +48,7 @@ export async function PATCH(req: NextRequest, { params }: Params) {
             "message": "관리자만 문제를 관리할 수 있습니다."
         }, { "status": 403 }), session);
 
-        const database = getDatabase().get("problems");
+        const database = getProblemsDatabase().get("problems");
         const originIndex = database.findIndex(v => v.id === id);
         if (originIndex === -1) return attachSessionCookies(NextResponse.json({
             "code": "not_found",
@@ -63,6 +62,7 @@ export async function PATCH(req: NextRequest, { params }: Params) {
         };
 
         database.get(originIndex).set(prob);
+        database.set(sortProblemsByDifficulty(database.value()));
 
         return attachSessionCookies(new NextResponse(null, { "status": 204 }), session);
     } catch (err) {
@@ -90,7 +90,7 @@ export async function DELETE(req: NextRequest, { params }: Params) {
             "message": "관리자만 문제를 관리할 수 있습니다."
         }, { "status": 403 }), session);
 
-        const database = getDatabase().get("problems");
+        const database = getProblemsDatabase().get("problems");
         const originIndex = database.findIndex(v => v.id === id);
         if (originIndex === -1) return attachSessionCookies(NextResponse.json({
             "code": "not_found",

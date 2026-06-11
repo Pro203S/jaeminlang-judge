@@ -1,10 +1,13 @@
+import { getProblemsDatabase } from "./database";
+
 export function MakeApiProblem(value: DBProblem): APIProblem {
     const a: any = { ...value, "tags": value.tags ?? [] };
     delete a.cases;
     return a;
 }
 
-export function MakeApiUser(value: DBUser, problems: DBProblem[]): APIUser {
+export function MakeApiUser(value: DBUser): APIUser {
+    const problems = getProblemsDatabase().get("problems").value();
     const profile = value.userData.ok ? value.userData.data.profile : undefined;
     const displayName = value.userData.ok
         ? value.userData.data.displayName

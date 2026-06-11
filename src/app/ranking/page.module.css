@@ -8,3 +8,16 @@
     margin: 0 auto;
     min-height: calc(100dvh - 95px);
 }
+
+.users {
+    margin-top: 15px;
+    width: 90%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: #464646 solid 1.5px;
+    border-radius: 23px;
+    overflow: visible;
+}
+

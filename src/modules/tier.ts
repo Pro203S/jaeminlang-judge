@@ -156,6 +156,23 @@ export function TierToScore(tier: Tier): number {
     return score;
 }
 
+export function TierToOrder(tier: Tier): number {
+    const categoryOrder: Record<Tier["category"], number> = {
+        "bronze": 0,
+        "silver": 1,
+        "gold": 2,
+        "platinum": 3,
+        "diamond": 4,
+        "god": 5
+    };
+
+    return categoryOrder[tier.category] * 5 + (5 - tier.stage);
+}
+
+export function CompareTier(a: Tier, b: Tier): number {
+    return TierToOrder(a) - TierToOrder(b);
+}
+
 export function TierToString(tier: Tier): string {
     let str = '';
 

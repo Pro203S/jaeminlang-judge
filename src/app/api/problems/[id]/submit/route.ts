@@ -4,7 +4,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { APIErrorResponse, createAPIErrorResponse } from "@/modules/apiError";
-import { createDefaultDBUser, getDatabase } from "@/modules/database";
+import { createDefaultDBUser, getDatabase, getProblemsDatabase } from "@/modules/database";
 import {
     Pro203SSessionError,
     attachSessionCookies,
@@ -38,8 +38,7 @@ export async function POST(req: NextRequest, { params }: Params) {
 
         const { id } = await params;
         const problemId = Number(id);
-        const database = getDatabase();
-        const problem = database.get("problems").find(v => v.id === problemId)?.value?.();
+        const problem = getProblemsDatabase().get("problems").find(v => v.id === problemId)?.value?.();
 
         if (!problem) return NextResponse.json({
             "code": "not_found",

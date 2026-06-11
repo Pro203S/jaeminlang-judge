@@ -1,0 +1,2224 @@
+{
+  "problems": [
+    {
+      "id": 1,
+      "tier": {
+        "category": "bronze",
+        "stage": 5
+      },
+      "tags": [
+        "inout"
+      ],
+      "name": "Hello World! 출력하기",
+      "description": "그냥 \"Hello World!\"를 출력하면 됩니다.",
+      "output": {
+        "description": "Hello World!",
+        "content": "Hello World!"
+      },
+      "cases": [
+        {
+          "out": "Hello World!"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "tier": {
+        "category": "bronze",
+        "stage": 5
+      },
+      "tags": [
+        "inout"
+      ],
+      "name": "입력한 값 출력하기",
+      "description": "입력된 값을 \"그대로\" 출력하세요.",
+      "input": {
+        "description": "입력될 값",
+        "content": "Hello World!"
+      },
+      "output": {
+        "description": "입력된 값",
+        "content": "Hello World!"
+      },
+      "cases": [
+        {
+          "in": "ABCD",
+          "out": "ABCD"
+        },
+        {
+          "in": "Hello World!",
+          "out": "Hello World!"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "tier": {
+        "category": "bronze",
+        "stage": 5
+      },
+      "tags": [
+        "inout"
+      ],
+      "name": "숫자 7 출력하기",
+      "description": "안산으로 숫자 7을 출력하세요.",
+      "output": {
+        "description": "숫자 7",
+        "content": "7"
+      },
+      "cases": [
+        {
+          "out": "7"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "tier": {
+        "category": "bronze",
+        "stage": 5
+      },
+      "tags": [
+        "inout"
+      ],
+      "name": "키워드 세 개 출력하기",
+      "description": "README에 나온 키워드 안산, 재민, 그램을 한 줄에 공백으로 구분해 출력하세요.",
+      "output": {
+        "description": "안산 재민 그램",
+        "content": "안산 재민 그램"
+      },
+      "cases": [
+        {
+          "out": "안산 재민 그램"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "tier": {
+        "category": "bronze",
+        "stage": 5
+      },
+      "tags": [
+        "inout",
+        "string"
+      ],
+      "name": "쉼표 출력하기",
+      "description": "문자열 안에서 쉼표를 출력하는 연습입니다. ,300을 그대로 출력하세요.",
+      "output": {
+        "description": ",300",
+        "content": ",300"
+      },
+      "cases": [
+        {
+          "out": ",300"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "tier": {
+        "category": "bronze",
+        "stage": 5
+      },
+      "tags": [
+        "inout",
+        "string"
+      ],
+      "name": "두 줄 출력하기",
+      "description": "재민과 랭을 각각 다른 줄에 출력하세요.",
+      "output": {
+        "description": "두 줄 문자열",
+        "content": "재민\n랭"
+      },
+      "cases": [
+        {
+          "out": "재민\n랭"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "tier": {
+        "category": "bronze",
+        "stage": 5
+      },
+      "tags": [
+        "inout"
+      ],
+      "name": "여친 출력하기",
+      "description": "재민랭의 NULL 값 이름인 여친을 그대로 출력하세요.",
+      "output": {
+        "description": "여친",
+        "content": "여친"
+      },
+      "cases": [
+        {
+          "out": "여친"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "tier": {
+        "category": "bronze",
+        "stage": 5
+      },
+      "tags": [
+        "inout",
+        "string"
+      ],
+      "name": "Hello 붙이기",
+      "description": "입력된 문자열 앞에 Hello와 공백 하나를 붙여 출력하세요.",
+      "input": {
+        "description": "문자열 한 줄",
+        "content": "재민"
+      },
+      "output": {
+        "description": "Hello가 붙은 문자열",
+        "content": "Hello 재민"
+      },
+      "cases": [
+        {
+          "in": "재민",
+          "out": "Hello 재민"
+        },
+        {
+          "in": "Lang",
+          "out": "Hello Lang"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "tier": {
+        "category": "bronze",
+        "stage": 5
+      },
+      "tags": [
+        "inout",
+        "string"
+      ],
+      "name": "두 값 이어 붙이기",
+      "description": "두 줄로 입력된 문자열을 공백 없이 이어서 출력하세요.",
+      "input": {
+        "description": "문자열 두 줄",
+        "content": "A\nB"
+      },
+      "output": {
+        "description": "이어 붙인 문자열",
+        "content": "AB"
+      },
+      "cases": [
+        {
+          "in": "A\nB",
+          "out": "AB"
+        },
+        {
+          "in": "재민\n랭",
+          "out": "재민랭"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "tier": {
+        "category": "bronze",
+        "stage": 5
+      },
+      "tags": [
+        "inout",
+        "string"
+      ],
+      "name": "두 값 사이 공백",
+      "description": "두 줄로 입력된 문자열 사이에 공백 하나를 넣어 출력하세요.",
+      "input": {
+        "description": "문자열 두 줄",
+        "content": "Hello\nWorld"
+      },
+      "output": {
+        "description": "공백으로 연결된 문자열",
+        "content": "Hello World"
+      },
+      "cases": [
+        {
+          "in": "Hello\nWorld",
+          "out": "Hello World"
+        },
+        {
+          "in": "안산\n재민",
+          "out": "안산 재민"
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "tier": {
+        "category": "bronze",
+        "stage": 5
+      },
+      "tags": [
+        "string"
+      ],
+      "name": "쉼표가 있는 문장",
+      "description": "문자열 안의 쉼표를 연습합니다. 재민,랭을 그대로 출력하세요.",
+      "output": {
+        "description": "재민,랭",
+        "content": "재민,랭"
+      },
+      "cases": [
+        {
+          "out": "재민,랭"
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "tier": {
+        "category": "bronze",
+        "stage": 5
+      },
+      "tags": [
+        "string",
+        "inout"
+      ],
+      "name": "공백 보존 출력하기",
+      "description": "입력된 한 줄을 공백까지 그대로 출력하세요.",
+      "input": {
+        "description": "공백이 포함될 수 있는 문자열 한 줄",
+        "content": "A B C"
+      },
+      "output": {
+        "description": "입력 그대로",
+        "content": "A B C"
+      },
+      "cases": [
+        {
+          "in": "A B C",
+          "out": "A B C"
+        },
+        {
+          "in": "재민 랭",
+          "out": "재민 랭"
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "tier": {
+        "category": "bronze",
+        "stage": 5
+      },
+      "tags": [
+        "string"
+      ],
+      "name": "세 줄 고정 출력",
+      "description": "안산, 재민, 그램을 각각 한 줄씩 출력하세요.",
+      "output": {
+        "description": "세 줄 문자열",
+        "content": "안산\n재민\n그램"
+      },
+      "cases": [
+        {
+          "out": "안산\n재민\n그램"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "tier": {
+        "category": "bronze",
+        "stage": 4
+      },
+      "tags": [
+        "inout"
+      ],
+      "name": "첫 번째 줄만 출력하기",
+      "description": "두 줄이 입력됩니다. 첫 번째 줄만 출력하세요.",
+      "input": {
+        "description": "문자열 두 줄",
+        "content": "첫째\n둘째"
+      },
+      "output": {
+        "description": "첫 번째 줄",
+        "content": "첫째"
+      },
+      "cases": [
+        {
+          "in": "첫째\n둘째",
+          "out": "첫째"
+        },
+        {
+          "in": "apple\nbanana",
+          "out": "apple"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "tier": {
+        "category": "bronze",
+        "stage": 4
+      },
+      "tags": [
+        "inout"
+      ],
+      "name": "두 번째 줄만 출력하기",
+      "description": "두 줄이 입력됩니다. 두 번째 줄만 출력하세요.",
+      "input": {
+        "description": "문자열 두 줄",
+        "content": "첫째\n둘째"
+      },
+      "output": {
+        "description": "두 번째 줄",
+        "content": "둘째"
+      },
+      "cases": [
+        {
+          "in": "첫째\n둘째",
+          "out": "둘째"
+        },
+        {
+          "in": "apple\nbanana",
+          "out": "banana"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "tier": {
+        "category": "bronze",
+        "stage": 4
+      },
+      "tags": [
+        "inout",
+        "string"
+      ],
+      "name": "느낌표 붙이기",
+      "description": "입력된 문자열 뒤에 느낌표를 붙여 출력하세요.",
+      "input": {
+        "description": "문자열 한 줄",
+        "content": "재민랭"
+      },
+      "output": {
+        "description": "느낌표가 붙은 문자열",
+        "content": "재민랭!"
+      },
+      "cases": [
+        {
+          "in": "재민랭",
+          "out": "재민랭!"
+        },
+        {
+          "in": "wow",
+          "out": "wow!"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "tier": {
+        "category": "bronze",
+        "stage": 4
+      },
+      "tags": [
+        "inout",
+        "string"
+      ],
+      "name": "입력 두 번 출력하기",
+      "description": "입력된 문자열을 공백 없이 두 번 출력하세요.",
+      "input": {
+        "description": "문자열 한 줄",
+        "content": "A"
+      },
+      "output": {
+        "description": "두 번 이어진 문자열",
+        "content": "AA"
+      },
+      "cases": [
+        {
+          "in": "A",
+          "out": "AA"
+        },
+        {
+          "in": "재민",
+          "out": "재민재민"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "tier": {
+        "category": "bronze",
+        "stage": 4
+      },
+      "tags": [
+        "inout",
+        "string"
+      ],
+      "name": "줄 바꿔 출력하기",
+      "description": "두 줄로 입력된 문자열을 같은 순서로 줄바꿈하여 출력하세요.",
+      "input": {
+        "description": "문자열 두 줄",
+        "content": "A\nB"
+      },
+      "output": {
+        "description": "줄바꿈 출력",
+        "content": "A\nB"
+      },
+      "cases": [
+        {
+          "in": "A\nB",
+          "out": "A\nB"
+        },
+        {
+          "in": "재민\n안산",
+          "out": "재민\n안산"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "tier": {
+        "category": "bronze",
+        "stage": 4
+      },
+      "tags": [
+        "inout",
+        "string"
+      ],
+      "name": "세 값 이어 출력하기",
+      "description": "세 줄로 입력된 값을 공백 없이 이어서 출력하세요.",
+      "input": {
+        "description": "값 세 줄",
+        "content": "1\n2\n3"
+      },
+      "output": {
+        "description": "이어 붙인 값",
+        "content": "123"
+      },
+      "cases": [
+        {
+          "in": "1\n2\n3",
+          "out": "123"
+        },
+        {
+          "in": "A\nB\nC",
+          "out": "ABC"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "tier": {
+        "category": "bronze",
+        "stage": 4
+      },
+      "tags": [
+        "inout"
+      ],
+      "name": "숫자 그대로 출력하기",
+      "description": "입력된 숫자를 그대로 출력하세요.",
+      "input": {
+        "description": "숫자 한 개",
+        "content": "120"
+      },
+      "output": {
+        "description": "입력된 숫자",
+        "content": "120"
+      },
+      "cases": [
+        {
+          "in": "120",
+          "out": "120"
+        },
+        {
+          "in": "-8",
+          "out": "-8"
+        },
+        {
+          "in": "0",
+          "out": "0"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "tier": {
+        "category": "bronze",
+        "stage": 4
+      },
+      "tags": [
+        "inout",
+        "string"
+      ],
+      "name": "앞뒤 괄호 감싸기",
+      "description": "입력된 문자열을 소괄호로 감싸 출력하세요.",
+      "input": {
+        "description": "문자열 한 줄",
+        "content": "abc"
+      },
+      "output": {
+        "description": "괄호로 감싼 문자열",
+        "content": "(abc)"
+      },
+      "cases": [
+        {
+          "in": "abc",
+          "out": "(abc)"
+        },
+        {
+          "in": "재민랭",
+          "out": "(재민랭)"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "tier": {
+        "category": "bronze",
+        "stage": 4
+      },
+      "tags": [
+        "inout",
+        "string"
+      ],
+      "name": "물음표 붙이기",
+      "description": "입력된 문자열 뒤에 물음표를 붙여 출력하세요.",
+      "input": {
+        "description": "문자열 한 줄",
+        "content": "왜"
+      },
+      "output": {
+        "description": "물음표가 붙은 문자열",
+        "content": "왜?"
+      },
+      "cases": [
+        {
+          "in": "왜",
+          "out": "왜?"
+        },
+        {
+          "in": "hello",
+          "out": "hello?"
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "tier": {
+        "category": "bronze",
+        "stage": 4
+      },
+      "tags": [
+        "string",
+        "inout"
+      ],
+      "name": "하이픈으로 연결하기",
+      "description": "두 문자열을 입력받아 사이에 하이픈을 넣어 출력하세요.",
+      "input": {
+        "description": "문자열 두 줄",
+        "content": "jaemin\nlang"
+      },
+      "output": {
+        "description": "A-B 형식",
+        "content": "jaemin-lang"
+      },
+      "cases": [
+        {
+          "in": "jaemin\nlang",
+          "out": "jaemin-lang"
+        },
+        {
+          "in": "안산\n재민",
+          "out": "안산-재민"
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "tier": {
+        "category": "bronze",
+        "stage": 4
+      },
+      "tags": [
+        "string",
+        "inout"
+      ],
+      "name": "입력 세 번 줄마다 출력하기",
+      "description": "입력된 문자열을 세 줄에 걸쳐 반복 출력하세요.",
+      "input": {
+        "description": "문자열 한 줄",
+        "content": "A"
+      },
+      "output": {
+        "description": "세 줄 반복",
+        "content": "A\nA\nA"
+      },
+      "cases": [
+        {
+          "in": "A",
+          "out": "A\nA\nA"
+        },
+        {
+          "in": "재민",
+          "out": "재민\n재민\n재민"
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "tier": {
+        "category": "bronze",
+        "stage": 4
+      },
+      "tags": [
+        "string",
+        "inout"
+      ],
+      "name": "샵 붙이기",
+      "description": "입력된 문자열 앞에 #을 붙여 출력하세요.",
+      "input": {
+        "description": "문자열 한 줄",
+        "content": "tag"
+      },
+      "output": {
+        "description": "#이 붙은 문자열",
+        "content": "#tag"
+      },
+      "cases": [
+        {
+          "in": "tag",
+          "out": "#tag"
+        },
+        {
+          "in": "재민랭",
+          "out": "#재민랭"
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "tier": {
+        "category": "bronze",
+        "stage": 4
+      },
+      "tags": [
+        "string",
+        "inout"
+      ],
+      "name": "말줄임표 붙이기",
+      "description": "입력된 문자열 뒤에 ...을 붙여 출력하세요.",
+      "input": {
+        "description": "문자열 한 줄",
+        "content": "wait"
+      },
+      "output": {
+        "description": "말줄임표가 붙은 문자열",
+        "content": "wait..."
+      },
+      "cases": [
+        {
+          "in": "wait",
+          "out": "wait..."
+        },
+        {
+          "in": "음",
+          "out": "음..."
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "tier": {
+        "category": "bronze",
+        "stage": 4
+      },
+      "tags": [
+        "string",
+        "inout"
+      ],
+      "name": "꺾쇠로 감싸기",
+      "description": "입력된 문자열을 <와 >로 감싸 출력하세요.",
+      "input": {
+        "description": "문자열 한 줄",
+        "content": "abc"
+      },
+      "output": {
+        "description": "<문자열>",
+        "content": "<abc>"
+      },
+      "cases": [
+        {
+          "in": "abc",
+          "out": "<abc>"
+        },
+        {
+          "in": "재민",
+          "out": "<재민>"
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "tier": {
+        "category": "bronze",
+        "stage": 4
+      },
+      "tags": [
+        "string",
+        "inout"
+      ],
+      "name": "콜론으로 연결하기",
+      "description": "두 문자열을 입력받아 사이에 콜론을 넣어 출력하세요.",
+      "input": {
+        "description": "문자열 두 줄",
+        "content": "key\nvalue"
+      },
+      "output": {
+        "description": "A:B 형식",
+        "content": "key:value"
+      },
+      "cases": [
+        {
+          "in": "key\nvalue",
+          "out": "key:value"
+        },
+        {
+          "in": "재민\n랭",
+          "out": "재민:랭"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "tier": {
+        "category": "bronze",
+        "stage": 3
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "A 더하기 B",
+      "description": "두 정수 A와 B를 입력받아 A+B를 출력하세요.",
+      "input": {
+        "description": "A와 B가 줄마다 주어집니다.",
+        "content": "2\n3"
+      },
+      "output": {
+        "description": "A+B",
+        "content": "5"
+      },
+      "cases": [
+        {
+          "in": "2\n3",
+          "out": "5"
+        },
+        {
+          "in": "10\n15",
+          "out": "25"
+        },
+        {
+          "in": "-2\n7",
+          "out": "5"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "tier": {
+        "category": "bronze",
+        "stage": 3
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "A 빼기 B",
+      "description": "두 정수 A와 B를 입력받아 A-B를 출력하세요.",
+      "input": {
+        "description": "A와 B가 줄마다 주어집니다.",
+        "content": "7\n3"
+      },
+      "output": {
+        "description": "A-B",
+        "content": "4"
+      },
+      "cases": [
+        {
+          "in": "7\n3",
+          "out": "4"
+        },
+        {
+          "in": "10\n15",
+          "out": "-5"
+        },
+        {
+          "in": "-2\n7",
+          "out": "-9"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "tier": {
+        "category": "bronze",
+        "stage": 3
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "A 곱하기 B",
+      "description": "두 정수 A와 B를 입력받아 A*B를 출력하세요.",
+      "input": {
+        "description": "A와 B가 줄마다 주어집니다.",
+        "content": "4\n5"
+      },
+      "output": {
+        "description": "A*B",
+        "content": "20"
+      },
+      "cases": [
+        {
+          "in": "4\n5",
+          "out": "20"
+        },
+        {
+          "in": "-3\n6",
+          "out": "-18"
+        },
+        {
+          "in": "0\n99",
+          "out": "0"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "tier": {
+        "category": "bronze",
+        "stage": 3
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "10 더하기",
+      "description": "정수 N을 입력받아 N+10을 출력하세요.",
+      "input": {
+        "description": "정수 N",
+        "content": "5"
+      },
+      "output": {
+        "description": "N+10",
+        "content": "15"
+      },
+      "cases": [
+        {
+          "in": "5",
+          "out": "15"
+        },
+        {
+          "in": "-10",
+          "out": "0"
+        },
+        {
+          "in": "42",
+          "out": "52"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "tier": {
+        "category": "bronze",
+        "stage": 3
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "5 빼기",
+      "description": "정수 N을 입력받아 N-5를 출력하세요.",
+      "input": {
+        "description": "정수 N",
+        "content": "12"
+      },
+      "output": {
+        "description": "N-5",
+        "content": "7"
+      },
+      "cases": [
+        {
+          "in": "12",
+          "out": "7"
+        },
+        {
+          "in": "5",
+          "out": "0"
+        },
+        {
+          "in": "-3",
+          "out": "-8"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "tier": {
+        "category": "bronze",
+        "stage": 3
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "두 배 만들기",
+      "description": "정수 N을 입력받아 N의 두 배를 출력하세요.",
+      "input": {
+        "description": "정수 N",
+        "content": "4"
+      },
+      "output": {
+        "description": "2*N",
+        "content": "8"
+      },
+      "cases": [
+        {
+          "in": "4",
+          "out": "8"
+        },
+        {
+          "in": "-7",
+          "out": "-14"
+        },
+        {
+          "in": "0",
+          "out": "0"
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "tier": {
+        "category": "bronze",
+        "stage": 3
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "세 배 만들기",
+      "description": "정수 N을 입력받아 N의 세 배를 출력하세요.",
+      "input": {
+        "description": "정수 N",
+        "content": "4"
+      },
+      "output": {
+        "description": "3*N",
+        "content": "12"
+      },
+      "cases": [
+        {
+          "in": "4",
+          "out": "12"
+        },
+        {
+          "in": "-7",
+          "out": "-21"
+        },
+        {
+          "in": "0",
+          "out": "0"
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "tier": {
+        "category": "bronze",
+        "stage": 2
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "세 수의 합",
+      "description": "세 정수를 입력받아 모두 더한 값을 출력하세요.",
+      "input": {
+        "description": "정수 세 개가 줄마다 주어집니다.",
+        "content": "1\n2\n3"
+      },
+      "output": {
+        "description": "세 수의 합",
+        "content": "6"
+      },
+      "cases": [
+        {
+          "in": "1\n2\n3",
+          "out": "6"
+        },
+        {
+          "in": "10\n20\n30",
+          "out": "60"
+        },
+        {
+          "in": "-1\n2\n-3",
+          "out": "-2"
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "tier": {
+        "category": "bronze",
+        "stage": 2
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "괄호 계산",
+      "description": "세 정수 A, B, C를 입력받아 (A+B)*C를 출력하세요.",
+      "input": {
+        "description": "A, B, C가 줄마다 주어집니다.",
+        "content": "1\n2\n3"
+      },
+      "output": {
+        "description": "(A+B)*C",
+        "content": "9"
+      },
+      "cases": [
+        {
+          "in": "1\n2\n3",
+          "out": "9"
+        },
+        {
+          "in": "4\n5\n2",
+          "out": "18"
+        },
+        {
+          "in": "-1\n3\n10",
+          "out": "20"
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "tier": {
+        "category": "bronze",
+        "stage": 2
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "제곱하기",
+      "description": "정수 N을 입력받아 N*N을 출력하세요.",
+      "input": {
+        "description": "정수 N",
+        "content": "3"
+      },
+      "output": {
+        "description": "N의 제곱",
+        "content": "9"
+      },
+      "cases": [
+        {
+          "in": "3",
+          "out": "9"
+        },
+        {
+          "in": "-4",
+          "out": "16"
+        },
+        {
+          "in": "12",
+          "out": "144"
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "tier": {
+        "category": "bronze",
+        "stage": 2
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "곱하고 더하기",
+      "description": "세 정수 A, B, C를 입력받아 A*B+C를 출력하세요.",
+      "input": {
+        "description": "A, B, C가 줄마다 주어집니다.",
+        "content": "2\n3\n4"
+      },
+      "output": {
+        "description": "A*B+C",
+        "content": "10"
+      },
+      "cases": [
+        {
+          "in": "2\n3\n4",
+          "out": "10"
+        },
+        {
+          "in": "5\n6\n7",
+          "out": "37"
+        },
+        {
+          "in": "-2\n8\n1",
+          "out": "-15"
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "tier": {
+        "category": "bronze",
+        "stage": 2
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "분을 초로 바꾸기",
+      "description": "분 단위 값 M을 입력받아 초 단위로 바꿔 출력하세요.",
+      "input": {
+        "description": "분 M",
+        "content": "1"
+      },
+      "output": {
+        "description": "M*60",
+        "content": "60"
+      },
+      "cases": [
+        {
+          "in": "1",
+          "out": "60"
+        },
+        {
+          "in": "5",
+          "out": "300"
+        },
+        {
+          "in": "12",
+          "out": "720"
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "tier": {
+        "category": "bronze",
+        "stage": 2
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "시간을 분으로 바꾸기",
+      "description": "시간 H를 입력받아 분 단위로 바꿔 출력하세요.",
+      "input": {
+        "description": "시간 H",
+        "content": "2"
+      },
+      "output": {
+        "description": "H*60",
+        "content": "120"
+      },
+      "cases": [
+        {
+          "in": "2",
+          "out": "120"
+        },
+        {
+          "in": "7",
+          "out": "420"
+        },
+        {
+          "in": "24",
+          "out": "1440"
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "tier": {
+        "category": "bronze",
+        "stage": 1
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "정사각형 둘레",
+      "description": "한 변의 길이 N을 입력받아 정사각형의 둘레를 출력하세요.",
+      "input": {
+        "description": "한 변의 길이 N",
+        "content": "3"
+      },
+      "output": {
+        "description": "4*N",
+        "content": "12"
+      },
+      "cases": [
+        {
+          "in": "3",
+          "out": "12"
+        },
+        {
+          "in": "10",
+          "out": "40"
+        },
+        {
+          "in": "25",
+          "out": "100"
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "tier": {
+        "category": "bronze",
+        "stage": 1
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "직사각형 넓이",
+      "description": "가로 A와 세로 B를 입력받아 직사각형의 넓이를 출력하세요.",
+      "input": {
+        "description": "A와 B가 줄마다 주어집니다.",
+        "content": "3\n4"
+      },
+      "output": {
+        "description": "A*B",
+        "content": "12"
+      },
+      "cases": [
+        {
+          "in": "3\n4",
+          "out": "12"
+        },
+        {
+          "in": "10\n20",
+          "out": "200"
+        },
+        {
+          "in": "7\n8",
+          "out": "56"
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "tier": {
+        "category": "bronze",
+        "stage": 1
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "세 수의 곱",
+      "description": "세 정수를 입력받아 모두 곱한 값을 출력하세요.",
+      "input": {
+        "description": "정수 세 개가 줄마다 주어집니다.",
+        "content": "2\n3\n4"
+      },
+      "output": {
+        "description": "세 수의 곱",
+        "content": "24"
+      },
+      "cases": [
+        {
+          "in": "2\n3\n4",
+          "out": "24"
+        },
+        {
+          "in": "-1\n5\n6",
+          "out": "-30"
+        },
+        {
+          "in": "7\n0\n9",
+          "out": "0"
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "tier": {
+        "category": "bronze",
+        "stage": 1
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "초를 밀리초로",
+      "description": "초 S를 입력받아 밀리초로 바꿔 출력하세요.",
+      "input": {
+        "description": "초 S",
+        "content": "1"
+      },
+      "output": {
+        "description": "S*1000",
+        "content": "1000"
+      },
+      "cases": [
+        {
+          "in": "1",
+          "out": "1000"
+        },
+        {
+          "in": "15",
+          "out": "15000"
+        },
+        {
+          "in": "60",
+          "out": "60000"
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "tier": {
+        "category": "bronze",
+        "stage": 1
+      },
+      "tags": [
+        "operate"
+      ],
+      "name": "내년 나이",
+      "description": "현재 나이 N을 입력받아 내년 나이를 출력하세요.",
+      "input": {
+        "description": "현재 나이 N",
+        "content": "13"
+      },
+      "output": {
+        "description": "N+1",
+        "content": "14"
+      },
+      "cases": [
+        {
+          "in": "13",
+          "out": "14"
+        },
+        {
+          "in": "99",
+          "out": "100"
+        },
+        {
+          "in": "1",
+          "out": "2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "operate",
+        "inout"
+      ],
+      "name": "구구단",
+      "description": "재민이가 구구단을 까먹어버렸어요! 재민이를 위해 구구단을 출력해주세요.",
+      "output": {
+        "description": "1단부터 9단까지 출력",
+        "content": "1 * 1 = 1\n1 * 2 = 2\n1 * 3 = 3\n...\n1 * 9 = 9\n\n2 * 1 = 1\n2 * 2 = 2\n..."
+      },
+      "cases": [
+        {
+          "out": "1 * 1 = 1\n1 * 2 = 2\n1 * 3 = 3\n1 * 4 = 4\n1 * 5 = 5\n1 * 6 = 6\n1 * 7 = 7\n1 * 8 = 8\n1 * 9 = 9\n\n2 * 1 = 2\n2 * 2 = 4\n2 * 3 = 6\n2 * 4 = 8\n2 * 5 = 10\n2 * 6 = 12\n2 * 7 = 14\n2 * 8 = 16\n2 * 9 = 18\n\n3 * 1 = 3\n3 * 2 = 6\n3 * 3 = 9\n3 * 4 = 12\n3 * 5 = 15\n3 * 6 = 18\n3 * 7 = 21\n3 * 8 = 24\n3 * 9 = 27\n\n4 * 1 = 4\n4 * 2 = 8\n4 * 3 = 12\n4 * 4 = 16\n4 * 5 = 20\n4 * 6 = 24\n4 * 7 = 28\n4 * 8 = 32\n4 * 9 = 36\n\n5 * 1 = 5\n5 * 2 = 10\n5 * 3 = 15\n5 * 4 = 20\n5 * 5 = 25\n5 * 6 = 30\n5 * 7 = 35\n5 * 8 = 40\n5 * 9 = 45\n\n6 * 1 = 6\n6 * 2 = 12\n6 * 3 = 18\n6 * 4 = 24\n6 * 5 = 30\n6 * 6 = 36\n6 * 7 = 42\n6 * 8 = 48\n6 * 9 = 54\n\n7 * 1 = 7\n7 * 2 = 14\n7 * 3 = 21\n7 * 4 = 28\n7 * 5 = 35\n7 * 6 = 42\n7 * 7 = 49\n7 * 8 = 56\n7 * 9 = 63\n\n8 * 1 = 8\n8 * 2 = 16\n8 * 3 = 24\n8 * 4 = 32\n8 * 5 = 40\n8 * 6 = 48\n8 * 7 = 56\n8 * 8 = 64\n8 * 9 = 72\n\n9 * 1 = 9\n9 * 2 = 18\n9 * 3 = 27\n9 * 4 = 36\n9 * 5 = 45\n9 * 6 = 54\n9 * 7 = 63\n9 * 8 = 72\n9 * 9 = 81"
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "implement"
+      ],
+      "name": "1부터 5까지 출력하기",
+      "description": "러스트 반복문을 연습합니다. 1부터 5까지 공백으로 구분해 출력하세요.",
+      "output": {
+        "description": "1부터 5까지",
+        "content": "1 2 3 4 5"
+      },
+      "cases": [
+        {
+          "out": "1 2 3 4 5"
+        }
+      ]
+    },
+    {
+      "id": 49,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "implement"
+      ],
+      "name": "1부터 N까지 출력하기",
+      "description": "정수 N을 입력받아 1부터 N까지 공백으로 구분해 출력하세요.",
+      "input": {
+        "description": "정수 N",
+        "content": "3"
+      },
+      "output": {
+        "description": "1부터 N까지",
+        "content": "1 2 3"
+      },
+      "cases": [
+        {
+          "in": "3",
+          "out": "1 2 3"
+        },
+        {
+          "in": "5",
+          "out": "1 2 3 4 5"
+        },
+        {
+          "in": "7",
+          "out": "1 2 3 4 5 6 7"
+        }
+      ]
+    },
+    {
+      "id": 50,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "implement",
+        "string"
+      ],
+      "name": "N번 안산 출력하기",
+      "description": "정수 N을 입력받아 안산을 N줄 출력하세요.",
+      "input": {
+        "description": "정수 N",
+        "content": "2"
+      },
+      "output": {
+        "description": "안산 N줄",
+        "content": "안산\n안산"
+      },
+      "cases": [
+        {
+          "in": "2",
+          "out": "안산\n안산"
+        },
+        {
+          "in": "4",
+          "out": "안산\n안산\n안산\n안산"
+        }
+      ]
+    },
+    {
+      "id": 51,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "implement",
+        "operate"
+      ],
+      "name": "구구단 2단",
+      "description": "2단 구구단을 1부터 9까지 출력하세요.",
+      "output": {
+        "description": "2단 구구단",
+        "content": "2 * 1 = 2\n2 * 2 = 4\n2 * 3 = 6\n2 * 4 = 8\n2 * 5 = 10\n2 * 6 = 12\n2 * 7 = 14\n2 * 8 = 16\n2 * 9 = 18"
+      },
+      "cases": [
+        {
+          "out": "2 * 1 = 2\n2 * 2 = 4\n2 * 3 = 6\n2 * 4 = 8\n2 * 5 = 10\n2 * 6 = 12\n2 * 7 = 14\n2 * 8 = 16\n2 * 9 = 18"
+        }
+      ]
+    },
+    {
+      "id": 55,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "implement",
+        "string"
+      ],
+      "name": "별 한 줄",
+      "description": "정수 N을 입력받아 별표를 N개 이어서 출력하세요.",
+      "input": {
+        "description": "정수 N",
+        "content": "3"
+      },
+      "output": {
+        "description": "별 N개",
+        "content": "***"
+      },
+      "cases": [
+        {
+          "in": "3",
+          "out": "***"
+        },
+        {
+          "in": "5",
+          "out": "*****"
+        },
+        {
+          "in": "1",
+          "out": "*"
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "implement"
+      ],
+      "name": "카운트다운",
+      "description": "정수 N을 입력받아 N부터 1까지 공백으로 구분해 출력하세요.",
+      "input": {
+        "description": "정수 N",
+        "content": "3"
+      },
+      "output": {
+        "description": "카운트다운",
+        "content": "3 2 1"
+      },
+      "cases": [
+        {
+          "in": "3",
+          "out": "3 2 1"
+        },
+        {
+          "in": "5",
+          "out": "5 4 3 2 1"
+        }
+      ]
+    },
+    {
+      "id": 57,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "implement",
+        "operate"
+      ],
+      "name": "짝수 열 개",
+      "description": "2부터 20까지의 짝수를 공백으로 구분해 출력하세요.",
+      "output": {
+        "description": "짝수 열 개",
+        "content": "2 4 6 8 10 12 14 16 18 20"
+      },
+      "cases": [
+        {
+          "out": "2 4 6 8 10 12 14 16 18 20"
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "array"
+      ],
+      "name": "배열 두 번째 값",
+      "description": "배열 [-1, 5, 2, 6, 1]을 만들고 두 번째 값을 출력하세요. 인덱스는 0부터 시작합니다.",
+      "output": {
+        "description": "두 번째 값",
+        "content": "5"
+      },
+      "cases": [
+        {
+          "out": "5"
+        }
+      ]
+    },
+    {
+      "id": 60,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "array",
+        "operate"
+      ],
+      "name": "배열 첫째와 셋째 더하기",
+      "description": "배열 [-1, 5, 2]의 첫째 값과 셋째 값을 더해 출력하세요.",
+      "output": {
+        "description": "-1+2",
+        "content": "1"
+      },
+      "cases": [
+        {
+          "out": "1"
+        }
+      ]
+    },
+    {
+      "id": 61,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "array"
+      ],
+      "name": "배열 값 수정하기",
+      "description": "배열 [3, 4]를 만든 뒤 첫 번째 값을 -1로 바꾸고 그 값을 출력하세요.",
+      "output": {
+        "description": "수정된 첫 번째 값",
+        "content": "-1"
+      },
+      "cases": [
+        {
+          "out": "-1"
+        }
+      ]
+    },
+    {
+      "id": 64,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "array",
+        "inout"
+      ],
+      "name": "세 입력 중 셋째 출력",
+      "description": "세 줄로 입력된 값을 배열에 담는다고 생각하고 세 번째 값만 출력하세요.",
+      "input": {
+        "description": "값 세 개가 줄마다 주어집니다.",
+        "content": "7\n8\n9"
+      },
+      "output": {
+        "description": "세 번째 값",
+        "content": "9"
+      },
+      "cases": [
+        {
+          "in": "7\n8\n9",
+          "out": "9"
+        },
+        {
+          "in": "A\nB\nC",
+          "out": "C"
+        }
+      ]
+    },
+    {
+      "id": 65,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "array"
+      ],
+      "name": "배열 순서 출력",
+      "description": "배열 [1, 2, 3, 4]의 값을 순서대로 공백으로 구분해 출력하세요.",
+      "output": {
+        "description": "1 2 3 4",
+        "content": "1 2 3 4"
+      },
+      "cases": [
+        {
+          "out": "1 2 3 4"
+        }
+      ]
+    },
+    {
+      "id": 66,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "array"
+      ],
+      "name": "배열 거꾸로 출력",
+      "description": "배열 [1, 2, 3, 4]의 값을 거꾸로 공백으로 구분해 출력하세요.",
+      "output": {
+        "description": "4 3 2 1",
+        "content": "4 3 2 1"
+      },
+      "cases": [
+        {
+          "out": "4 3 2 1"
+        }
+      ]
+    },
+    {
+      "id": 69,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "implement",
+        "string"
+      ],
+      "name": "인사 함수",
+      "description": "입력된 이름 앞에 Hello와 공백 하나를 붙여 출력하세요.",
+      "input": {
+        "description": "이름 한 줄",
+        "content": "재민"
+      },
+      "output": {
+        "description": "Hello 이름",
+        "content": "Hello 재민"
+      },
+      "cases": [
+        {
+          "in": "재민",
+          "out": "Hello 재민"
+        },
+        {
+          "in": "World",
+          "out": "Hello World"
+        }
+      ]
+    },
+    {
+      "id": 52,
+      "tier": {
+        "category": "silver",
+        "stage": 4
+      },
+      "tags": [
+        "implement",
+        "operate"
+      ],
+      "name": "1부터 N까지의 합",
+      "description": "정수 N을 입력받아 1부터 N까지 모두 더한 값을 출력하세요.",
+      "input": {
+        "description": "정수 N",
+        "content": "5"
+      },
+      "output": {
+        "description": "합",
+        "content": "15"
+      },
+      "cases": [
+        {
+          "in": "5",
+          "out": "15"
+        },
+        {
+          "in": "10",
+          "out": "55"
+        },
+        {
+          "in": "1",
+          "out": "1"
+        }
+      ]
+    },
+    {
+      "id": 53,
+      "tier": {
+        "category": "silver",
+        "stage": 4
+      },
+      "tags": [
+        "implement",
+        "operate"
+      ],
+      "name": "팩토리얼",
+      "description": "정수 N을 입력받아 N!을 출력하세요.",
+      "input": {
+        "description": "정수 N",
+        "content": "3"
+      },
+      "output": {
+        "description": "N!",
+        "content": "6"
+      },
+      "cases": [
+        {
+          "in": "3",
+          "out": "6"
+        },
+        {
+          "in": "5",
+          "out": "120"
+        },
+        {
+          "in": "6",
+          "out": "720"
+        }
+      ]
+    },
+    {
+      "id": 54,
+      "tier": {
+        "category": "silver",
+        "stage": 4
+      },
+      "tags": [
+        "implement",
+        "operate"
+      ],
+      "name": "피보나치 N번째",
+      "description": "1, 1, 2, 3, 5...로 시작하는 피보나치 수열의 N번째 값을 출력하세요.",
+      "input": {
+        "description": "정수 N",
+        "content": "1"
+      },
+      "output": {
+        "description": "N번째 피보나치 수",
+        "content": "1"
+      },
+      "cases": [
+        {
+          "in": "1",
+          "out": "1"
+        },
+        {
+          "in": "2",
+          "out": "1"
+        },
+        {
+          "in": "6",
+          "out": "8"
+        },
+        {
+          "in": "8",
+          "out": "21"
+        }
+      ]
+    },
+    {
+      "id": 58,
+      "tier": {
+        "category": "silver",
+        "stage": 4
+      },
+      "tags": [
+        "implement",
+        "operate"
+      ],
+      "name": "N까지의 짝수",
+      "description": "짝수 N을 입력받아 2부터 N까지의 짝수를 공백으로 구분해 출력하세요.",
+      "input": {
+        "description": "짝수 N",
+        "content": "6"
+      },
+      "output": {
+        "description": "2부터 N까지의 짝수",
+        "content": "2 4 6"
+      },
+      "cases": [
+        {
+          "in": "6",
+          "out": "2 4 6"
+        },
+        {
+          "in": "10",
+          "out": "2 4 6 8 10"
+        }
+      ]
+    },
+    {
+      "id": 62,
+      "tier": {
+        "category": "silver",
+        "stage": 4
+      },
+      "tags": [
+        "array"
+      ],
+      "name": "2x3 행렬 값 가져오기",
+      "description": "행렬 [[1, 2, 3], [4, 5, 6]]에서 두 번째 행의 세 번째 값을 출력하세요.",
+      "output": {
+        "description": "행렬 값",
+        "content": "6"
+      },
+      "cases": [
+        {
+          "out": "6"
+        }
+      ]
+    },
+    {
+      "id": 63,
+      "tier": {
+        "category": "silver",
+        "stage": 4
+      },
+      "tags": [
+        "array"
+      ],
+      "name": "행렬 수정 후 출력",
+      "description": "행렬 [[1, 2], [3, 4]]에서 첫 번째 행의 두 번째 값을 99로 바꾸고 출력하세요.",
+      "output": {
+        "description": "수정된 행렬 값",
+        "content": "99"
+      },
+      "cases": [
+        {
+          "out": "99"
+        }
+      ]
+    },
+    {
+      "id": 67,
+      "tier": {
+        "category": "silver",
+        "stage": 4
+      },
+      "tags": [
+        "implement",
+        "operate"
+      ],
+      "name": "더하기 함수 만들기",
+      "description": "엘릭서 함수 문법을 연습합니다. 두 정수를 입력받아 합을 출력하세요.",
+      "input": {
+        "description": "정수 두 개가 줄마다 주어집니다.",
+        "content": "2\n3"
+      },
+      "output": {
+        "description": "두 수의 합",
+        "content": "5"
+      },
+      "cases": [
+        {
+          "in": "2\n3",
+          "out": "5"
+        },
+        {
+          "in": "10\n20",
+          "out": "30"
+        }
+      ]
+    },
+    {
+      "id": 68,
+      "tier": {
+        "category": "silver",
+        "stage": 4
+      },
+      "tags": [
+        "implement",
+        "operate"
+      ],
+      "name": "두 배 함수",
+      "description": "입력된 정수를 두 배로 만드는 함수를 작성한다고 생각하고 결과를 출력하세요.",
+      "input": {
+        "description": "정수 N",
+        "content": "4"
+      },
+      "output": {
+        "description": "2*N",
+        "content": "8"
+      },
+      "cases": [
+        {
+          "in": "4",
+          "out": "8"
+        },
+        {
+          "in": "11",
+          "out": "22"
+        },
+        {
+          "in": "-3",
+          "out": "-6"
+        }
+      ]
+    },
+    {
+      "id": 70,
+      "tier": {
+        "category": "silver",
+        "stage": 4
+      },
+      "tags": [
+        "implement",
+        "operate"
+      ],
+      "name": "정사각형 넓이 함수",
+      "description": "한 변의 길이 N을 입력받아 정사각형의 넓이 N*N을 출력하세요.",
+      "input": {
+        "description": "정수 N",
+        "content": "7"
+      },
+      "output": {
+        "description": "N*N",
+        "content": "49"
+      },
+      "cases": [
+        {
+          "in": "7",
+          "out": "49"
+        },
+        {
+          "in": "12",
+          "out": "144"
+        },
+        {
+          "in": "1",
+          "out": "1"
+        }
+      ]
+    },
+    {
+      "id": 71,
+      "tier": {
+        "category": "god",
+        "stage": 5
+      },
+      "tags": [
+        "implement",
+        "operate"
+      ],
+      "name": "제곱합 구하기",
+      "description": "정수 N을 입력받아 1^2부터 N^2까지 모두 더한 값을 출력하세요.",
+      "input": {
+        "description": "정수 N",
+        "content": "3"
+      },
+      "output": {
+        "description": "1부터 N까지의 제곱합",
+        "content": "14"
+      },
+      "cases": [
+        {
+          "in": "3",
+          "out": "14"
+        },
+        {
+          "in": "5",
+          "out": "55"
+        },
+        {
+          "in": "10",
+          "out": "385"
+        }
+      ]
+    },
+    {
+      "id": 72,
+      "tier": {
+        "category": "god",
+        "stage": 4
+      },
+      "tags": [
+        "implement",
+        "operate"
+      ],
+      "name": "피보나치 수열 출력하기",
+      "description": "정수 N을 입력받아 1, 1로 시작하는 피보나치 수열을 N개 출력하세요. 값은 공백으로 구분합니다.",
+      "input": {
+        "description": "정수 N",
+        "content": "5"
+      },
+      "output": {
+        "description": "피보나치 수열 N개",
+        "content": "1 1 2 3 5"
+      },
+      "cases": [
+        {
+          "in": "5",
+          "out": "1 1 2 3 5"
+        },
+        {
+          "in": "8",
+          "out": "1 1 2 3 5 8 13 21"
+        }
+      ]
+    },
+    {
+      "id": 73,
+      "tier": {
+        "category": "god",
+        "stage": 3
+      },
+      "tags": [
+        "implement",
+        "operate"
+      ],
+      "name": "N단 구구단",
+      "description": "정수 N을 입력받아 N단 구구단을 1부터 9까지 출력하세요.",
+      "input": {
+        "description": "정수 N",
+        "content": "3"
+      },
+      "output": {
+        "description": "N단 구구단",
+        "content": "3 * 1 = 3\n3 * 2 = 6\n3 * 3 = 9\n3 * 4 = 12\n3 * 5 = 15\n3 * 6 = 18\n3 * 7 = 21\n3 * 8 = 24\n3 * 9 = 27"
+      },
+      "cases": [
+        {
+          "in": "3",
+          "out": "3 * 1 = 3\n3 * 2 = 6\n3 * 3 = 9\n3 * 4 = 12\n3 * 5 = 15\n3 * 6 = 18\n3 * 7 = 21\n3 * 8 = 24\n3 * 9 = 27"
+        },
+        {
+          "in": "7",
+          "out": "7 * 1 = 7\n7 * 2 = 14\n7 * 3 = 21\n7 * 4 = 28\n7 * 5 = 35\n7 * 6 = 42\n7 * 7 = 49\n7 * 8 = 56\n7 * 9 = 63"
+        }
+      ]
+    },
+    {
+      "id": 74,
+      "tier": {
+        "category": "god",
+        "stage": 2
+      },
+      "tags": [
+        "array",
+        "operate"
+      ],
+      "name": "3x3 행렬 대각선 합",
+      "description": "아홉 개의 정수가 줄마다 주어집니다. 3x3 행렬의 주대각선 합을 출력하세요.",
+      "input": {
+        "description": "3x3 행렬 값 9개가 줄마다 주어집니다.",
+        "content": "1\n2\n3\n4\n5\n6\n7\n8\n9"
+      },
+      "output": {
+        "description": "주대각선의 합",
+        "content": "15"
+      },
+      "cases": [
+        {
+          "in": "1\n2\n3\n4\n5\n6\n7\n8\n9",
+          "out": "15"
+        },
+        {
+          "in": "9\n1\n2\n3\n8\n4\n5\n6\n7",
+          "out": "24"
+        }
+      ]
+    },
+    {
+      "id": 75,
+      "tier": {
+        "category": "god",
+        "stage": 1
+      },
+      "tags": [
+        "implement",
+        "operate"
+      ],
+      "name": "피보나치 25개 고정 출력",
+      "description": "README의 피보나치 예제를 참고해 피보나치 수열 25개를 공백으로 구분해 출력하세요.",
+      "output": {
+        "description": "피보나치 수열 25개",
+        "content": "1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181 6765 10946 17711 28657 46368 75025"
+      },
+      "cases": [
+        {
+          "out": "1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597 2584 4181 6765 10946 17711 28657 46368 75025"
+        }
+      ]
+    }
+  ]
+}

@@ -9,6 +9,7 @@ declare global {
         "/api/auth/logout": AuthLogoutResponse;
         "/api/me": AuthMeResponse;
         "/api/problems": APIProblem[];
+        "/api/ranking": Omit<APIUser, "problems" | "stat">[];
     };
 
     type RESTDynamicPath =
@@ -100,8 +101,11 @@ declare global {
     }
 
     type Database = {
-        "problems": DBProblem[],
         "users": DBUser[]
+    };
+
+    type ProblemsDatabase = {
+        "problems": DBProblem[],
     };
     //#endregion
 }
