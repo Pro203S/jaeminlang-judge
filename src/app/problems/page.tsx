@@ -5,17 +5,27 @@ import css from './page.module.css';
 import { useEffect, useRef, useState } from "react";
 import REST from "@/modules/rest";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faSearch } from "@fortawesome/free-solid-svg-icons";
 import Button from "@/components/button";
 import Dropdown from "@/components/dropdown";
+import { animated, easings, useSpringValue } from "@react-spring/web";
+
+const AnimatedFA = animated(FontAwesomeIcon);
 
 export default function Page() {
     const [user, setUser] = useState<APIUser>();
     const searchBox = useRef<HTMLInputElement>(null);
     const searchButton = useRef<HTMLButtonElement>(null);
-    
+
     const [tagDropdownOpen, setTagDropdownOpen] = useState(false);
     const [selectedTag, setSelectedTag] = useState("태그");
+
+    const tagArrowRotation = useSpringValue(0, {
+        "config": {
+            "duration": 250,
+            "easing": easings.easeOutCubic
+        }
+    });
 
     useEffect(() => {
         (async () => {
@@ -26,6 +36,7 @@ export default function Page() {
         })();
     }, []);
 
+    useEffect(() => { tagArrowRotation.start(tagDropdownOpen ? -180 : 0) }, [tagDropdownOpen]);
 
     return <>
         <Header sessionOverride={user} doNotRequest />
@@ -88,6 +99,7 @@ export default function Page() {
                         ]}
                     >
                         <span>{selectedTag}</span>
+                        <AnimatedFA icon={faChevronDown} style={{ "transform": tagArrowRotation.to(v => `rotate(${v}deg)`) }} />
                     </Dropdown>
                 </div>
             </div>
