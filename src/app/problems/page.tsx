@@ -5,7 +5,7 @@ import css from './page.module.css';
 import { useEffect, useRef, useState } from "react";
 import REST from "@/modules/rest";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faChevronDown, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import Dropdown, { DropdownItem } from "@/components/dropdown";
 import { animated, easings, useSpringValue } from "@react-spring/web";
 import { AVAILABLE_TAGS, TAG_TO_STRING } from "@/modules/constants";
@@ -44,16 +44,16 @@ export default function Page() {
 
     useEffect(() => {
         (async () => {
-            const r = await REST("/api/me");
-            if (!r.success) return;
-
-            setUser(r.data);
-
             const r2 = await REST("/api/problems");
             if (!r2.success) return;
 
             problems.current = r2.data;
             setFiltered(r2.data);
+
+            const r = await REST("/api/me");
+            if (!r.success) return;
+
+            setUser(r.data);
         })();
     }, []);
 
@@ -134,7 +134,7 @@ export default function Page() {
                 {filtered.length > 0 ?
                     filtered
                         .map(v => <Link className={css.problem} key={v.id} href={`/problems/${v.id}`}>
-                            <TierBadge tier={v.tier} className={css.tier} />
+                            {user ? (user.problems.map(v => v.id).includes(v.id) ? <FontAwesomeIcon icon={faCheck} className={css.solved} /> : <TierBadge tier={v.tier} className={css.tier} />) : <TierBadge tier={v.tier} className={css.tier} />}
                             <div className={css.texts}>
                                 <span className={css.title}>{v.name}</span>
                                 <span className={css.tags}>태그: {v.tags.map(TAG_TO_STRING).join(", ")}</span>

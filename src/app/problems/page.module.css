@@ -5,7 +5,7 @@
     max-width: 1024px;
     padding: 15px;
     margin: 0 auto;
-    height: calc(100dvh - 95px);
+    min-height: calc(100dvh - 95px);
     overflow: visible;
 }
 
@@ -120,4 +120,10 @@
     color: #fff;
     margin: auto 0;
     font-weight: 600;
+}
+
+.problem .solved {
+    font-size: 32px;
+    color: #75ff5a;
+    margin: auto 0;
 }
