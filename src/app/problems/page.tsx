@@ -73,29 +73,7 @@ export default function Page() {
                         setOpen={setTagDropdownOpen}
                         label="문제 태그 선택"
                         items={[
-                            {
-                                "type": "button",
-                                "label": "전체 보기",
-                                "onClick": () => setSelectedTag("전체 보기")
-                            },
-                            {
-                                "type": "line"
-                            },
-                            {
-                                "type": "button",
-                                "label": "구현",
-                                "onClick": () => setSelectedTag("구현")
-                            },
-                            {
-                                "type": "button",
-                                "label": "수학",
-                                "onClick": () => setSelectedTag("수학")
-                            },
-                            {
-                                "type": "button",
-                                "label": "문자열",
-                                "onClick": () => setSelectedTag("문자열")
-                            }
+                            
                         ]}
                     >
                         <span>{selectedTag}</span>
