@@ -31,6 +31,12 @@ export default function InOutAnimation(props: Props) {
         let isCancelled = false;
 
         const runAnimation = async () => {
+            if (animate) {
+                setPointerEvents("auto");
+            } else {
+                setPointerEvents("none");
+            }
+
             const animationDelay = delay ?? 0;
 
             if (animationDelay > 0) {
@@ -45,11 +51,6 @@ export default function InOutAnimation(props: Props) {
             ]);
 
             if (!isCancelled) {
-                if (animate) {
-                    setPointerEvents("auto");
-                } else {
-                    setPointerEvents("none");
-                }
                 onAnimateEnd?.();
             }
         };
