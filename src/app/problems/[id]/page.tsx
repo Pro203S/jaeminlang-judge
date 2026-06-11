@@ -16,7 +16,15 @@ export default function Page() {
     const [user, setUser] = useState<APIUser>();
     const [problem, setProblem] = useState<APIProblem>();
     const [code, setCode] = useState("");
+    const [submitResult, setSubmitResult] = useState<APISubmitResponse>();
     const lineNumbers = Array.from({ "length": code.split("\n").length }, (_, index) => index + 1);
+    const submitOutput = submitResult
+        ? submitResult.outputs.length > 1
+            ? submitResult.outputs
+                .map((output, index) => `케이스 ${index + 1}\n${output || "출력 없음"}`)
+                .join("\n\n")
+            : submitResult.output || "출력 없음"
+        : "";
 
     useEffect(() => {
         (async () => {
@@ -105,6 +113,16 @@ export default function Page() {
                         />
                     </div>
                 </div>
+                {submitResult && <div className={css.section}>
+                    <span className={css.title}>실행 결과</span>
+                    <span className={css.subtitle}>
+                        {submitResult.correct ? "정답" : "오답"} ({submitResult.passed}/{submitResult.total})
+                    </span>
+                    <pre className={css.outputBox}>
+                        {submitOutput}
+                    </pre>
+                </div>}
+
                 <div className={css.section}>
                     <div className={css.buttons}>
                         <Button
@@ -131,7 +149,7 @@ export default function Page() {
                                     return;
                                 }
 
-                                alert(result.data.correct ? "정답입니다!" : "오답입니다.");
+                                setSubmitResult(result.data);
                             }}
                         >
                             <span>제출하기</span>

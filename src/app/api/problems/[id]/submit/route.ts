@@ -64,6 +64,7 @@ export async function POST(req: NextRequest, { params }: Params) {
         await writeFile(path.join(tempDir, fileName), parsed.data.code, "utf8");
 
         let passed = 0;
+        const outputs: string[] = [];
 
         for (const testCase of problem.cases) {
             const result = await runJaeminlang(
@@ -72,6 +73,7 @@ export async function POST(req: NextRequest, { params }: Params) {
                 fileName,
                 testCase.in ?? "",
             );
+            outputs.push(result.stdout);
 
             if (
                 result.timedOut ||
@@ -114,7 +116,9 @@ export async function POST(req: NextRequest, { params }: Params) {
         const payload: APISubmitResponse = {
             correct,
             passed,
-            "total": problem.cases.length
+            "total": problem.cases.length,
+            "output": outputs.at(-1) ?? "",
+            outputs
         };
 
         return attachSessionCookies(NextResponse.json(payload), session);

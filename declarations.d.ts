@@ -27,7 +27,9 @@ declare global {
     type APISubmitResponse = {
         "correct": boolean,
         "passed": number,
-        "total": number
+        "total": number,
+        "output": string,
+        "outputs": string[]
     };
 
     type APIUser = {

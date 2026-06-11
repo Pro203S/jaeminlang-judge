@@ -13,6 +13,7 @@ import { AVAILABLE_TIERS, TierToString } from "@/modules/tier";
 import TierBadge from "@/components/tierbadge";
 import Link from "next/link";
 import InOutAnimation from "@/components/InOutAnimation";
+import Button from "@/components/button";
 
 const AnimatedFA = animated(FontAwesomeIcon);
 
@@ -128,6 +129,9 @@ export default function Page() {
                         <span>{selectedTier ? TierToString(selectedTier) : "난이도 선택"}</span>
                         <AnimatedFA icon={faChevronDown} style={{ "transform": tierArrowRotation.to(v => `rotate(${v}deg)`) }} />
                     </Dropdown>
+                    <Button containerStyle={{ "marginLeft": "auto" }} href="/problems/make">
+                        <span style={{ "margin": "auto 0" }}>만들기</span>
+                    </Button>
                 </div>
             </div>
             <div className={css.problems}>
