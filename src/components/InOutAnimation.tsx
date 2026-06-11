@@ -1,15 +1,14 @@
 import { animated, easings, useSpringValue } from "@react-spring/web";
-import React, { useEffect } from "react"
+import React, { DetailedHTMLProps, HTMLAttributes, useEffect } from "react"
+
+type DivProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 type Props = {
     animate: boolean,
-    children: React.ReactNode;
-    className?: string;
     delay?: number;
 
     onAnimateEnd?: () => any;
-    onClick?: () => any;
-}
+} & Omit<DivProps, "animate">;
 
 export default function InOutAnimation(props: Props) {
     const { animate, children, className, delay, onAnimateEnd, onClick } = props;
@@ -58,7 +57,11 @@ export default function InOutAnimation(props: Props) {
         };
     }, [animate, delay, onAnimateEnd, opacity, translateY]);
 
-    return <animated.div className={className} style={{
+    return <animated.div {...{
+        ...props,
+        animate: undefined,
+        delay: undefined
+    }} className={className} style={{
         opacity,
         "transform": translateY.to(v => `translateY(${v}px)`)
     }} onClick={onClick}>

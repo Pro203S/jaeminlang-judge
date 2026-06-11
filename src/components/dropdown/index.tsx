@@ -13,6 +13,7 @@ import {
     useRef
 } from "react";
 import css from "./style.module.css";
+import InOutAnimation from "../InOutAnimation";
 
 type DropdownItemBase = {
     "label"?: ReactNode;
@@ -125,7 +126,8 @@ export default function Dropdown(props: Props) {
         >
             {children}
         </button>
-        {open ? <div
+        <InOutAnimation
+            animate={open}
             id={menuId}
             role="menu"
             className={`${css.dropdown} ${menuClassName ?? ""}`.trim()}
@@ -170,6 +172,6 @@ export default function Dropdown(props: Props) {
                     {item.label}
                 </button>;
             })}
-        </div> : null}
+        </InOutAnimation>
     </div>;
 }
