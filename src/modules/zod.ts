@@ -36,3 +36,7 @@ export const PATCHApiProblemsId = z.object({
     "output": z.optional(ZodIO),
     "cases": z.optional(z.array(ZodCase))
 });
+
+export const POSTApiProblemsIdSubmit = z.object({
+    "code": z.string()
+});

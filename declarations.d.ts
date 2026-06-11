@@ -9,7 +9,25 @@ declare global {
         "/api/auth/logout": AuthLogoutResponse;
         "/api/me": AuthMeResponse;
         "/api/problems": APIProblem[];
-        [key: `/api/problems/${string}`]: APIProblem;
+    };
+
+    type RESTDynamicPath =
+        | `/api/problems/${string}`
+        | `/api/problems/${string}/submit`;
+
+    type RESTResponse<Path extends string> =
+        Path extends `/api/problems/${string}/submit`
+            ? APISubmitResponse
+            : Path extends `/api/problems/${string}`
+                ? APIProblem
+                : Path extends keyof RESTResponseMap
+                    ? RESTResponseMap[Path]
+                    : never;
+
+    type APISubmitResponse = {
+        "correct": boolean,
+        "passed": number,
+        "total": number
     };
 
     type APIUser = {

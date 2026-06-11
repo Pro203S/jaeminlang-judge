@@ -46,3 +46,4 @@ bun.lock
 database.json
 
 jaeminlang/
+temp/

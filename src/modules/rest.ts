@@ -20,10 +20,10 @@ export type RestResult<T> =
         data: APIErrorResponse;
     };
 
-export default function REST<Path extends keyof RESTResponseMap>(
+export default function REST<Path extends keyof RESTResponseMap | RESTDynamicPath>(
     url: Path,
     config?: AxiosRequestConfig,
-): Promise<RestResult<RESTResponseMap[Path]>>;
+): Promise<RestResult<RESTResponse<Path & string>>>;
 export default function REST<T>(
     url: string,
     config?: AxiosRequestConfig,

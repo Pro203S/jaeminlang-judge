@@ -18,6 +18,8 @@ export default function Header(props: Props) {
     const accountMenuRef = useRef<HTMLDivElement>(null);
     const { width } = useWindowDimensions();
 
+    useEffect(() => setUser(props.sessionOverride), [props.sessionOverride]);
+
     useEffect(() => {
         (async () => {
             if (props.sessionOverride || props.doNotRequest) return;

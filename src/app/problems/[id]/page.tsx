@@ -121,7 +121,17 @@ export default function Page() {
                                     return;
                                 }
 
+                                const result = await REST(`/api/problems/${id}/submit`, {
+                                    "method": "POST",
+                                    "data": { code }
+                                });
 
+                                if (!result.success) {
+                                    alert(result.data.message);
+                                    return;
+                                }
+
+                                alert(result.data.correct ? "정답입니다!" : "오답입니다.");
                             }}
                         >
                             <span>제출하기</span>
