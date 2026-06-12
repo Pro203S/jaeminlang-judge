@@ -34,9 +34,7 @@ export default function Page() {
     useEffect(() => {
         (async () => {
             const r = await REST("/api/me");
-            if (!r.success) return router.back();
-
-            setUser(r.data);
+            if (r.success) setUser(r.data);
 
             const r2 = await REST(`/api/problems/${id}`);
             if (!r2.success) {
