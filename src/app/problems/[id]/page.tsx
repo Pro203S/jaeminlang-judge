@@ -86,7 +86,7 @@ export default function Page() {
                         <TierBadge tier={problem.tier} />
                         <span className={css.title}>{problem.name}</span>
                     </div>
-                    <span className={css.desc}>{problem.description}</span>
+                    {problem.description.split("\n").map((v, i) => <span className={css.desc} key={i}>{v}</span>)}
                 </div>
                 <div className={css.linearV}>
                     {problem.input && <div className={css.section}>
