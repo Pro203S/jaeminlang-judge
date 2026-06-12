@@ -11,6 +11,7 @@ import Button from "@/components/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/loading";
+import { TierToScore } from "@/modules/tier";
 
 const CONFETTI_PIECES = Array.from({ "length": 28 }, (_, index) => index);
 
@@ -87,6 +88,7 @@ export default function Page() {
                         <span className={css.title}>{problem.name}</span>
                     </div>
                     {problem.description.split("\n").map((v, i) => <span className={css.desc} key={i}>{v}</span>)}
+                    <span className={css.desc} style={{ "marginTop": "15px" }}>이 문제를 풀면 {TierToScore(problem.tier)}점을 얻어요.</span>
                 </div>
                 <div className={css.linearV}>
                     {problem.input && <div className={css.section}>
