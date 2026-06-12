@@ -22,7 +22,7 @@ const TIER_COLOR_MAP = {
         "fg": "#000"
     },
     "platinum": {
-        "bg": "#a7a7a7",
+        "bg": "linear-gradient(242deg, #757575, #ffffff)",
         "fg": "#000"
     },
     "diamond": {
