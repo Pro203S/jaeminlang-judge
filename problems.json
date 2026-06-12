@@ -2069,30 +2069,31 @@
         "stage": 3
       },
       "tags": [
-        "operate"
+        "operate",
+        "implement"
       ],
-      "name": "선형 변환 문제 6",
-      "description": "정수 N이 주어질 때, 7*N + 18 값을 출력하세요.",
+      "name": "홀수 누적 보고서 1",
+      "description": "정수 N이 주어질 때, 0을 더한 홀수 수열의 항과 그때까지의 누적합을 각 줄에 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "7*N + 18",
-        "content": "53"
+        "description": "번호, 항, 누적합",
+        "content": "1 1 1\n2 3 4\n3 5 9\n4 7 16\n5 9 25"
       },
       "cases": [
         {
           "in": "5",
-          "out": "53"
+          "out": "1 1 1\n2 3 4\n3 5 9\n4 7 16\n5 9 25"
         },
         {
           "in": "1",
-          "out": "25"
+          "out": "1 1 1"
         },
         {
-          "in": "9",
-          "out": "81"
+          "in": "8",
+          "out": "1 1 1\n2 3 4\n3 5 9\n4 7 16\n5 9 25\n6 11 36\n7 13 49\n8 15 64"
         }
       ]
     },
@@ -2103,30 +2104,31 @@
         "stage": 3
       },
       "tags": [
-        "operate"
+        "operate",
+        "implement"
       ],
-      "name": "선형 변환 문제 7",
-      "description": "정수 N이 주어질 때, 8*N + 21 값을 출력하세요.",
+      "name": "홀수 누적 보고서 2",
+      "description": "정수 N이 주어질 때, 1을 더한 홀수 수열의 항과 그때까지의 누적합을 각 줄에 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "8*N + 21",
-        "content": "61"
+        "description": "번호, 항, 누적합",
+        "content": "1 2 2\n2 4 6\n3 6 12\n4 8 20\n5 10 30"
       },
       "cases": [
         {
           "in": "5",
-          "out": "61"
+          "out": "1 2 2\n2 4 6\n3 6 12\n4 8 20\n5 10 30"
         },
         {
           "in": "1",
-          "out": "29"
+          "out": "1 2 2"
         },
         {
-          "in": "9",
-          "out": "93"
+          "in": "8",
+          "out": "1 2 2\n2 4 6\n3 6 12\n4 8 20\n5 10 30\n6 12 42\n7 14 56\n8 16 72"
         }
       ]
     },
@@ -2137,30 +2139,31 @@
         "stage": 3
       },
       "tags": [
-        "operate"
+        "operate",
+        "implement"
       ],
-      "name": "선형 변환 문제 8",
-      "description": "정수 N이 주어질 때, 9*N + 24 값을 출력하세요.",
+      "name": "홀수 누적 보고서 3",
+      "description": "정수 N이 주어질 때, 2을 더한 홀수 수열의 항과 그때까지의 누적합을 각 줄에 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "9*N + 24",
-        "content": "69"
+        "description": "번호, 항, 누적합",
+        "content": "1 3 3\n2 5 8\n3 7 15\n4 9 24\n5 11 35"
       },
       "cases": [
         {
           "in": "5",
-          "out": "69"
+          "out": "1 3 3\n2 5 8\n3 7 15\n4 9 24\n5 11 35"
         },
         {
           "in": "1",
-          "out": "33"
+          "out": "1 3 3"
         },
         {
-          "in": "9",
-          "out": "105"
+          "in": "8",
+          "out": "1 3 3\n2 5 8\n3 7 15\n4 9 24\n5 11 35\n6 13 48\n7 15 63\n8 17 80"
         }
       ]
     },
@@ -2171,30 +2174,31 @@
         "stage": 3
       },
       "tags": [
-        "operate"
+        "operate",
+        "implement"
       ],
-      "name": "선형 변환 문제 9",
-      "description": "정수 N이 주어질 때, 10*N + 27 값을 출력하세요.",
+      "name": "홀수 누적 보고서 4",
+      "description": "정수 N이 주어질 때, 3을 더한 홀수 수열의 항과 그때까지의 누적합을 각 줄에 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "10*N + 27",
-        "content": "77"
+        "description": "번호, 항, 누적합",
+        "content": "1 4 4\n2 6 10\n3 8 18\n4 10 28\n5 12 40"
       },
       "cases": [
         {
           "in": "5",
-          "out": "77"
+          "out": "1 4 4\n2 6 10\n3 8 18\n4 10 28\n5 12 40"
         },
         {
           "in": "1",
-          "out": "37"
+          "out": "1 4 4"
         },
         {
-          "in": "9",
-          "out": "117"
+          "in": "8",
+          "out": "1 4 4\n2 6 10\n3 8 18\n4 10 28\n5 12 40\n6 14 54\n7 16 70\n8 18 88"
         }
       ]
     },
@@ -2205,30 +2209,31 @@
         "stage": 3
       },
       "tags": [
-        "operate"
+        "operate",
+        "implement"
       ],
-      "name": "선형 변환 문제 10",
-      "description": "정수 N이 주어질 때, 11*N + 30 값을 출력하세요.",
+      "name": "홀수 누적 보고서 5",
+      "description": "정수 N이 주어질 때, 4을 더한 홀수 수열의 항과 그때까지의 누적합을 각 줄에 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "11*N + 30",
-        "content": "85"
+        "description": "번호, 항, 누적합",
+        "content": "1 5 5\n2 7 12\n3 9 21\n4 11 32\n5 13 45"
       },
       "cases": [
         {
           "in": "5",
-          "out": "85"
+          "out": "1 5 5\n2 7 12\n3 9 21\n4 11 32\n5 13 45"
         },
         {
           "in": "1",
-          "out": "41"
+          "out": "1 5 5"
         },
         {
-          "in": "9",
-          "out": "129"
+          "in": "8",
+          "out": "1 5 5\n2 7 12\n3 9 21\n4 11 32\n5 13 45\n6 15 60\n7 17 77\n8 19 96"
         }
       ]
     },
@@ -2409,30 +2414,31 @@
         "stage": 1
       },
       "tags": [
-        "operate"
+        "operate",
+        "implement"
       ],
-      "name": "이차식 계산 문제 6",
-      "description": "정수 N이 주어질 때, 1*N^2 + 7*N + 12 값을 출력하세요.",
+      "name": "짝수 누적 보고서 1",
+      "description": "정수 N이 주어질 때, 1을 더한 짝수 수열의 항과 누적합을 각 줄에 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "1*N^2 + 7*N + 12",
-        "content": "72"
+        "description": "번호, 항, 누적합",
+        "content": "1 3 3\n2 5 8\n3 7 15\n4 9 24\n5 11 35"
       },
       "cases": [
         {
           "in": "5",
-          "out": "72"
+          "out": "1 3 3\n2 5 8\n3 7 15\n4 9 24\n5 11 35"
         },
         {
           "in": "1",
-          "out": "20"
+          "out": "1 3 3"
         },
         {
-          "in": "9",
-          "out": "156"
+          "in": "8",
+          "out": "1 3 3\n2 5 8\n3 7 15\n4 9 24\n5 11 35\n6 13 48\n7 15 63\n8 17 80"
         }
       ]
     },
@@ -2443,30 +2449,31 @@
         "stage": 1
       },
       "tags": [
-        "operate"
+        "operate",
+        "implement"
       ],
-      "name": "이차식 계산 문제 7",
-      "description": "정수 N이 주어질 때, 2*N^2 + 8*N + 14 값을 출력하세요.",
+      "name": "짝수 누적 보고서 2",
+      "description": "정수 N이 주어질 때, 2을 더한 짝수 수열의 항과 누적합을 각 줄에 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "2*N^2 + 8*N + 14",
-        "content": "104"
+        "description": "번호, 항, 누적합",
+        "content": "1 4 4\n2 6 10\n3 8 18\n4 10 28\n5 12 40"
       },
       "cases": [
         {
           "in": "5",
-          "out": "104"
+          "out": "1 4 4\n2 6 10\n3 8 18\n4 10 28\n5 12 40"
         },
         {
           "in": "1",
-          "out": "24"
+          "out": "1 4 4"
         },
         {
-          "in": "9",
-          "out": "248"
+          "in": "8",
+          "out": "1 4 4\n2 6 10\n3 8 18\n4 10 28\n5 12 40\n6 14 54\n7 16 70\n8 18 88"
         }
       ]
     },
@@ -2477,30 +2484,31 @@
         "stage": 1
       },
       "tags": [
-        "operate"
+        "operate",
+        "implement"
       ],
-      "name": "이차식 계산 문제 8",
-      "description": "정수 N이 주어질 때, 3*N^2 + 9*N + 16 값을 출력하세요.",
+      "name": "짝수 누적 보고서 3",
+      "description": "정수 N이 주어질 때, 3을 더한 짝수 수열의 항과 누적합을 각 줄에 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "3*N^2 + 9*N + 16",
-        "content": "136"
+        "description": "번호, 항, 누적합",
+        "content": "1 5 5\n2 7 12\n3 9 21\n4 11 32\n5 13 45"
       },
       "cases": [
         {
           "in": "5",
-          "out": "136"
+          "out": "1 5 5\n2 7 12\n3 9 21\n4 11 32\n5 13 45"
         },
         {
           "in": "1",
-          "out": "28"
+          "out": "1 5 5"
         },
         {
-          "in": "9",
-          "out": "340"
+          "in": "8",
+          "out": "1 5 5\n2 7 12\n3 9 21\n4 11 32\n5 13 45\n6 15 60\n7 17 77\n8 19 96"
         }
       ]
     },
@@ -2511,30 +2519,31 @@
         "stage": 1
       },
       "tags": [
-        "operate"
+        "operate",
+        "implement"
       ],
-      "name": "이차식 계산 문제 9",
-      "description": "정수 N이 주어질 때, 1*N^2 + 10*N + 18 값을 출력하세요.",
+      "name": "짝수 누적 보고서 4",
+      "description": "정수 N이 주어질 때, 4을 더한 짝수 수열의 항과 누적합을 각 줄에 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "1*N^2 + 10*N + 18",
-        "content": "93"
+        "description": "번호, 항, 누적합",
+        "content": "1 6 6\n2 8 14\n3 10 24\n4 12 36\n5 14 50"
       },
       "cases": [
         {
           "in": "5",
-          "out": "93"
+          "out": "1 6 6\n2 8 14\n3 10 24\n4 12 36\n5 14 50"
         },
         {
           "in": "1",
-          "out": "29"
+          "out": "1 6 6"
         },
         {
-          "in": "9",
-          "out": "189"
+          "in": "8",
+          "out": "1 6 6\n2 8 14\n3 10 24\n4 12 36\n5 14 50\n6 16 66\n7 18 84\n8 20 104"
         }
       ]
     },
@@ -2545,30 +2554,31 @@
         "stage": 1
       },
       "tags": [
-        "operate"
+        "operate",
+        "implement"
       ],
-      "name": "이차식 계산 문제 10",
-      "description": "정수 N이 주어질 때, 2*N^2 + 11*N + 20 값을 출력하세요.",
+      "name": "짝수 누적 보고서 5",
+      "description": "정수 N이 주어질 때, 5을 더한 짝수 수열의 항과 누적합을 각 줄에 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "2*N^2 + 11*N + 20",
-        "content": "125"
+        "description": "번호, 항, 누적합",
+        "content": "1 7 7\n2 9 16\n3 11 27\n4 13 40\n5 15 55"
       },
       "cases": [
         {
           "in": "5",
-          "out": "125"
+          "out": "1 7 7\n2 9 16\n3 11 27\n4 13 40\n5 15 55"
         },
         {
           "in": "1",
-          "out": "33"
+          "out": "1 7 7"
         },
         {
-          "in": "9",
-          "out": "281"
+          "in": "8",
+          "out": "1 7 7\n2 9 16\n3 11 27\n4 13 40\n5 15 55\n6 17 72\n7 19 91\n8 21 112"
         }
       ]
     },
@@ -2757,28 +2767,28 @@
         "operate",
         "implement"
       ],
-      "name": "제곱 행 보고서 6",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 각 줄에 i와 3*i^2 + 6 값을 출력하세요.",
+      "name": "배수 누적표 1",
+      "description": "정수 N이 주어질 때, 3의 1배부터 N배까지와 그 누적합을 각 줄에 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "4"
+        "content": "5"
       },
       "output": {
-        "description": "i와 계산값",
-        "content": "1 9\n2 18\n3 33\n4 54"
+        "description": "배수와 누적합",
+        "content": "3 3\n6 9\n9 18\n12 30\n15 45"
       },
       "cases": [
         {
-          "in": "4",
-          "out": "1 9\n2 18\n3 33\n4 54"
+          "in": "5",
+          "out": "3 3\n6 9\n9 18\n12 30\n15 45"
         },
         {
           "in": "1",
-          "out": "1 9"
+          "out": "3 3"
         },
         {
-          "in": "7",
-          "out": "1 9\n2 18\n3 33\n4 54\n5 81\n6 114\n7 153"
+          "in": "8",
+          "out": "3 3\n6 9\n9 18\n12 30\n15 45\n18 63\n21 84\n24 108"
         }
       ]
     },
@@ -2792,28 +2802,28 @@
         "operate",
         "implement"
       ],
-      "name": "제곱 행 보고서 7",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 각 줄에 i와 4*i^2 + 7 값을 출력하세요.",
+      "name": "배수 누적표 2",
+      "description": "정수 N이 주어질 때, 4의 1배부터 N배까지와 그 누적합을 각 줄에 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "4"
+        "content": "5"
       },
       "output": {
-        "description": "i와 계산값",
-        "content": "1 11\n2 23\n3 43\n4 71"
+        "description": "배수와 누적합",
+        "content": "4 4\n8 12\n12 24\n16 40\n20 60"
       },
       "cases": [
         {
-          "in": "4",
-          "out": "1 11\n2 23\n3 43\n4 71"
+          "in": "5",
+          "out": "4 4\n8 12\n12 24\n16 40\n20 60"
         },
         {
           "in": "1",
-          "out": "1 11"
+          "out": "4 4"
         },
         {
-          "in": "7",
-          "out": "1 11\n2 23\n3 43\n4 71\n5 107\n6 151\n7 203"
+          "in": "8",
+          "out": "4 4\n8 12\n12 24\n16 40\n20 60\n24 84\n28 112\n32 144"
         }
       ]
     },
@@ -2827,28 +2837,28 @@
         "operate",
         "implement"
       ],
-      "name": "제곱 행 보고서 8",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 각 줄에 i와 1*i^2 + 8 값을 출력하세요.",
+      "name": "배수 누적표 3",
+      "description": "정수 N이 주어질 때, 5의 1배부터 N배까지와 그 누적합을 각 줄에 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "4"
+        "content": "5"
       },
       "output": {
-        "description": "i와 계산값",
-        "content": "1 9\n2 12\n3 17\n4 24"
+        "description": "배수와 누적합",
+        "content": "5 5\n10 15\n15 30\n20 50\n25 75"
       },
       "cases": [
         {
-          "in": "4",
-          "out": "1 9\n2 12\n3 17\n4 24"
+          "in": "5",
+          "out": "5 5\n10 15\n15 30\n20 50\n25 75"
         },
         {
           "in": "1",
-          "out": "1 9"
+          "out": "5 5"
         },
         {
-          "in": "7",
-          "out": "1 9\n2 12\n3 17\n4 24\n5 33\n6 44\n7 57"
+          "in": "8",
+          "out": "5 5\n10 15\n15 30\n20 50\n25 75\n30 105\n35 140\n40 180"
         }
       ]
     },
@@ -2862,28 +2872,28 @@
         "operate",
         "implement"
       ],
-      "name": "제곱 행 보고서 9",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 각 줄에 i와 2*i^2 + 9 값을 출력하세요.",
+      "name": "배수 누적표 4",
+      "description": "정수 N이 주어질 때, 6의 1배부터 N배까지와 그 누적합을 각 줄에 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "4"
+        "content": "5"
       },
       "output": {
-        "description": "i와 계산값",
-        "content": "1 11\n2 17\n3 27\n4 41"
+        "description": "배수와 누적합",
+        "content": "6 6\n12 18\n18 36\n24 60\n30 90"
       },
       "cases": [
         {
-          "in": "4",
-          "out": "1 11\n2 17\n3 27\n4 41"
+          "in": "5",
+          "out": "6 6\n12 18\n18 36\n24 60\n30 90"
         },
         {
           "in": "1",
-          "out": "1 11"
+          "out": "6 6"
         },
         {
-          "in": "7",
-          "out": "1 11\n2 17\n3 27\n4 41\n5 59\n6 81\n7 107"
+          "in": "8",
+          "out": "6 6\n12 18\n18 36\n24 60\n30 90\n36 126\n42 168\n48 216"
         }
       ]
     },
@@ -2897,28 +2907,28 @@
         "operate",
         "implement"
       ],
-      "name": "제곱 행 보고서 10",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 각 줄에 i와 3*i^2 + 10 값을 출력하세요.",
+      "name": "배수 누적표 5",
+      "description": "정수 N이 주어질 때, 7의 1배부터 N배까지와 그 누적합을 각 줄에 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "4"
+        "content": "5"
       },
       "output": {
-        "description": "i와 계산값",
-        "content": "1 13\n2 22\n3 37\n4 58"
+        "description": "배수와 누적합",
+        "content": "7 7\n14 21\n21 42\n28 70\n35 105"
       },
       "cases": [
         {
-          "in": "4",
-          "out": "1 13\n2 22\n3 37\n4 58"
+          "in": "5",
+          "out": "7 7\n14 21\n21 42\n28 70\n35 105"
         },
         {
           "in": "1",
-          "out": "1 13"
+          "out": "7 7"
         },
         {
-          "in": "7",
-          "out": "1 13\n2 22\n3 37\n4 58\n5 85\n6 118\n7 157"
+          "in": "8",
+          "out": "7 7\n14 21\n21 42\n28 70\n35 105\n42 147\n49 196\n56 252"
         }
       ]
     },
@@ -2932,28 +2942,28 @@
         "operate",
         "implement"
       ],
-      "name": "제곱 행 보고서 11",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 각 줄에 i와 4*i^2 + 11 값을 출력하세요.",
+      "name": "역순 배수 출력 1",
+      "description": "정수 N이 주어질 때, N부터 1까지 각 수에 2를 곱한 값을 한 줄에 하나씩 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "4"
+        "content": "5"
       },
       "output": {
-        "description": "i와 계산값",
-        "content": "1 15\n2 27\n3 47\n4 75"
+        "description": "역순 배수",
+        "content": "10\n8\n6\n4\n2"
       },
       "cases": [
         {
-          "in": "4",
-          "out": "1 15\n2 27\n3 47\n4 75"
+          "in": "5",
+          "out": "10\n8\n6\n4\n2"
         },
         {
           "in": "1",
-          "out": "1 15"
+          "out": "2"
         },
         {
           "in": "7",
-          "out": "1 15\n2 27\n3 47\n4 75\n5 111\n6 155\n7 207"
+          "out": "14\n12\n10\n8\n6\n4\n2"
         }
       ]
     },
@@ -2967,28 +2977,28 @@
         "operate",
         "implement"
       ],
-      "name": "제곱 행 보고서 12",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 각 줄에 i와 1*i^2 + 12 값을 출력하세요.",
+      "name": "역순 배수 출력 2",
+      "description": "정수 N이 주어질 때, N부터 1까지 각 수에 3를 곱한 값을 한 줄에 하나씩 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "4"
+        "content": "5"
       },
       "output": {
-        "description": "i와 계산값",
-        "content": "1 13\n2 16\n3 21\n4 28"
+        "description": "역순 배수",
+        "content": "15\n12\n9\n6\n3"
       },
       "cases": [
         {
-          "in": "4",
-          "out": "1 13\n2 16\n3 21\n4 28"
+          "in": "5",
+          "out": "15\n12\n9\n6\n3"
         },
         {
           "in": "1",
-          "out": "1 13"
+          "out": "3"
         },
         {
           "in": "7",
-          "out": "1 13\n2 16\n3 21\n4 28\n5 37\n6 48\n7 61"
+          "out": "21\n18\n15\n12\n9\n6\n3"
         }
       ]
     },
@@ -3177,28 +3187,28 @@
         "operate",
         "implement"
       ],
-      "name": "고정 등차수열 6",
-      "description": "정수 N이 주어질 때, 첫째항이 8이고 공차가 3인 등차수열의 앞 N개 항을 한 줄에 하나씩 출력하세요.",
+      "name": "역순 배수 출력 3",
+      "description": "정수 N이 주어질 때, N부터 1까지 각 수에 4를 곱한 값을 한 줄에 하나씩 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "등차수열의 항",
-        "content": "8\n11\n14\n17\n20"
+        "description": "역순 배수",
+        "content": "20\n16\n12\n8\n4"
       },
       "cases": [
         {
           "in": "5",
-          "out": "8\n11\n14\n17\n20"
+          "out": "20\n16\n12\n8\n4"
         },
         {
           "in": "1",
-          "out": "8"
+          "out": "4"
         },
         {
-          "in": "8",
-          "out": "8\n11\n14\n17\n20\n23\n26\n29"
+          "in": "7",
+          "out": "28\n24\n20\n16\n12\n8\n4"
         }
       ]
     },
@@ -3212,28 +3222,28 @@
         "operate",
         "implement"
       ],
-      "name": "고정 등차수열 7",
-      "description": "정수 N이 주어질 때, 첫째항이 9이고 공차가 4인 등차수열의 앞 N개 항을 한 줄에 하나씩 출력하세요.",
+      "name": "역순 배수 출력 4",
+      "description": "정수 N이 주어질 때, N부터 1까지 각 수에 5를 곱한 값을 한 줄에 하나씩 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "등차수열의 항",
-        "content": "9\n13\n17\n21\n25"
+        "description": "역순 배수",
+        "content": "25\n20\n15\n10\n5"
       },
       "cases": [
         {
           "in": "5",
-          "out": "9\n13\n17\n21\n25"
+          "out": "25\n20\n15\n10\n5"
         },
         {
           "in": "1",
-          "out": "9"
+          "out": "5"
         },
         {
-          "in": "8",
-          "out": "9\n13\n17\n21\n25\n29\n33\n37"
+          "in": "7",
+          "out": "35\n30\n25\n20\n15\n10\n5"
         }
       ]
     },
@@ -3247,28 +3257,28 @@
         "operate",
         "implement"
       ],
-      "name": "고정 등차수열 8",
-      "description": "정수 N이 주어질 때, 첫째항이 10이고 공차가 5인 등차수열의 앞 N개 항을 한 줄에 하나씩 출력하세요.",
+      "name": "역순 배수 출력 5",
+      "description": "정수 N이 주어질 때, N부터 1까지 각 수에 6를 곱한 값을 한 줄에 하나씩 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "등차수열의 항",
-        "content": "10\n15\n20\n25\n30"
+        "description": "역순 배수",
+        "content": "30\n24\n18\n12\n6"
       },
       "cases": [
         {
           "in": "5",
-          "out": "10\n15\n20\n25\n30"
+          "out": "30\n24\n18\n12\n6"
         },
         {
           "in": "1",
-          "out": "10"
+          "out": "6"
         },
         {
-          "in": "8",
-          "out": "10\n15\n20\n25\n30\n35\n40\n45"
+          "in": "7",
+          "out": "42\n36\n30\n24\n18\n12\n6"
         }
       ]
     },
@@ -3282,28 +3292,28 @@
         "operate",
         "implement"
       ],
-      "name": "고정 등차수열 9",
-      "description": "정수 N이 주어질 때, 첫째항이 11이고 공차가 6인 등차수열의 앞 N개 항을 한 줄에 하나씩 출력하세요.",
+      "name": "제곱 차이 보고서 1",
+      "description": "정수 N이 주어질 때, i=1부터 N까지 i^2, (i+2)^2, 두 값의 차이를 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "5"
+        "content": "4"
       },
       "output": {
-        "description": "등차수열의 항",
-        "content": "11\n17\n23\n29\n35"
+        "description": "i^2, (i+k)^2, 차이",
+        "content": "1 9 8\n4 16 12\n9 25 16\n16 36 20"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "11\n17\n23\n29\n35"
+          "in": "4",
+          "out": "1 9 8\n4 16 12\n9 25 16\n16 36 20"
         },
         {
           "in": "1",
-          "out": "11"
+          "out": "1 9 8"
         },
         {
-          "in": "8",
-          "out": "11\n17\n23\n29\n35\n41\n47\n53"
+          "in": "7",
+          "out": "1 9 8\n4 16 12\n9 25 16\n16 36 20\n25 49 24\n36 64 28\n49 81 32"
         }
       ]
     },
@@ -3317,28 +3327,28 @@
         "operate",
         "implement"
       ],
-      "name": "고정 등차수열 10",
-      "description": "정수 N이 주어질 때, 첫째항이 12이고 공차가 2인 등차수열의 앞 N개 항을 한 줄에 하나씩 출력하세요.",
+      "name": "제곱 차이 보고서 2",
+      "description": "정수 N이 주어질 때, i=1부터 N까지 i^2, (i+3)^2, 두 값의 차이를 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "5"
+        "content": "4"
       },
       "output": {
-        "description": "등차수열의 항",
-        "content": "12\n14\n16\n18\n20"
+        "description": "i^2, (i+k)^2, 차이",
+        "content": "1 16 15\n4 25 21\n9 36 27\n16 49 33"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "12\n14\n16\n18\n20"
+          "in": "4",
+          "out": "1 16 15\n4 25 21\n9 36 27\n16 49 33"
         },
         {
           "in": "1",
-          "out": "12"
+          "out": "1 16 15"
         },
         {
-          "in": "8",
-          "out": "12\n14\n16\n18\n20\n22\n24\n26"
+          "in": "7",
+          "out": "1 16 15\n4 25 21\n9 36 27\n16 49 33\n25 64 39\n36 81 45\n49 100 51"
         }
       ]
     },
@@ -3352,28 +3362,28 @@
         "operate",
         "implement"
       ],
-      "name": "고정 등차수열 11",
-      "description": "정수 N이 주어질 때, 첫째항이 13이고 공차가 3인 등차수열의 앞 N개 항을 한 줄에 하나씩 출력하세요.",
+      "name": "제곱 차이 보고서 3",
+      "description": "정수 N이 주어질 때, i=1부터 N까지 i^2, (i+4)^2, 두 값의 차이를 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "5"
+        "content": "4"
       },
       "output": {
-        "description": "등차수열의 항",
-        "content": "13\n16\n19\n22\n25"
+        "description": "i^2, (i+k)^2, 차이",
+        "content": "1 25 24\n4 36 32\n9 49 40\n16 64 48"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "13\n16\n19\n22\n25"
+          "in": "4",
+          "out": "1 25 24\n4 36 32\n9 49 40\n16 64 48"
         },
         {
           "in": "1",
-          "out": "13"
+          "out": "1 25 24"
         },
         {
-          "in": "8",
-          "out": "13\n16\n19\n22\n25\n28\n31\n34"
+          "in": "7",
+          "out": "1 25 24\n4 36 32\n9 49 40\n16 64 48\n25 81 56\n36 100 64\n49 121 72"
         }
       ]
     },
@@ -3387,28 +3397,28 @@
         "operate",
         "implement"
       ],
-      "name": "고정 등차수열 12",
-      "description": "정수 N이 주어질 때, 첫째항이 14이고 공차가 4인 등차수열의 앞 N개 항을 한 줄에 하나씩 출력하세요.",
+      "name": "제곱 차이 보고서 4",
+      "description": "정수 N이 주어질 때, i=1부터 N까지 i^2, (i+5)^2, 두 값의 차이를 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "5"
+        "content": "4"
       },
       "output": {
-        "description": "등차수열의 항",
-        "content": "14\n18\n22\n26\n30"
+        "description": "i^2, (i+k)^2, 차이",
+        "content": "1 36 35\n4 49 45\n9 64 55\n16 81 65"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "14\n18\n22\n26\n30"
+          "in": "4",
+          "out": "1 36 35\n4 49 45\n9 64 55\n16 81 65"
         },
         {
           "in": "1",
-          "out": "14"
+          "out": "1 36 35"
         },
         {
-          "in": "8",
-          "out": "14\n18\n22\n26\n30\n34\n38\n42"
+          "in": "7",
+          "out": "1 36 35\n4 49 45\n9 64 55\n16 81 65\n25 100 75\n36 121 85\n49 144 95"
         }
       ]
     },
@@ -3597,28 +3607,28 @@
         "operate",
         "implement"
       ],
-      "name": "고정 등비수열 6",
-      "description": "정수 N이 주어질 때, 첫째항이 3이고 공비가 2인 등비수열의 앞 N개 항을 한 줄에 하나씩 출력하세요.",
+      "name": "제곱 차이 보고서 5",
+      "description": "정수 N이 주어질 때, i=1부터 N까지 i^2, (i+6)^2, 두 값의 차이를 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "5"
+        "content": "4"
       },
       "output": {
-        "description": "등비수열의 항",
-        "content": "3\n6\n12\n24\n48"
+        "description": "i^2, (i+k)^2, 차이",
+        "content": "1 49 48\n4 64 60\n9 81 72\n16 100 84"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "3\n6\n12\n24\n48"
+          "in": "4",
+          "out": "1 49 48\n4 64 60\n9 81 72\n16 100 84"
         },
         {
           "in": "1",
-          "out": "3"
+          "out": "1 49 48"
         },
         {
           "in": "7",
-          "out": "3\n6\n12\n24\n48\n96\n192"
+          "out": "1 49 48\n4 64 60\n9 81 72\n16 100 84\n25 121 96\n36 144 108\n49 169 120"
         }
       ]
     },
@@ -3632,28 +3642,28 @@
         "operate",
         "implement"
       ],
-      "name": "고정 등비수열 7",
-      "description": "정수 N이 주어질 때, 첫째항이 4이고 공비가 3인 등비수열의 앞 N개 항을 한 줄에 하나씩 출력하세요.",
+      "name": "쌍 증가 보고서 1",
+      "description": "정수 N이 주어질 때, A는 1, B는 4에서 시작합니다. 각 줄에 A, B, A+B를 출력한 뒤 A는 2, B는 3씩 증가합니다.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "등비수열의 항",
-        "content": "4\n12\n36\n108\n324"
+        "description": "A, B, A+B",
+        "content": "1 4 5\n3 7 10\n5 10 15\n7 13 20\n9 16 25"
       },
       "cases": [
         {
           "in": "5",
-          "out": "4\n12\n36\n108\n324"
+          "out": "1 4 5\n3 7 10\n5 10 15\n7 13 20\n9 16 25"
         },
         {
           "in": "1",
-          "out": "4"
+          "out": "1 4 5"
         },
         {
           "in": "7",
-          "out": "4\n12\n36\n108\n324\n972\n2916"
+          "out": "1 4 5\n3 7 10\n5 10 15\n7 13 20\n9 16 25\n11 19 30\n13 22 35"
         }
       ]
     },
@@ -3667,28 +3677,28 @@
         "operate",
         "implement"
       ],
-      "name": "고정 등비수열 8",
-      "description": "정수 N이 주어질 때, 첫째항이 1이고 공비가 4인 등비수열의 앞 N개 항을 한 줄에 하나씩 출력하세요.",
+      "name": "쌍 증가 보고서 2",
+      "description": "정수 N이 주어질 때, A는 2, B는 5에서 시작합니다. 각 줄에 A, B, A+B를 출력한 뒤 A는 3, B는 4씩 증가합니다.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "등비수열의 항",
-        "content": "1\n4\n16\n64\n256"
+        "description": "A, B, A+B",
+        "content": "2 5 7\n5 9 14\n8 13 21\n11 17 28\n14 21 35"
       },
       "cases": [
         {
           "in": "5",
-          "out": "1\n4\n16\n64\n256"
+          "out": "2 5 7\n5 9 14\n8 13 21\n11 17 28\n14 21 35"
         },
         {
           "in": "1",
-          "out": "1"
+          "out": "2 5 7"
         },
         {
           "in": "7",
-          "out": "1\n4\n16\n64\n256\n1024\n4096"
+          "out": "2 5 7\n5 9 14\n8 13 21\n11 17 28\n14 21 35\n17 25 42\n20 29 49"
         }
       ]
     },
@@ -3877,28 +3887,28 @@
         "operate",
         "implement"
       ],
-      "name": "선형 점화 수열 6",
-      "description": "정수 N이 주어질 때, 첫째항이 7이고 다음 항이 이전 항*2+8인 수열의 앞 N개 항을 출력하세요.",
+      "name": "쌍 증가 보고서 3",
+      "description": "정수 N이 주어질 때, A는 3, B는 6에서 시작합니다. 각 줄에 A, B, A+B를 출력한 뒤 A는 4, B는 5씩 증가합니다.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "점화식의 항",
-        "content": "7\n22\n52\n112\n232"
+        "description": "A, B, A+B",
+        "content": "3 6 9\n7 11 18\n11 16 27\n15 21 36\n19 26 45"
       },
       "cases": [
         {
           "in": "5",
-          "out": "7\n22\n52\n112\n232"
+          "out": "3 6 9\n7 11 18\n11 16 27\n15 21 36\n19 26 45"
         },
         {
           "in": "1",
-          "out": "7"
+          "out": "3 6 9"
         },
         {
           "in": "7",
-          "out": "7\n22\n52\n112\n232\n472\n952"
+          "out": "3 6 9\n7 11 18\n11 16 27\n15 21 36\n19 26 45\n23 31 54\n27 36 63"
         }
       ]
     },
@@ -3912,28 +3922,28 @@
         "operate",
         "implement"
       ],
-      "name": "선형 점화 수열 7",
-      "description": "정수 N이 주어질 때, 첫째항이 8이고 다음 항이 이전 항*3+9인 수열의 앞 N개 항을 출력하세요.",
+      "name": "쌍 증가 보고서 4",
+      "description": "정수 N이 주어질 때, A는 4, B는 7에서 시작합니다. 각 줄에 A, B, A+B를 출력한 뒤 A는 5, B는 6씩 증가합니다.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "점화식의 항",
-        "content": "8\n33\n108\n333\n1008"
+        "description": "A, B, A+B",
+        "content": "4 7 11\n9 13 22\n14 19 33\n19 25 44\n24 31 55"
       },
       "cases": [
         {
           "in": "5",
-          "out": "8\n33\n108\n333\n1008"
+          "out": "4 7 11\n9 13 22\n14 19 33\n19 25 44\n24 31 55"
         },
         {
           "in": "1",
-          "out": "8"
+          "out": "4 7 11"
         },
         {
           "in": "7",
-          "out": "8\n33\n108\n333\n1008\n3033\n9108"
+          "out": "4 7 11\n9 13 22\n14 19 33\n19 25 44\n24 31 55\n29 37 66\n34 43 77"
         }
       ]
     },
@@ -3947,28 +3957,28 @@
         "operate",
         "implement"
       ],
-      "name": "선형 점화 수열 8",
-      "description": "정수 N이 주어질 때, 첫째항이 9이고 다음 항이 이전 항*4+10인 수열의 앞 N개 항을 출력하세요.",
+      "name": "쌍 증가 보고서 5",
+      "description": "정수 N이 주어질 때, A는 5, B는 8에서 시작합니다. 각 줄에 A, B, A+B를 출력한 뒤 A는 6, B는 7씩 증가합니다.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "점화식의 항",
-        "content": "9\n46\n194\n786\n3154"
+        "description": "A, B, A+B",
+        "content": "5 8 13\n11 15 26\n17 22 39\n23 29 52\n29 36 65"
       },
       "cases": [
         {
           "in": "5",
-          "out": "9\n46\n194\n786\n3154"
+          "out": "5 8 13\n11 15 26\n17 22 39\n23 29 52\n29 36 65"
         },
         {
           "in": "1",
-          "out": "9"
+          "out": "5 8 13"
         },
         {
           "in": "7",
-          "out": "9\n46\n194\n786\n3154\n12626\n50514"
+          "out": "5 8 13\n11 15 26\n17 22 39\n23 29 52\n29 36 65\n35 43 78\n41 50 91"
         }
       ]
     },
@@ -4157,28 +4167,28 @@
         "operate",
         "implement"
       ],
-      "name": "선형식 누적합 6",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 2*i + 7 값을 차례로 더한 누적합을 매 줄 출력하세요.",
+      "name": "변형 두 항 점화식 1",
+      "description": "정수 N이 주어질 때, 첫 항이 1, 둘째 항이 2이고 다음 항이 앞의 두 항의 합에 3를 더한 값인 수열의 앞 N개 항을 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "5"
+        "content": "6"
       },
       "output": {
-        "description": "누적합",
-        "content": "9\n20\n33\n48\n65"
+        "description": "수열의 항",
+        "content": "1\n2\n6\n11\n20\n34"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "9\n20\n33\n48\n65"
+          "in": "6",
+          "out": "1\n2\n6\n11\n20\n34"
         },
         {
           "in": "1",
-          "out": "9"
+          "out": "1"
         },
         {
           "in": "8",
-          "out": "9\n20\n33\n48\n65\n84\n105\n128"
+          "out": "1\n2\n6\n11\n20\n34\n57\n94"
         }
       ]
     },
@@ -4192,28 +4202,28 @@
         "operate",
         "implement"
       ],
-      "name": "선형식 누적합 7",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 3*i + 8 값을 차례로 더한 누적합을 매 줄 출력하세요.",
+      "name": "변형 두 항 점화식 2",
+      "description": "정수 N이 주어질 때, 첫 항이 2, 둘째 항이 3이고 다음 항이 앞의 두 항의 합에 4를 더한 값인 수열의 앞 N개 항을 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "5"
+        "content": "6"
       },
       "output": {
-        "description": "누적합",
-        "content": "11\n25\n42\n62\n85"
+        "description": "수열의 항",
+        "content": "2\n3\n9\n16\n29\n49"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "11\n25\n42\n62\n85"
+          "in": "6",
+          "out": "2\n3\n9\n16\n29\n49"
         },
         {
           "in": "1",
-          "out": "11"
+          "out": "2"
         },
         {
           "in": "8",
-          "out": "11\n25\n42\n62\n85\n111\n140\n172"
+          "out": "2\n3\n9\n16\n29\n49\n82\n135"
         }
       ]
     },
@@ -4227,28 +4237,28 @@
         "operate",
         "implement"
       ],
-      "name": "선형식 누적합 8",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 4*i + 9 값을 차례로 더한 누적합을 매 줄 출력하세요.",
+      "name": "변형 두 항 점화식 3",
+      "description": "정수 N이 주어질 때, 첫 항이 3, 둘째 항이 4이고 다음 항이 앞의 두 항의 합에 5를 더한 값인 수열의 앞 N개 항을 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "5"
+        "content": "6"
       },
       "output": {
-        "description": "누적합",
-        "content": "13\n30\n51\n76\n105"
+        "description": "수열의 항",
+        "content": "3\n4\n12\n21\n38\n64"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "13\n30\n51\n76\n105"
+          "in": "6",
+          "out": "3\n4\n12\n21\n38\n64"
         },
         {
           "in": "1",
-          "out": "13"
+          "out": "3"
         },
         {
           "in": "8",
-          "out": "13\n30\n51\n76\n105\n138\n175\n216"
+          "out": "3\n4\n12\n21\n38\n64\n107\n176"
         }
       ]
     },
@@ -4437,28 +4447,28 @@
         "operate",
         "implement"
       ],
-      "name": "이차식 누적합 6",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 1*i^2 + 3*i + 6 값을 차례로 더한 누적합을 매 줄 출력하세요.",
+      "name": "변형 두 항 점화식 4",
+      "description": "정수 N이 주어질 때, 첫 항이 4, 둘째 항이 5이고 다음 항이 앞의 두 항의 합에 6를 더한 값인 수열의 앞 N개 항을 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "5"
+        "content": "6"
       },
       "output": {
-        "description": "누적합",
-        "content": "10\n26\n50\n84\n130"
+        "description": "수열의 항",
+        "content": "4\n5\n15\n26\n47\n79"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "10\n26\n50\n84\n130"
+          "in": "6",
+          "out": "4\n5\n15\n26\n47\n79"
         },
         {
           "in": "1",
-          "out": "10"
+          "out": "4"
         },
         {
           "in": "8",
-          "out": "10\n26\n50\n84\n130\n190\n266\n360"
+          "out": "4\n5\n15\n26\n47\n79\n132\n217"
         }
       ]
     },
@@ -4472,28 +4482,28 @@
         "operate",
         "implement"
       ],
-      "name": "이차식 누적합 7",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 2*i^2 + 4*i + 7 값을 차례로 더한 누적합을 매 줄 출력하세요.",
+      "name": "변형 두 항 점화식 5",
+      "description": "정수 N이 주어질 때, 첫 항이 5, 둘째 항이 6이고 다음 항이 앞의 두 항의 합에 7를 더한 값인 수열의 앞 N개 항을 출력하세요.",
       "input": {
         "description": "정수 N",
-        "content": "5"
+        "content": "6"
       },
       "output": {
-        "description": "누적합",
-        "content": "13\n36\n73\n128\n205"
+        "description": "수열의 항",
+        "content": "5\n6\n18\n31\n56\n94"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "13\n36\n73\n128\n205"
+          "in": "6",
+          "out": "5\n6\n18\n31\n56\n94"
         },
         {
           "in": "1",
-          "out": "13"
+          "out": "5"
         },
         {
           "in": "8",
-          "out": "13\n36\n73\n128\n205\n308\n441\n608"
+          "out": "5\n6\n18\n31\n56\n94\n157\n258"
         }
       ]
     },
@@ -4507,28 +4517,28 @@
         "operate",
         "implement"
       ],
-      "name": "이차식 누적합 8",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 3*i^2 + 1*i + 8 값을 차례로 더한 누적합을 매 줄 출력하세요.",
+      "name": "증가폭 수열 1",
+      "description": "정수 N이 주어질 때, 시작값 2에서 시작하고 증가폭이 3에서 시작하며 매번 1씩 커지는 수열의 항과 증가폭을 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "누적합",
-        "content": "12\n34\n72\n132\n220"
+        "description": "항과 증가폭",
+        "content": "2 3\n5 4\n9 5\n14 6\n20 7"
       },
       "cases": [
         {
           "in": "5",
-          "out": "12\n34\n72\n132\n220"
+          "out": "2 3\n5 4\n9 5\n14 6\n20 7"
         },
         {
           "in": "1",
-          "out": "12"
+          "out": "2 3"
         },
         {
-          "in": "8",
-          "out": "12\n34\n72\n132\n220\n342\n504\n712"
+          "in": "7",
+          "out": "2 3\n5 4\n9 5\n14 6\n20 7\n27 8\n35 9"
         }
       ]
     },
@@ -4542,28 +4552,28 @@
         "operate",
         "implement"
       ],
-      "name": "이차식 누적합 9",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 1*i^2 + 2*i + 9 값을 차례로 더한 누적합을 매 줄 출력하세요.",
+      "name": "증가폭 수열 2",
+      "description": "정수 N이 주어질 때, 시작값 3에서 시작하고 증가폭이 4에서 시작하며 매번 2씩 커지는 수열의 항과 증가폭을 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "누적합",
-        "content": "12\n29\n53\n86\n130"
+        "description": "항과 증가폭",
+        "content": "3 4\n7 6\n13 8\n21 10\n31 12"
       },
       "cases": [
         {
           "in": "5",
-          "out": "12\n29\n53\n86\n130"
+          "out": "3 4\n7 6\n13 8\n21 10\n31 12"
         },
         {
           "in": "1",
-          "out": "12"
+          "out": "3 4"
         },
         {
-          "in": "8",
-          "out": "12\n29\n53\n86\n130\n187\n259\n348"
+          "in": "7",
+          "out": "3 4\n7 6\n13 8\n21 10\n31 12\n43 14\n57 16"
         }
       ]
     },
@@ -4577,28 +4587,28 @@
         "operate",
         "implement"
       ],
-      "name": "이차식 누적합 10",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 2*i^2 + 3*i + 10 값을 차례로 더한 누적합을 매 줄 출력하세요.",
+      "name": "증가폭 수열 3",
+      "description": "정수 N이 주어질 때, 시작값 4에서 시작하고 증가폭이 5에서 시작하며 매번 3씩 커지는 수열의 항과 증가폭을 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "누적합",
-        "content": "15\n39\n76\n130\n205"
+        "description": "항과 증가폭",
+        "content": "4 5\n9 8\n17 11\n28 14\n42 17"
       },
       "cases": [
         {
           "in": "5",
-          "out": "15\n39\n76\n130\n205"
+          "out": "4 5\n9 8\n17 11\n28 14\n42 17"
         },
         {
           "in": "1",
-          "out": "15"
+          "out": "4 5"
         },
         {
-          "in": "8",
-          "out": "15\n39\n76\n130\n205\n305\n434\n596"
+          "in": "7",
+          "out": "4 5\n9 8\n17 11\n28 14\n42 17\n59 20\n79 23"
         }
       ]
     },
@@ -4612,28 +4622,28 @@
         "operate",
         "implement"
       ],
-      "name": "이차식 누적합 11",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 3*i^2 + 4*i + 11 값을 차례로 더한 누적합을 매 줄 출력하세요.",
+      "name": "증가폭 수열 4",
+      "description": "정수 N이 주어질 때, 시작값 5에서 시작하고 증가폭이 6에서 시작하며 매번 4씩 커지는 수열의 항과 증가폭을 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "누적합",
-        "content": "18\n49\n99\n174\n280"
+        "description": "항과 증가폭",
+        "content": "5 6\n11 10\n21 14\n35 18\n53 22"
       },
       "cases": [
         {
           "in": "5",
-          "out": "18\n49\n99\n174\n280"
+          "out": "5 6\n11 10\n21 14\n35 18\n53 22"
         },
         {
           "in": "1",
-          "out": "18"
+          "out": "5 6"
         },
         {
-          "in": "8",
-          "out": "18\n49\n99\n174\n280\n423\n609\n844"
+          "in": "7",
+          "out": "5 6\n11 10\n21 14\n35 18\n53 22\n75 26\n101 30"
         }
       ]
     },
@@ -4647,28 +4657,28 @@
         "operate",
         "implement"
       ],
-      "name": "이차식 누적합 12",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 1*i^2 + 1*i + 12 값을 차례로 더한 누적합을 매 줄 출력하세요.",
+      "name": "증가폭 수열 5",
+      "description": "정수 N이 주어질 때, 시작값 6에서 시작하고 증가폭이 7에서 시작하며 매번 5씩 커지는 수열의 항과 증가폭을 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "누적합",
-        "content": "14\n32\n56\n88\n130"
+        "description": "항과 증가폭",
+        "content": "6 7\n13 12\n25 17\n42 22\n64 27"
       },
       "cases": [
         {
           "in": "5",
-          "out": "14\n32\n56\n88\n130"
+          "out": "6 7\n13 12\n25 17\n42 22\n64 27"
         },
         {
           "in": "1",
-          "out": "14"
+          "out": "6 7"
         },
         {
-          "in": "8",
-          "out": "14\n32\n56\n88\n130\n184\n252\n336"
+          "in": "7",
+          "out": "6 7\n13 12\n25 17\n42 22\n64 27\n91 32\n123 37"
         }
       ]
     },
@@ -4682,28 +4692,28 @@
         "operate",
         "implement"
       ],
-      "name": "이차식 누적합 13",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 2*i^2 + 2*i + 13 값을 차례로 더한 누적합을 매 줄 출력하세요.",
+      "name": "행 합 선형표 1",
+      "description": "정수 N, M이 주어질 때, i행 j열의 값을 2*i + 3*j + 1로 하고 각 행 끝에 행의 합을 붙이세요.",
       "input": {
-        "description": "정수 N",
-        "content": "5"
+        "description": "정수 N, M",
+        "content": "3\n4"
       },
       "output": {
-        "description": "누적합",
-        "content": "17\n42\n79\n132\n205"
+        "description": "행의 합이 포함된 표",
+        "content": "6 9 12 15 42\n8 11 14 17 50\n10 13 16 19 58"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "17\n42\n79\n132\n205"
+          "in": "3\n4",
+          "out": "6 9 12 15 42\n8 11 14 17 50\n10 13 16 19 58"
         },
         {
-          "in": "1",
-          "out": "17"
+          "in": "1\n1",
+          "out": "6 6"
         },
         {
-          "in": "8",
-          "out": "17\n42\n79\n132\n205\n302\n427\n584"
+          "in": "4\n3",
+          "out": "6 9 12 27\n8 11 14 33\n10 13 16 39\n12 15 18 45"
         }
       ]
     },
@@ -4717,28 +4727,28 @@
         "operate",
         "implement"
       ],
-      "name": "이차식 누적합 14",
-      "description": "정수 N이 주어질 때, i=1부터 N까지 3*i^2 + 3*i + 14 값을 차례로 더한 누적합을 매 줄 출력하세요.",
+      "name": "행 합 선형표 2",
+      "description": "정수 N, M이 주어질 때, i행 j열의 값을 3*i + 4*j + 2로 하고 각 행 끝에 행의 합을 붙이세요.",
       "input": {
-        "description": "정수 N",
-        "content": "5"
+        "description": "정수 N, M",
+        "content": "3\n4"
       },
       "output": {
-        "description": "누적합",
-        "content": "20\n52\n102\n176\n280"
+        "description": "행의 합이 포함된 표",
+        "content": "9 13 17 21 60\n12 16 20 24 72\n15 19 23 27 84"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "20\n52\n102\n176\n280"
+          "in": "3\n4",
+          "out": "9 13 17 21 60\n12 16 20 24 72\n15 19 23 27 84"
         },
         {
-          "in": "1",
-          "out": "20"
+          "in": "1\n1",
+          "out": "9 9"
         },
         {
-          "in": "8",
-          "out": "20\n52\n102\n176\n280\n420\n602\n832"
+          "in": "4\n3",
+          "out": "9 13 17 39\n12 16 20 48\n15 19 23 57\n18 22 26 66"
         }
       ]
     },
@@ -4927,28 +4937,28 @@
         "operate",
         "implement"
       ],
-      "name": "누적 보고서 6",
-      "description": "정수 N이 주어질 때, 각 줄에 i, 1*i^2 + 2*i + 7, 그리고 그 값의 누적합을 출력하세요.",
+      "name": "행 합 선형표 3",
+      "description": "정수 N, M이 주어질 때, i행 j열의 값을 4*i + 5*j + 3로 하고 각 행 끝에 행의 합을 붙이세요.",
       "input": {
-        "description": "정수 N",
-        "content": "5"
+        "description": "정수 N, M",
+        "content": "3\n4"
       },
       "output": {
-        "description": "번호, 값, 누적합",
-        "content": "1 10 10\n2 15 25\n3 22 47\n4 31 78\n5 42 120"
+        "description": "행의 합이 포함된 표",
+        "content": "12 17 22 27 78\n16 21 26 31 94\n20 25 30 35 110"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "1 10 10\n2 15 25\n3 22 47\n4 31 78\n5 42 120"
+          "in": "3\n4",
+          "out": "12 17 22 27 78\n16 21 26 31 94\n20 25 30 35 110"
         },
         {
-          "in": "1",
-          "out": "1 10 10"
+          "in": "1\n1",
+          "out": "12 12"
         },
         {
-          "in": "7",
-          "out": "1 10 10\n2 15 25\n3 22 47\n4 31 78\n5 42 120\n6 55 175\n7 70 245"
+          "in": "4\n3",
+          "out": "12 17 22 51\n16 21 26 63\n20 25 30 75\n24 29 34 87"
         }
       ]
     },
@@ -4962,28 +4972,28 @@
         "operate",
         "implement"
       ],
-      "name": "누적 보고서 7",
-      "description": "정수 N이 주어질 때, 각 줄에 i, 2*i^2 + 3*i + 8, 그리고 그 값의 누적합을 출력하세요.",
+      "name": "행 합 선형표 4",
+      "description": "정수 N, M이 주어질 때, i행 j열의 값을 5*i + 6*j + 4로 하고 각 행 끝에 행의 합을 붙이세요.",
       "input": {
-        "description": "정수 N",
-        "content": "5"
+        "description": "정수 N, M",
+        "content": "3\n4"
       },
       "output": {
-        "description": "번호, 값, 누적합",
-        "content": "1 13 13\n2 22 35\n3 35 70\n4 52 122\n5 73 195"
+        "description": "행의 합이 포함된 표",
+        "content": "15 21 27 33 96\n20 26 32 38 116\n25 31 37 43 136"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "1 13 13\n2 22 35\n3 35 70\n4 52 122\n5 73 195"
+          "in": "3\n4",
+          "out": "15 21 27 33 96\n20 26 32 38 116\n25 31 37 43 136"
         },
         {
-          "in": "1",
-          "out": "1 13 13"
+          "in": "1\n1",
+          "out": "15 15"
         },
         {
-          "in": "7",
-          "out": "1 13 13\n2 22 35\n3 35 70\n4 52 122\n5 73 195\n6 98 293\n7 127 420"
+          "in": "4\n3",
+          "out": "15 21 27 63\n20 26 32 78\n25 31 37 93\n30 36 42 108"
         }
       ]
     },
@@ -4997,28 +5007,28 @@
         "operate",
         "implement"
       ],
-      "name": "누적 보고서 8",
-      "description": "정수 N이 주어질 때, 각 줄에 i, 3*i^2 + 4*i + 9, 그리고 그 값의 누적합을 출력하세요.",
+      "name": "행 합 선형표 5",
+      "description": "정수 N, M이 주어질 때, i행 j열의 값을 6*i + 7*j + 5로 하고 각 행 끝에 행의 합을 붙이세요.",
       "input": {
-        "description": "정수 N",
-        "content": "5"
+        "description": "정수 N, M",
+        "content": "3\n4"
       },
       "output": {
-        "description": "번호, 값, 누적합",
-        "content": "1 16 16\n2 29 45\n3 48 93\n4 73 166\n5 104 270"
+        "description": "행의 합이 포함된 표",
+        "content": "18 25 32 39 114\n24 31 38 45 138\n30 37 44 51 162"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "1 16 16\n2 29 45\n3 48 93\n4 73 166\n5 104 270"
+          "in": "3\n4",
+          "out": "18 25 32 39 114\n24 31 38 45 138\n30 37 44 51 162"
         },
         {
-          "in": "1",
-          "out": "1 16 16"
+          "in": "1\n1",
+          "out": "18 18"
         },
         {
-          "in": "7",
-          "out": "1 16 16\n2 29 45\n3 48 93\n4 73 166\n5 104 270\n6 141 411\n7 184 595"
+          "in": "4\n3",
+          "out": "18 25 32 75\n24 31 38 93\n30 37 44 111\n36 43 50 129"
         }
       ]
     },
@@ -5032,28 +5042,28 @@
         "operate",
         "implement"
       ],
-      "name": "누적 보고서 9",
-      "description": "정수 N이 주어질 때, 각 줄에 i, 1*i^2 + 5*i + 10, 그리고 그 값의 누적합을 출력하세요.",
+      "name": "전체 합 곱표 1",
+      "description": "정수 N, M이 주어질 때, i행 j열의 값을 2*i*j + 1로 하는 표를 출력하고, 마지막 줄에 전체 합을 출력하세요.",
       "input": {
-        "description": "정수 N",
-        "content": "5"
+        "description": "정수 N, M",
+        "content": "3\n4"
       },
       "output": {
-        "description": "번호, 값, 누적합",
-        "content": "1 16 16\n2 24 40\n3 34 74\n4 46 120\n5 60 180"
+        "description": "표와 전체 합",
+        "content": "3 5 7 9\n5 9 13 17\n7 13 19 25\n132"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "1 16 16\n2 24 40\n3 34 74\n4 46 120\n5 60 180"
+          "in": "3\n4",
+          "out": "3 5 7 9\n5 9 13 17\n7 13 19 25\n132"
         },
         {
-          "in": "1",
-          "out": "1 16 16"
+          "in": "1\n1",
+          "out": "3\n3"
         },
         {
-          "in": "7",
-          "out": "1 16 16\n2 24 40\n3 34 74\n4 46 120\n5 60 180\n6 76 256\n7 94 350"
+          "in": "4\n3",
+          "out": "3 5 7\n5 9 13\n7 13 19\n9 17 25\n132"
         }
       ]
     },
@@ -5067,28 +5077,28 @@
         "operate",
         "implement"
       ],
-      "name": "누적 보고서 10",
-      "description": "정수 N이 주어질 때, 각 줄에 i, 2*i^2 + 1*i + 11, 그리고 그 값의 누적합을 출력하세요.",
+      "name": "전체 합 곱표 2",
+      "description": "정수 N, M이 주어질 때, i행 j열의 값을 3*i*j + 2로 하는 표를 출력하고, 마지막 줄에 전체 합을 출력하세요.",
       "input": {
-        "description": "정수 N",
-        "content": "5"
+        "description": "정수 N, M",
+        "content": "3\n4"
       },
       "output": {
-        "description": "번호, 값, 누적합",
-        "content": "1 14 14\n2 21 35\n3 32 67\n4 47 114\n5 66 180"
+        "description": "표와 전체 합",
+        "content": "5 8 11 14\n8 14 20 26\n11 20 29 38\n204"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "1 14 14\n2 21 35\n3 32 67\n4 47 114\n5 66 180"
+          "in": "3\n4",
+          "out": "5 8 11 14\n8 14 20 26\n11 20 29 38\n204"
         },
         {
-          "in": "1",
-          "out": "1 14 14"
+          "in": "1\n1",
+          "out": "5\n5"
         },
         {
-          "in": "7",
-          "out": "1 14 14\n2 21 35\n3 32 67\n4 47 114\n5 66 180\n6 89 269\n7 116 385"
+          "in": "4\n3",
+          "out": "5 8 11\n8 14 20\n11 20 29\n14 26 38\n204"
         }
       ]
     },
@@ -5102,28 +5112,28 @@
         "operate",
         "implement"
       ],
-      "name": "누적 보고서 11",
-      "description": "정수 N이 주어질 때, 각 줄에 i, 3*i^2 + 2*i + 12, 그리고 그 값의 누적합을 출력하세요.",
+      "name": "전체 합 곱표 3",
+      "description": "정수 N, M이 주어질 때, i행 j열의 값을 4*i*j + 3로 하는 표를 출력하고, 마지막 줄에 전체 합을 출력하세요.",
       "input": {
-        "description": "정수 N",
-        "content": "5"
+        "description": "정수 N, M",
+        "content": "3\n4"
       },
       "output": {
-        "description": "번호, 값, 누적합",
-        "content": "1 17 17\n2 28 45\n3 45 90\n4 68 158\n5 97 255"
+        "description": "표와 전체 합",
+        "content": "7 11 15 19\n11 19 27 35\n15 27 39 51\n276"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "1 17 17\n2 28 45\n3 45 90\n4 68 158\n5 97 255"
+          "in": "3\n4",
+          "out": "7 11 15 19\n11 19 27 35\n15 27 39 51\n276"
         },
         {
-          "in": "1",
-          "out": "1 17 17"
+          "in": "1\n1",
+          "out": "7\n7"
         },
         {
-          "in": "7",
-          "out": "1 17 17\n2 28 45\n3 45 90\n4 68 158\n5 97 255\n6 132 387\n7 173 560"
+          "in": "4\n3",
+          "out": "7 11 15\n11 19 27\n15 27 39\n19 35 51\n276"
         }
       ]
     },
@@ -5137,28 +5147,28 @@
         "operate",
         "implement"
       ],
-      "name": "누적 보고서 12",
-      "description": "정수 N이 주어질 때, 각 줄에 i, 1*i^2 + 3*i + 13, 그리고 그 값의 누적합을 출력하세요.",
+      "name": "전체 합 곱표 4",
+      "description": "정수 N, M이 주어질 때, i행 j열의 값을 5*i*j + 4로 하는 표를 출력하고, 마지막 줄에 전체 합을 출력하세요.",
       "input": {
-        "description": "정수 N",
-        "content": "5"
+        "description": "정수 N, M",
+        "content": "3\n4"
       },
       "output": {
-        "description": "번호, 값, 누적합",
-        "content": "1 17 17\n2 23 40\n3 31 71\n4 41 112\n5 53 165"
+        "description": "표와 전체 합",
+        "content": "9 14 19 24\n14 24 34 44\n19 34 49 64\n348"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "1 17 17\n2 23 40\n3 31 71\n4 41 112\n5 53 165"
+          "in": "3\n4",
+          "out": "9 14 19 24\n14 24 34 44\n19 34 49 64\n348"
         },
         {
-          "in": "1",
-          "out": "1 17 17"
+          "in": "1\n1",
+          "out": "9\n9"
         },
         {
-          "in": "7",
-          "out": "1 17 17\n2 23 40\n3 31 71\n4 41 112\n5 53 165\n6 67 232\n7 83 315"
+          "in": "4\n3",
+          "out": "9 14 19\n14 24 34\n19 34 49\n24 44 64\n348"
         }
       ]
     },
@@ -5172,28 +5182,28 @@
         "operate",
         "implement"
       ],
-      "name": "누적 보고서 13",
-      "description": "정수 N이 주어질 때, 각 줄에 i, 2*i^2 + 4*i + 14, 그리고 그 값의 누적합을 출력하세요.",
+      "name": "전체 합 곱표 5",
+      "description": "정수 N, M이 주어질 때, i행 j열의 값을 6*i*j + 5로 하는 표를 출력하고, 마지막 줄에 전체 합을 출력하세요.",
       "input": {
-        "description": "정수 N",
-        "content": "5"
+        "description": "정수 N, M",
+        "content": "3\n4"
       },
       "output": {
-        "description": "번호, 값, 누적합",
-        "content": "1 20 20\n2 30 50\n3 44 94\n4 62 156\n5 84 240"
+        "description": "표와 전체 합",
+        "content": "11 17 23 29\n17 29 41 53\n23 41 59 77\n420"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "1 20 20\n2 30 50\n3 44 94\n4 62 156\n5 84 240"
+          "in": "3\n4",
+          "out": "11 17 23 29\n17 29 41 53\n23 41 59 77\n420"
         },
         {
-          "in": "1",
-          "out": "1 20 20"
+          "in": "1\n1",
+          "out": "11\n11"
         },
         {
-          "in": "7",
-          "out": "1 20 20\n2 30 50\n3 44 94\n4 62 156\n5 84 240\n6 110 350\n7 140 490"
+          "in": "4\n3",
+          "out": "11 17 23\n17 29 41\n23 41 59\n29 53 77\n420"
         }
       ]
     },
@@ -5207,28 +5217,28 @@
         "operate",
         "implement"
       ],
-      "name": "누적 보고서 14",
-      "description": "정수 N이 주어질 때, 각 줄에 i, 3*i^2 + 5*i + 15, 그리고 그 값의 누적합을 출력하세요.",
+      "name": "연속수 삼각형 1",
+      "description": "정수 N이 주어질 때, 1부터 시작해 2씩 증가하는 수를 삼각형 모양으로 N행 출력하세요.",
       "input": {
         "description": "정수 N",
         "content": "5"
       },
       "output": {
-        "description": "번호, 값, 누적합",
-        "content": "1 23 23\n2 37 60\n3 57 117\n4 83 200\n5 115 315"
+        "description": "삼각형 출력",
+        "content": "1\n3 5\n7 9 11\n13 15 17 19\n21 23 25 27 29"
       },
       "cases": [
         {
           "in": "5",
-          "out": "1 23 23\n2 37 60\n3 57 117\n4 83 200\n5 115 315"
+          "out": "1\n3 5\n7 9 11\n13 15 17 19\n21 23 25 27 29"
         },
         {
           "in": "1",
-          "out": "1 23 23"
+          "out": "1"
         },
         {
           "in": "7",
-          "out": "1 23 23\n2 37 60\n3 57 117\n4 83 200\n5 115 315\n6 153 468\n7 197 665"
+          "out": "1\n3 5\n7 9 11\n13 15 17 19\n21 23 25 27 29\n31 33 35 37 39 41\n43 45 47 49 51 53 55"
         }
       ]
     },
@@ -5417,28 +5427,28 @@
         "operate",
         "implement"
       ],
-      "name": "선형 격자 확장 6",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 3*i + 2*j + 6로 하는 N행 M열 표를 출력하세요.",
+      "name": "연속수 삼각형 2",
+      "description": "정수 N이 주어질 때, 2부터 시작해 3씩 증가하는 수를 삼각형 모양으로 N행 출력하세요.",
       "input": {
-        "description": "정수 N, M",
-        "content": "3\n4"
+        "description": "정수 N",
+        "content": "5"
       },
       "output": {
-        "description": "선형식 격자",
-        "content": "11 13 15 17\n14 16 18 20\n17 19 21 23"
+        "description": "삼각형 출력",
+        "content": "2\n5 8\n11 14 17\n20 23 26 29\n32 35 38 41 44"
       },
       "cases": [
         {
-          "in": "3\n4",
-          "out": "11 13 15 17\n14 16 18 20\n17 19 21 23"
+          "in": "5",
+          "out": "2\n5 8\n11 14 17\n20 23 26 29\n32 35 38 41 44"
         },
         {
-          "in": "1\n1",
-          "out": "11"
+          "in": "1",
+          "out": "2"
         },
         {
-          "in": "4\n3",
-          "out": "11 13 15\n14 16 18\n17 19 21\n20 22 24"
+          "in": "7",
+          "out": "2\n5 8\n11 14 17\n20 23 26 29\n32 35 38 41 44\n47 50 53 56 59 62\n65 68 71 74 77 80 83"
         }
       ]
     },
@@ -5452,28 +5462,28 @@
         "operate",
         "implement"
       ],
-      "name": "선형 격자 확장 7",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 4*i + 3*j + 7로 하는 N행 M열 표를 출력하세요.",
+      "name": "연속수 삼각형 3",
+      "description": "정수 N이 주어질 때, 3부터 시작해 4씩 증가하는 수를 삼각형 모양으로 N행 출력하세요.",
       "input": {
-        "description": "정수 N, M",
-        "content": "3\n4"
+        "description": "정수 N",
+        "content": "5"
       },
       "output": {
-        "description": "선형식 격자",
-        "content": "14 17 20 23\n18 21 24 27\n22 25 28 31"
+        "description": "삼각형 출력",
+        "content": "3\n7 11\n15 19 23\n27 31 35 39\n43 47 51 55 59"
       },
       "cases": [
         {
-          "in": "3\n4",
-          "out": "14 17 20 23\n18 21 24 27\n22 25 28 31"
+          "in": "5",
+          "out": "3\n7 11\n15 19 23\n27 31 35 39\n43 47 51 55 59"
         },
         {
-          "in": "1\n1",
-          "out": "14"
+          "in": "1",
+          "out": "3"
         },
         {
-          "in": "4\n3",
-          "out": "14 17 20\n18 21 24\n22 25 28\n26 29 32"
+          "in": "7",
+          "out": "3\n7 11\n15 19 23\n27 31 35 39\n43 47 51 55 59\n63 67 71 75 79 83\n87 91 95 99 103 107 111"
         }
       ]
     },
@@ -5487,28 +5497,28 @@
         "operate",
         "implement"
       ],
-      "name": "선형 격자 확장 8",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 1*i + 4*j + 8로 하는 N행 M열 표를 출력하세요.",
+      "name": "연속수 삼각형 4",
+      "description": "정수 N이 주어질 때, 4부터 시작해 5씩 증가하는 수를 삼각형 모양으로 N행 출력하세요.",
       "input": {
-        "description": "정수 N, M",
-        "content": "3\n4"
+        "description": "정수 N",
+        "content": "5"
       },
       "output": {
-        "description": "선형식 격자",
-        "content": "13 17 21 25\n14 18 22 26\n15 19 23 27"
+        "description": "삼각형 출력",
+        "content": "4\n9 14\n19 24 29\n34 39 44 49\n54 59 64 69 74"
       },
       "cases": [
         {
-          "in": "3\n4",
-          "out": "13 17 21 25\n14 18 22 26\n15 19 23 27"
+          "in": "5",
+          "out": "4\n9 14\n19 24 29\n34 39 44 49\n54 59 64 69 74"
         },
         {
-          "in": "1\n1",
-          "out": "13"
+          "in": "1",
+          "out": "4"
         },
         {
-          "in": "4\n3",
-          "out": "13 17 21\n14 18 22\n15 19 23\n16 20 24"
+          "in": "7",
+          "out": "4\n9 14\n19 24 29\n34 39 44 49\n54 59 64 69 74\n79 84 89 94 99 104\n109 114 119 124 129 134 139"
         }
       ]
     },
@@ -5522,28 +5532,28 @@
         "operate",
         "implement"
       ],
-      "name": "선형 격자 확장 9",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 2*i + 5*j + 9로 하는 N행 M열 표를 출력하세요.",
+      "name": "연속수 삼각형 5",
+      "description": "정수 N이 주어질 때, 5부터 시작해 6씩 증가하는 수를 삼각형 모양으로 N행 출력하세요.",
       "input": {
-        "description": "정수 N, M",
-        "content": "3\n4"
+        "description": "정수 N",
+        "content": "5"
       },
       "output": {
-        "description": "선형식 격자",
-        "content": "16 21 26 31\n18 23 28 33\n20 25 30 35"
+        "description": "삼각형 출력",
+        "content": "5\n11 17\n23 29 35\n41 47 53 59\n65 71 77 83 89"
       },
       "cases": [
         {
-          "in": "3\n4",
-          "out": "16 21 26 31\n18 23 28 33\n20 25 30 35"
+          "in": "5",
+          "out": "5\n11 17\n23 29 35\n41 47 53 59\n65 71 77 83 89"
         },
         {
-          "in": "1\n1",
-          "out": "16"
+          "in": "1",
+          "out": "5"
         },
         {
-          "in": "4\n3",
-          "out": "16 21 26\n18 23 28\n20 25 30\n22 27 32"
+          "in": "7",
+          "out": "5\n11 17\n23 29 35\n41 47 53 59\n65 71 77 83 89\n95 101 107 113 119 125\n131 137 143 149 155 161 167"
         }
       ]
     },
@@ -5557,28 +5567,28 @@
         "operate",
         "implement"
       ],
-      "name": "선형 격자 확장 10",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 3*i + 1*j + 10로 하는 N행 M열 표를 출력하세요.",
+      "name": "삼각 곱 격자 1",
+      "description": "정수 N이 주어질 때, i번째 행의 j번째 값을 2*i*j + 1로 하는 삼각 격자를 출력하세요.",
       "input": {
-        "description": "정수 N, M",
-        "content": "3\n4"
+        "description": "정수 N",
+        "content": "5"
       },
       "output": {
-        "description": "선형식 격자",
-        "content": "14 15 16 17\n17 18 19 20\n20 21 22 23"
+        "description": "삼각 곱 격자",
+        "content": "3\n5 9\n7 13 19\n9 17 25 33\n11 21 31 41 51"
       },
       "cases": [
         {
-          "in": "3\n4",
-          "out": "14 15 16 17\n17 18 19 20\n20 21 22 23"
+          "in": "5",
+          "out": "3\n5 9\n7 13 19\n9 17 25 33\n11 21 31 41 51"
         },
         {
-          "in": "1\n1",
-          "out": "14"
+          "in": "1",
+          "out": "3"
         },
         {
-          "in": "4\n3",
-          "out": "14 15 16\n17 18 19\n20 21 22\n23 24 25"
+          "in": "7",
+          "out": "3\n5 9\n7 13 19\n9 17 25 33\n11 21 31 41 51\n13 25 37 49 61 73\n15 29 43 57 71 85 99"
         }
       ]
     },
@@ -5592,28 +5602,28 @@
         "operate",
         "implement"
       ],
-      "name": "선형 격자 확장 11",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 4*i + 2*j + 11로 하는 N행 M열 표를 출력하세요.",
+      "name": "삼각 곱 격자 2",
+      "description": "정수 N이 주어질 때, i번째 행의 j번째 값을 3*i*j + 2로 하는 삼각 격자를 출력하세요.",
       "input": {
-        "description": "정수 N, M",
-        "content": "3\n4"
+        "description": "정수 N",
+        "content": "5"
       },
       "output": {
-        "description": "선형식 격자",
-        "content": "17 19 21 23\n21 23 25 27\n25 27 29 31"
+        "description": "삼각 곱 격자",
+        "content": "5\n8 14\n11 20 29\n14 26 38 50\n17 32 47 62 77"
       },
       "cases": [
         {
-          "in": "3\n4",
-          "out": "17 19 21 23\n21 23 25 27\n25 27 29 31"
+          "in": "5",
+          "out": "5\n8 14\n11 20 29\n14 26 38 50\n17 32 47 62 77"
         },
         {
-          "in": "1\n1",
-          "out": "17"
+          "in": "1",
+          "out": "5"
         },
         {
-          "in": "4\n3",
-          "out": "17 19 21\n21 23 25\n25 27 29\n29 31 33"
+          "in": "7",
+          "out": "5\n8 14\n11 20 29\n14 26 38 50\n17 32 47 62 77\n20 38 56 74 92 110\n23 44 65 86 107 128 149"
         }
       ]
     },
@@ -5627,28 +5637,28 @@
         "operate",
         "implement"
       ],
-      "name": "선형 격자 확장 12",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 1*i + 3*j + 12로 하는 N행 M열 표를 출력하세요.",
+      "name": "삼각 곱 격자 3",
+      "description": "정수 N이 주어질 때, i번째 행의 j번째 값을 4*i*j + 3로 하는 삼각 격자를 출력하세요.",
       "input": {
-        "description": "정수 N, M",
-        "content": "3\n4"
+        "description": "정수 N",
+        "content": "5"
       },
       "output": {
-        "description": "선형식 격자",
-        "content": "16 19 22 25\n17 20 23 26\n18 21 24 27"
+        "description": "삼각 곱 격자",
+        "content": "7\n11 19\n15 27 39\n19 35 51 67\n23 43 63 83 103"
       },
       "cases": [
         {
-          "in": "3\n4",
-          "out": "16 19 22 25\n17 20 23 26\n18 21 24 27"
+          "in": "5",
+          "out": "7\n11 19\n15 27 39\n19 35 51 67\n23 43 63 83 103"
         },
         {
-          "in": "1\n1",
-          "out": "16"
+          "in": "1",
+          "out": "7"
         },
         {
-          "in": "4\n3",
-          "out": "16 19 22\n17 20 23\n18 21 24\n19 22 25"
+          "in": "7",
+          "out": "7\n11 19\n15 27 39\n19 35 51 67\n23 43 63 83 103\n27 51 75 99 123 147\n31 59 87 115 143 171 199"
         }
       ]
     },
@@ -5662,28 +5672,28 @@
         "operate",
         "implement"
       ],
-      "name": "선형 격자 확장 13",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 2*i + 4*j + 13로 하는 N행 M열 표를 출력하세요.",
+      "name": "삼각 곱 격자 4",
+      "description": "정수 N이 주어질 때, i번째 행의 j번째 값을 5*i*j + 4로 하는 삼각 격자를 출력하세요.",
       "input": {
-        "description": "정수 N, M",
-        "content": "3\n4"
+        "description": "정수 N",
+        "content": "5"
       },
       "output": {
-        "description": "선형식 격자",
-        "content": "19 23 27 31\n21 25 29 33\n23 27 31 35"
+        "description": "삼각 곱 격자",
+        "content": "9\n14 24\n19 34 49\n24 44 64 84\n29 54 79 104 129"
       },
       "cases": [
         {
-          "in": "3\n4",
-          "out": "19 23 27 31\n21 25 29 33\n23 27 31 35"
+          "in": "5",
+          "out": "9\n14 24\n19 34 49\n24 44 64 84\n29 54 79 104 129"
         },
         {
-          "in": "1\n1",
-          "out": "19"
+          "in": "1",
+          "out": "9"
         },
         {
-          "in": "4\n3",
-          "out": "19 23 27\n21 25 29\n23 27 31\n25 29 33"
+          "in": "7",
+          "out": "9\n14 24\n19 34 49\n24 44 64 84\n29 54 79 104 129\n34 64 94 124 154 184\n39 74 109 144 179 214 249"
         }
       ]
     },
@@ -5697,28 +5707,28 @@
         "operate",
         "implement"
       ],
-      "name": "선형 격자 확장 14",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 3*i + 5*j + 14로 하는 N행 M열 표를 출력하세요.",
+      "name": "삼각 곱 격자 5",
+      "description": "정수 N이 주어질 때, i번째 행의 j번째 값을 6*i*j + 5로 하는 삼각 격자를 출력하세요.",
       "input": {
-        "description": "정수 N, M",
-        "content": "3\n4"
+        "description": "정수 N",
+        "content": "5"
       },
       "output": {
-        "description": "선형식 격자",
-        "content": "22 27 32 37\n25 30 35 40\n28 33 38 43"
+        "description": "삼각 곱 격자",
+        "content": "11\n17 29\n23 41 59\n29 53 77 101\n35 65 95 125 155"
       },
       "cases": [
         {
-          "in": "3\n4",
-          "out": "22 27 32 37\n25 30 35 40\n28 33 38 43"
+          "in": "5",
+          "out": "11\n17 29\n23 41 59\n29 53 77 101\n35 65 95 125 155"
         },
         {
-          "in": "1\n1",
-          "out": "22"
+          "in": "1",
+          "out": "11"
         },
         {
-          "in": "4\n3",
-          "out": "22 27 32\n25 30 35\n28 33 38\n31 36 41"
+          "in": "7",
+          "out": "11\n17 29\n23 41 59\n29 53 77 101\n35 65 95 125 155\n41 77 113 149 185 221\n47 89 131 173 215 257 299"
         }
       ]
     },
@@ -5907,28 +5917,28 @@
         "operate",
         "implement"
       ],
-      "name": "곱 격자 확장 6",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 1*i*j + 3*i + 6로 하는 N행 M열 표를 출력하세요.",
+      "name": "좌표 합성 격자 1",
+      "description": "정수 N, M이 주어질 때, i행 j열의 값을 2*i + 4*j + i*j로 하는 격자를 출력하세요.",
       "input": {
         "description": "정수 N, M",
         "content": "3\n4"
       },
       "output": {
-        "description": "곱이 포함된 격자",
-        "content": "10 11 12 13\n14 16 18 20\n18 21 24 27"
+        "description": "격자",
+        "content": "7 12 17 22\n10 16 22 28\n13 20 27 34"
       },
       "cases": [
         {
           "in": "3\n4",
-          "out": "10 11 12 13\n14 16 18 20\n18 21 24 27"
+          "out": "7 12 17 22\n10 16 22 28\n13 20 27 34"
         },
         {
           "in": "1\n1",
-          "out": "10"
+          "out": "7"
         },
         {
           "in": "4\n3",
-          "out": "10 11 12\n14 16 18\n18 21 24\n22 26 30"
+          "out": "7 12 17\n10 16 22\n13 20 27\n16 24 32"
         }
       ]
     },
@@ -5942,28 +5952,28 @@
         "operate",
         "implement"
       ],
-      "name": "곱 격자 확장 7",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 2*i*j + 4*i + 7로 하는 N행 M열 표를 출력하세요.",
+      "name": "좌표 합성 격자 2",
+      "description": "정수 N, M이 주어질 때, i행 j열의 값을 3*i + 5*j + i*j로 하는 격자를 출력하세요.",
       "input": {
         "description": "정수 N, M",
         "content": "3\n4"
       },
       "output": {
-        "description": "곱이 포함된 격자",
-        "content": "13 15 17 19\n19 23 27 31\n25 31 37 43"
+        "description": "격자",
+        "content": "9 15 21 27\n13 20 27 34\n17 25 33 41"
       },
       "cases": [
         {
           "in": "3\n4",
-          "out": "13 15 17 19\n19 23 27 31\n25 31 37 43"
+          "out": "9 15 21 27\n13 20 27 34\n17 25 33 41"
         },
         {
           "in": "1\n1",
-          "out": "13"
+          "out": "9"
         },
         {
           "in": "4\n3",
-          "out": "13 15 17\n19 23 27\n25 31 37\n31 39 47"
+          "out": "9 15 21\n13 20 27\n17 25 33\n21 30 39"
         }
       ]
     },
@@ -5977,28 +5987,28 @@
         "operate",
         "implement"
       ],
-      "name": "곱 격자 확장 8",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 3*i*j + 1*i + 8로 하는 N행 M열 표를 출력하세요.",
+      "name": "좌표 합성 격자 3",
+      "description": "정수 N, M이 주어질 때, i행 j열의 값을 4*i + 6*j + i*j로 하는 격자를 출력하세요.",
       "input": {
         "description": "정수 N, M",
         "content": "3\n4"
       },
       "output": {
-        "description": "곱이 포함된 격자",
-        "content": "12 15 18 21\n16 22 28 34\n20 29 38 47"
+        "description": "격자",
+        "content": "11 18 25 32\n16 24 32 40\n21 30 39 48"
       },
       "cases": [
         {
           "in": "3\n4",
-          "out": "12 15 18 21\n16 22 28 34\n20 29 38 47"
+          "out": "11 18 25 32\n16 24 32 40\n21 30 39 48"
         },
         {
           "in": "1\n1",
-          "out": "12"
+          "out": "11"
         },
         {
           "in": "4\n3",
-          "out": "12 15 18\n16 22 28\n20 29 38\n24 36 48"
+          "out": "11 18 25\n16 24 32\n21 30 39\n26 36 46"
         }
       ]
     },
@@ -6012,28 +6022,28 @@
         "operate",
         "implement"
       ],
-      "name": "곱 격자 확장 9",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 1*i*j + 2*i + 9로 하는 N행 M열 표를 출력하세요.",
+      "name": "좌표 합성 격자 4",
+      "description": "정수 N, M이 주어질 때, i행 j열의 값을 5*i + 7*j + i*j로 하는 격자를 출력하세요.",
       "input": {
         "description": "정수 N, M",
         "content": "3\n4"
       },
       "output": {
-        "description": "곱이 포함된 격자",
-        "content": "12 13 14 15\n15 17 19 21\n18 21 24 27"
+        "description": "격자",
+        "content": "13 21 29 37\n19 28 37 46\n25 35 45 55"
       },
       "cases": [
         {
           "in": "3\n4",
-          "out": "12 13 14 15\n15 17 19 21\n18 21 24 27"
+          "out": "13 21 29 37\n19 28 37 46\n25 35 45 55"
         },
         {
           "in": "1\n1",
-          "out": "12"
+          "out": "13"
         },
         {
           "in": "4\n3",
-          "out": "12 13 14\n15 17 19\n18 21 24\n21 25 29"
+          "out": "13 21 29\n19 28 37\n25 35 45\n31 42 53"
         }
       ]
     },
@@ -6047,20 +6057,20 @@
         "operate",
         "implement"
       ],
-      "name": "곱 격자 확장 10",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 2*i*j + 3*i + 10로 하는 N행 M열 표를 출력하세요.",
+      "name": "좌표 합성 격자 5",
+      "description": "정수 N, M이 주어질 때, i행 j열의 값을 6*i + 8*j + i*j로 하는 격자를 출력하세요.",
       "input": {
         "description": "정수 N, M",
         "content": "3\n4"
       },
       "output": {
-        "description": "곱이 포함된 격자",
-        "content": "15 17 19 21\n20 24 28 32\n25 31 37 43"
+        "description": "격자",
+        "content": "15 24 33 42\n22 32 42 52\n29 40 51 62"
       },
       "cases": [
         {
           "in": "3\n4",
-          "out": "15 17 19 21\n20 24 28 32\n25 31 37 43"
+          "out": "15 24 33 42\n22 32 42 52\n29 40 51 62"
         },
         {
           "in": "1\n1",
@@ -6068,7 +6078,7 @@
         },
         {
           "in": "4\n3",
-          "out": "15 17 19\n20 24 28\n25 31 37\n30 38 46"
+          "out": "15 24 33\n22 32 42\n29 40 51\n36 48 60"
         }
       ]
     },
@@ -6082,28 +6092,28 @@
         "operate",
         "implement"
       ],
-      "name": "곱 격자 확장 11",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 3*i*j + 4*i + 11로 하는 N행 M열 표를 출력하세요.",
+      "name": "계단 누적 합 1",
+      "description": "정수 N이 주어질 때, 1씩 증가하는 수를 삼각형으로 채우고 각 행 끝에 행의 합과 전체 누적합을 붙이세요.",
       "input": {
-        "description": "정수 N, M",
-        "content": "3\n4"
+        "description": "정수 N",
+        "content": "4"
       },
       "output": {
-        "description": "곱이 포함된 격자",
-        "content": "18 21 24 27\n25 31 37 43\n32 41 50 59"
+        "description": "값들, 행의 합, 전체 누적합",
+        "content": "1 1 1\n2 3 5 6\n4 5 6 15 21\n7 8 9 10 34 55"
       },
       "cases": [
         {
-          "in": "3\n4",
-          "out": "18 21 24 27\n25 31 37 43\n32 41 50 59"
+          "in": "4",
+          "out": "1 1 1\n2 3 5 6\n4 5 6 15 21\n7 8 9 10 34 55"
         },
         {
-          "in": "1\n1",
-          "out": "18"
+          "in": "1",
+          "out": "1 1 1"
         },
         {
-          "in": "4\n3",
-          "out": "18 21 24\n25 31 37\n32 41 50\n39 51 63"
+          "in": "6",
+          "out": "1 1 1\n2 3 5 6\n4 5 6 15 21\n7 8 9 10 34 55\n11 12 13 14 15 65 120\n16 17 18 19 20 21 111 231"
         }
       ]
     },
@@ -6117,28 +6127,28 @@
         "operate",
         "implement"
       ],
-      "name": "곱 격자 확장 12",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 1*i*j + 1*i + 12로 하는 N행 M열 표를 출력하세요.",
+      "name": "계단 누적 합 2",
+      "description": "정수 N이 주어질 때, 2씩 증가하는 수를 삼각형으로 채우고 각 행 끝에 행의 합과 전체 누적합을 붙이세요.",
       "input": {
-        "description": "정수 N, M",
-        "content": "3\n4"
+        "description": "정수 N",
+        "content": "4"
       },
       "output": {
-        "description": "곱이 포함된 격자",
-        "content": "14 15 16 17\n16 18 20 22\n18 21 24 27"
+        "description": "값들, 행의 합, 전체 누적합",
+        "content": "2 2 2\n4 6 10 12\n8 10 12 30 42\n14 16 18 20 68 110"
       },
       "cases": [
         {
-          "in": "3\n4",
-          "out": "14 15 16 17\n16 18 20 22\n18 21 24 27"
+          "in": "4",
+          "out": "2 2 2\n4 6 10 12\n8 10 12 30 42\n14 16 18 20 68 110"
         },
         {
-          "in": "1\n1",
-          "out": "14"
+          "in": "1",
+          "out": "2 2 2"
         },
         {
-          "in": "4\n3",
-          "out": "14 15 16\n16 18 20\n18 21 24\n20 24 28"
+          "in": "6",
+          "out": "2 2 2\n4 6 10 12\n8 10 12 30 42\n14 16 18 20 68 110\n22 24 26 28 30 130 240\n32 34 36 38 40 42 222 462"
         }
       ]
     },
@@ -6152,28 +6162,28 @@
         "operate",
         "implement"
       ],
-      "name": "곱 격자 확장 13",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 2*i*j + 2*i + 13로 하는 N행 M열 표를 출력하세요.",
+      "name": "계단 누적 합 3",
+      "description": "정수 N이 주어질 때, 3씩 증가하는 수를 삼각형으로 채우고 각 행 끝에 행의 합과 전체 누적합을 붙이세요.",
       "input": {
-        "description": "정수 N, M",
-        "content": "3\n4"
+        "description": "정수 N",
+        "content": "4"
       },
       "output": {
-        "description": "곱이 포함된 격자",
-        "content": "17 19 21 23\n21 25 29 33\n25 31 37 43"
+        "description": "값들, 행의 합, 전체 누적합",
+        "content": "3 3 3\n6 9 15 18\n12 15 18 45 63\n21 24 27 30 102 165"
       },
       "cases": [
         {
-          "in": "3\n4",
-          "out": "17 19 21 23\n21 25 29 33\n25 31 37 43"
+          "in": "4",
+          "out": "3 3 3\n6 9 15 18\n12 15 18 45 63\n21 24 27 30 102 165"
         },
         {
-          "in": "1\n1",
-          "out": "17"
+          "in": "1",
+          "out": "3 3 3"
         },
         {
-          "in": "4\n3",
-          "out": "17 19 21\n21 25 29\n25 31 37\n29 37 45"
+          "in": "6",
+          "out": "3 3 3\n6 9 15 18\n12 15 18 45 63\n21 24 27 30 102 165\n33 36 39 42 45 195 360\n48 51 54 57 60 63 333 693"
         }
       ]
     },
@@ -6187,28 +6197,28 @@
         "operate",
         "implement"
       ],
-      "name": "곱 격자 확장 14",
-      "description": "정수 N, M이 주어질 때, i행 j열의 값을 3*i*j + 3*i + 14로 하는 N행 M열 표를 출력하세요.",
+      "name": "계단 누적 합 4",
+      "description": "정수 N이 주어질 때, 4씩 증가하는 수를 삼각형으로 채우고 각 행 끝에 행의 합과 전체 누적합을 붙이세요.",
       "input": {
-        "description": "정수 N, M",
-        "content": "3\n4"
+        "description": "정수 N",
+        "content": "4"
       },
       "output": {
-        "description": "곱이 포함된 격자",
-        "content": "20 23 26 29\n26 32 38 44\n32 41 50 59"
+        "description": "값들, 행의 합, 전체 누적합",
+        "content": "4 4 4\n8 12 20 24\n16 20 24 60 84\n28 32 36 40 136 220"
       },
       "cases": [
         {
-          "in": "3\n4",
-          "out": "20 23 26 29\n26 32 38 44\n32 41 50 59"
+          "in": "4",
+          "out": "4 4 4\n8 12 20 24\n16 20 24 60 84\n28 32 36 40 136 220"
         },
         {
-          "in": "1\n1",
-          "out": "20"
+          "in": "1",
+          "out": "4 4 4"
         },
         {
-          "in": "4\n3",
-          "out": "20 23 26\n26 32 38\n32 41 50\n38 50 62"
+          "in": "6",
+          "out": "4 4 4\n8 12 20 24\n16 20 24 60 84\n28 32 36 40 136 220\n44 48 52 56 60 260 480\n64 68 72 76 80 84 444 924"
         }
       ]
     },
