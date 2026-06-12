@@ -1,6 +1,6 @@
 import { spawn } from "node:child_process";
 import { existsSync } from "node:fs";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { APIErrorResponse, createAPIErrorResponse } from "@/modules/apiError";
@@ -33,6 +33,8 @@ const JAEMINLANG_EXECUTABLE_CANDIDATES = [
 ];
 
 export async function POST(req: NextRequest, { params }: Params) {
+    let codePath: string | undefined;
+
     try {
         const parsed = POSTApiProblemsIdSubmit.safeParse(await req.json());
         if (!parsed.success) return NextResponse.json({
@@ -64,7 +66,8 @@ export async function POST(req: NextRequest, { params }: Params) {
         await mkdir(tempDir, { "recursive": true });
 
         const fileName = `code-${Date.now() + Math.floor(Math.random() * 100000)}.txt`;
-        await writeFile(path.join(tempDir, fileName), parsed.data.code, "utf8");
+        codePath = path.join(tempDir, fileName);
+        await writeFile(codePath, parsed.data.code, "utf8");
 
         let passed = 0;
         let hasExecutionError = false;
@@ -162,6 +165,8 @@ export async function POST(req: NextRequest, { params }: Params) {
             "code": e.name,
             "message": e.message
         } satisfies APIErrorResponse, { "status": 500 });
+    } finally {
+        if (codePath) await deleteTempFile(codePath);
     }
 }
 
@@ -190,6 +195,13 @@ function resolveJaeminlangExecutable(root: string) {
     }
 
     return null;
+}
+
+async function deleteTempFile(filePath: string) {
+    try {
+        await rm(filePath, { "force": true });
+    } catch {
+    }
 }
 
 function runJaeminlang(
