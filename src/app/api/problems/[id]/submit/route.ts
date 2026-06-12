@@ -112,6 +112,8 @@ export async function POST(req: NextRequest, { params }: Params) {
         const userNode = getOrCreateUserNode(session.user);
         const currentUser = userNode.value();
         const alreadySolved = currentUser.problems.includes(problem.id);
+        const incorrectProblems = currentUser.incorrectProblems ?? [];
+        const hadIncorrectProblem = incorrectProblems.includes(problem.id);
         const nextUser: DBUser = correct
             ? {
                 ...currentUser,
@@ -119,6 +121,9 @@ export async function POST(req: NextRequest, { params }: Params) {
                 "stat": {
                     ...currentUser.stat,
                     "correct": currentUser.stat.correct + 1,
+                    "incorrect": hadIncorrectProblem
+                        ? Math.max(0, currentUser.stat.incorrect - 1)
+                        : currentUser.stat.incorrect,
                     "submits": currentUser.stat.submits + 1
                 },
                 "problems": alreadySolved
@@ -127,18 +132,25 @@ export async function POST(req: NextRequest, { params }: Params) {
                 "drafts": {
                     ...(currentUser.drafts ?? {}),
                     [String(problem.id)]: parsed.data.code
-                }
+                },
+                "incorrectProblems": incorrectProblems.filter((value) => value !== problem.id)
             }
             : {
                 ...currentUser,
                 "stat": {
                     ...currentUser.stat,
+                    "incorrect": hadIncorrectProblem
+                        ? currentUser.stat.incorrect
+                        : currentUser.stat.incorrect + 1,
                     "submits": currentUser.stat.submits + 1
                 },
                 "drafts": {
                     ...(currentUser.drafts ?? {}),
                     [String(problem.id)]: parsed.data.code
-                }
+                },
+                "incorrectProblems": hadIncorrectProblem
+                    ? incorrectProblems
+                    : [...incorrectProblems, problem.id]
             };
 
         userNode.set(nextUser);

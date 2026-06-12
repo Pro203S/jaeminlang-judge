@@ -2,16 +2,8 @@
 
 import Header from "@/components/header";
 import css from './page.module.css';
-import { useEffect, useState } from "react";
 
 export default function Page() {
-    const [ranking, setRanking] = useState<APIUser[]>([]);
-
-    useEffect(() => {
-        (async () => {
-            
-        })();
-    }, []);
 
     return <>
         <Header />
