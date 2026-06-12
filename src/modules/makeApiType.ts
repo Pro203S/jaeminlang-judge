@@ -1,8 +1,9 @@
 import { getProblemsDatabase } from "./database";
 
-export function MakeApiProblem(value: DBProblem): APIProblem {
+export function MakeApiProblem(value: DBProblem, savedCode?: string): APIProblem {
     const a: any = { ...value, "tags": value.tags ?? [] };
     delete a.cases;
+    if (savedCode !== undefined) a.savedCode = savedCode;
     return a;
 }
 

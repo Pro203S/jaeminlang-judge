@@ -69,6 +69,7 @@ export async function POST(req: NextRequest, { params }: Params) {
         let passed = 0;
         let hasExecutionError = false;
         let executionOutput = "";
+        let debugOutput = "";
 
         for (const testCase of problem.cases) {
             const result = await runJaeminlang(
@@ -92,6 +93,19 @@ export async function POST(req: NextRequest, { params }: Params) {
         }
 
         const correct = passed === problem.cases.length;
+        if (!correct && !hasExecutionError) {
+            const sampleResult = await runJaeminlang(
+                jaeminlangPath,
+                tempDir,
+                fileName,
+                problem.input?.content ?? "",
+            );
+
+            debugOutput = sampleResult.exitCode === 0 && !sampleResult.timedOut
+                ? normalizeOutput(sampleResult.stdout)
+                : formatExecutionOutput(getExecutionOutput(sampleResult));
+        }
+
         const userNode = getOrCreateUserNode(session.user);
         const currentUser = userNode.value();
         const alreadySolved = currentUser.problems.includes(problem.id);
@@ -106,13 +120,21 @@ export async function POST(req: NextRequest, { params }: Params) {
                 },
                 "problems": alreadySolved
                     ? currentUser.problems
-                    : [...currentUser.problems, problem.id]
+                    : [...currentUser.problems, problem.id],
+                "drafts": {
+                    ...(currentUser.drafts ?? {}),
+                    [String(problem.id)]: parsed.data.code
+                }
             }
             : {
                 ...currentUser,
                 "stat": {
                     ...currentUser.stat,
                     "submits": currentUser.stat.submits + 1
+                },
+                "drafts": {
+                    ...(currentUser.drafts ?? {}),
+                    [String(problem.id)]: parsed.data.code
                 }
             };
 
@@ -121,7 +143,9 @@ export async function POST(req: NextRequest, { params }: Params) {
         const payload: APISubmitResponse = {
             correct,
             "error": hasExecutionError,
-            "output": hasExecutionError ? formatExecutionOutput(executionOutput) : ""
+            "output": hasExecutionError
+                ? formatExecutionOutput(executionOutput)
+                : debugOutput
         };
 
         return attachSessionCookies(NextResponse.json(payload), session);

@@ -1,5 +1,5 @@
 import { APIErrorResponse } from "@/modules/apiError";
-import { getProblemsDatabase, sortProblemsByDifficulty } from "@/modules/database";
+import { getDBUserById, getProblemsDatabase, sortProblemsByDifficulty } from "@/modules/database";
 import { MakeApiProblem } from "@/modules/makeApiType";
 import { Pro203SSessionError, attachSessionCookies, getCurrentSession } from "@/modules/pro203sAuth";
 import { PATCHApiProblemsId } from "@/modules/zod";
@@ -16,7 +16,19 @@ export async function GET(req: NextRequest, { params }: Params) {
             "message": "문제를 찾지 못했습니다."
         }, { "status": 404 });
 
-        return NextResponse.json(MakeApiProblem(problem));
+        let session: Awaited<ReturnType<typeof getCurrentSession>> | undefined;
+        try {
+            session = await getCurrentSession(req);
+        } catch (err) {
+            if (!(err instanceof Pro203SSessionError)) throw err;
+        }
+
+        const savedCode = session
+            ? getDBUserById(session.user.id)?.drafts?.[String(problem.id)]
+            : undefined;
+        const response = NextResponse.json(MakeApiProblem(problem, savedCode));
+
+        return session ? attachSessionCookies(response, session) : response;
     } catch (err) {
         if (err instanceof Pro203SSessionError) {
             return NextResponse.json({

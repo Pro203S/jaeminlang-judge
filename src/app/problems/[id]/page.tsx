@@ -17,6 +17,8 @@ export default function Page() {
     const router = useRouter();
     const { id } = useParams<{ id: string }>();
     const lineNumbersRef = useRef<HTMLDivElement>(null);
+    const saveTimeoutRef = useRef<number>(undefined);
+    const lastSavedCodeRef = useRef("");
     const [user, setUser] = useState<APIUser>();
     const [problem, setProblem] = useState<APIProblem>();
     const [code, setCode] = useState("");
@@ -43,6 +45,8 @@ export default function Page() {
             }
 
             setProblem(r2.data);
+            setCode(r2.data.savedCode ?? "");
+            lastSavedCodeRef.current = r2.data.savedCode ?? "";
         })();
     }, []);
 
@@ -52,6 +56,25 @@ export default function Page() {
         const timeout = window.setTimeout(() => setConfettiRun(0), 1500);
         return () => window.clearTimeout(timeout);
     }, [confettiRun]);
+
+    useEffect(() => {
+        if (!user || !problem) return;
+        if (code === lastSavedCodeRef.current) return;
+
+        window.clearTimeout(saveTimeoutRef.current);
+        saveTimeoutRef.current = window.setTimeout(async () => {
+            const result = await REST(`/api/problems/${id}/draft`, {
+                "method": "POST",
+                "data": { code }
+            });
+
+            if (result.success) {
+                lastSavedCodeRef.current = code;
+            }
+        }, 500);
+
+        return () => window.clearTimeout(saveTimeoutRef.current);
+    }, [code, id, problem, user]);
 
     return <>
         <Header sessionOverride={user} doNotRequest />
@@ -126,7 +149,7 @@ export default function Page() {
                 {submitResult && <div className={css.section}>
                     <span className={css.title}>실행 결과</span>
                     <span className={css.subtitle}>{submitStatus}</span>
-                    {submitResult.error && <pre className={css.outputBox}>
+                    {(submitResult.error || !submitResult.correct) && <pre className={css.outputBox}>
                         {submitResult.output || "출력 없음"}
                     </pre>}
                 </div>}

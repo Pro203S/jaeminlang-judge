@@ -14,11 +14,14 @@ declare global {
 
     type RESTDynamicPath =
         | `/api/problems/${string}`
+        | `/api/problems/${string}/draft`
         | `/api/problems/${string}/submit`;
 
     type RESTResponse<Path extends string> =
         Path extends `/api/problems/${string}/submit`
             ? APISubmitResponse
+            : Path extends `/api/problems/${string}/draft`
+                ? null
             : Path extends `/api/problems/${string}`
                 ? APIProblem
                 : Path extends keyof RESTResponseMap
@@ -58,7 +61,8 @@ declare global {
         "output": {
             "description": string,
             "content": string
-        }
+        },
+        "savedCode"?: string
     };
 
     //#region DB Type
@@ -97,7 +101,8 @@ declare global {
             "incorrect": number,
             "submits": number
         },
-        "problems": number[]
+        "problems": number[],
+        "drafts": Record<string, string>
     }
 
     type Database = {
