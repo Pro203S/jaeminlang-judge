@@ -45,7 +45,8 @@ export function createDefaultDBUser(user: OAuthUserResponse): DBUser {
             "submits": 0
         },
         "problems": [],
-        "drafts": {}
+        "drafts": {},
+        "incorrectProblems": []
     };
 }
 
@@ -62,7 +63,8 @@ export function getOrCreateDBUser(user: OAuthUserResponse): DBUser {
             ...current.value(),
             "id": user.id,
             "userData": createOAuthUserResult(user),
-            "drafts": current.value().drafts ?? {}
+            "drafts": current.value().drafts ?? {},
+            "incorrectProblems": current.value().incorrectProblems ?? []
         };
         current.set(next);
         return next;

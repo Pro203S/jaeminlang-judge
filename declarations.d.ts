@@ -102,7 +102,8 @@ declare global {
             "submits": number
         },
         "problems": number[],
-        "drafts": Record<string, string>
+        "drafts": Record<string, string>,
+        "incorrectProblems": number[]
     }
 
     type Database = {
