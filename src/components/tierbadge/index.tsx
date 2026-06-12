@@ -30,8 +30,8 @@ const TIER_COLOR_MAP = {
         "fg": "#000"
     },
     "god": {
-        "bg": "#ffffff",
-        "fg": "#000"
+        "bg": "linear-gradient(360deg, #000, #fff)",
+        "fg": "#1e1e1e"
     },
 };
 
