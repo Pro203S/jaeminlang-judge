@@ -69,15 +69,15 @@ export default function Page() {
                         <span className={css.title}>입력</span>
                         <span className={css.subtitle}>설명</span>
                         <span className={css.desc}>{problem.input.description}</span>
-                        <span className={css.subtitle}>실제 출력 값</span>
-                        <span className={css.desc}>{problem.input.content}</span>
+                        <span className={css.subtitle}>실제 입력 값</span>
+                        {problem.input.content.split("\n").map((v, i) => <span key={i} className={css.desc}>{v}</span>)}
                     </div>}
                     {problem.output && <div className={css.section}>
                         <span className={css.title}>출력</span>
                         <span className={css.subtitle}>설명</span>
                         <span className={css.desc}>{problem.output.description}</span>
                         <span className={css.subtitle}>실제 출력 값</span>
-                        <span className={css.desc} style={{ "userSelect": "text", "width": "100%" }}>{problem.output.content}</span>
+                        {problem.output.content.split("\n").map((v, i) => <span key={i} className={css.desc} style={{ "userSelect": "text", "width": "100%" }}>{v}</span>)}
                     </div>}
                 </div>
                 <div className={css.section}>
