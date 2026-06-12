@@ -27,6 +27,10 @@ type RunResult = {
 
 const EXECUTION_TIMEOUT_MS = 5000;
 const MAX_OUTPUT_LENGTH = 1024 * 1024;
+const JAEMINLANG_EXECUTABLE_CANDIDATES = [
+    "jaeminlang.exe",
+    "jaeminlang"
+];
 
 export async function POST(req: NextRequest, { params }: Params) {
     try {
@@ -48,9 +52,9 @@ export async function POST(req: NextRequest, { params }: Params) {
         const session = await getCurrentSession(req);
         const root = process.cwd();
         const tempDir = path.join(root, "temp");
-        const jaeminlangPath = path.join(root, "jaeminlang", "bin", "jaeminlang.exe");
+        const jaeminlangPath = resolveJaeminlangExecutable(root);
 
-        if (!existsSync(jaeminlangPath)) {
+        if (!jaeminlangPath) {
             return attachSessionCookies(NextResponse.json(
                 createAPIErrorResponse("jaeminlang_not_found", "재민랭 실행 파일을 찾지 못했습니다."),
                 { "status": 500 },
@@ -117,10 +121,7 @@ export async function POST(req: NextRequest, { params }: Params) {
         const payload: APISubmitResponse = {
             correct,
             "error": hasExecutionError,
-            "output": hasExecutionError ? executionOutput
-                .slice(0, executionOutput.indexOf("at"))
-                .slice(executionOutput.indexOf("]") + 1)
-                .trim() : ""
+            "output": hasExecutionError ? formatExecutionOutput(executionOutput) : ""
         };
 
         return attachSessionCookies(NextResponse.json(payload), session);
@@ -154,6 +155,17 @@ function getOrCreateUserNode(user: Parameters<typeof createDefaultDBUser>[0]) {
     }
 
     return created;
+}
+
+function resolveJaeminlangExecutable(root: string) {
+    const binDir = path.join(root, "jaeminlang", "bin");
+
+    for (const candidate of JAEMINLANG_EXECUTABLE_CANDIDATES) {
+        const executablePath = path.join(binDir, candidate);
+        if (existsSync(executablePath)) return executablePath;
+    }
+
+    return null;
 }
 
 function runJaeminlang(
@@ -222,4 +234,19 @@ function getExecutionOutput(result: RunResult) {
 
     if (result.timedOut) return "실행 시간이 초과되었습니다.";
     return "재민랭이 오류와 함께 종료되었습니다.";
+}
+
+function formatExecutionOutput(output: string) {
+    const lines = output
+        .replace(/\r\n/g, "\n")
+        .split("\n")
+        .map(line => line.trimEnd());
+
+    const stackTraceIndex = lines.findIndex(line => /^\s*at\s+/.test(line));
+    const relevantLines = stackTraceIndex >= 0 ? lines.slice(0, stackTraceIndex) : lines;
+
+    return relevantLines
+        .map(line => line.replace(/^\[[^\]]+\]\s*/, ""))
+        .join("\n")
+        .trim();
 }
