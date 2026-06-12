@@ -2,11 +2,31 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     max-width: 1024px;
     padding: 15px;
     margin: 0 auto;
     min-height: calc(100dvh - 95px);
+}
+
+.search {
+    width: 90%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: #464646 solid 1.5px;
+    border-radius: 23px;
+    overflow: visible;
+}
+
+.searchBox {
+    color: #fff;
+    background-color: #0000;
+    border: 0 solid #000;
+    border-bottom: 1px solid #464646;
+    outline: none;
+    font-size: 21px;
+    width: 100%;
 }
 
 .users {
@@ -21,3 +41,82 @@
     overflow: visible;
 }
 
+.sectionTitle {
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 13px;
+    padding: 5px;
+    border-radius: 13px;
+    cursor: pointer;
+    will-change: background-color;
+    transition: background-color, .25s;
+    text-decoration: none;
+}
+
+.user:hover {
+    background-color: #464646;
+}
+
+.rank {
+    flex: 0 0 42px;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.rankGold {
+    color: #facc15;
+}
+
+.rankSilver {
+    color: #d1d5db;
+}
+
+.rankBronze {
+    color: #cd7f32;
+}
+
+.user .profile {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user .name {
+    font-size: 1.67rem;
+    font-weight: 600;
+    color: #fff;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user .score {
+    display: inline-block;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: auto 0;
+    margin-left: auto;
+    background: var(--score-gradient, linear-gradient(90deg, #ffd166, #6ee7f9, #c084fc));
+    background-clip: text;
+    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+}
+
+.empty {
+    color: #9ca3af;
+    font-size: 1rem;
+    padding: 12px 5px;
+}
