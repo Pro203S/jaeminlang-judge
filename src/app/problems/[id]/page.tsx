@@ -10,6 +10,7 @@ import InOutAnimation from "@/components/InOutAnimation";
 import Button from "@/components/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import Loading from "@/components/loading";
 
 const CONFETTI_PIECES = Array.from({ "length": 28 }, (_, index) => index);
 
@@ -78,7 +79,7 @@ export default function Page() {
 
     return <>
         <Header sessionOverride={user} doNotRequest />
-        {problem && <InOutAnimation className={css.container} animate>
+        {problem ? <InOutAnimation className={css.container} animate>
             <div className={css.problem}>
                 <div className={css.section}>
                     <div className={css.titleBox}>
@@ -192,7 +193,7 @@ export default function Page() {
                     </div>
                 </div>
             </div>
-        </InOutAnimation>}
+        </InOutAnimation> : <div style={{ "width": "100vw", "height": "calc(100dvh - 65px)" }}><Loading /></div>}
         {confettiRun > 0 && <div key={confettiRun} className={css.confettiLayer} aria-hidden="true">
             {CONFETTI_PIECES.map((piece) => <span key={piece} className={css.confettiPiece} />)}
         </div>}
