@@ -8986,7 +8986,7 @@
     {
       "id": 291,
       "tier": {
-        "category": "god",
+        "category": "diamond",
         "stage": 1
       },
       "tags": [
@@ -9016,7 +9016,7 @@
     {
       "id": 292,
       "tier": {
-        "category": "god",
+        "category": "diamond",
         "stage": 1
       },
       "tags": [
@@ -9047,7 +9047,7 @@
     {
       "id": 293,
       "tier": {
-        "category": "god",
+        "category": "diamond",
         "stage": 1
       },
       "tags": [
@@ -9081,34 +9081,38 @@
         "stage": 1
       },
       "tags": [
-        "array",
+        "operate",
         "implement"
       ],
-      "name": "인접 합 축약",
-      "description": "첫 줄에 N, 둘째 줄에 N개의 정수가 주어집니다. 현재 배열을 출력한 뒤 인접한 두 수의 합으로 새 배열을 만들기를 길이가 1이 될 때까지 반복하세요.",
+      "name": "이항계수 삼각형",
+      "description": "정수 N이 주어질 때, 0번째 행부터 N-1번째 행까지의 이항계수를 파스칼 삼각형 형태로 출력하세요. 각 행의 수는 공백 하나로 구분하고 줄 끝에는 공백을 출력하지 않습니다.",
       "input": {
-        "description": "첫 줄 N, 둘째 줄 정수 N개",
-        "content": "7\n1\n2\n3\n4\n5\n6\n7"
+        "description": "정수 N (1 <= N <= 10)",
+        "content": "8"
       },
       "output": {
-        "description": "축약 과정",
-        "content": "1 2 3 4 5 6 7\n3 5 7 9 11 13\n8 12 16 20 24\n20 28 36 44\n48 64 80\n112 144\n256"
+        "description": "N행의 이항계수 삼각형",
+        "content": "1\n1 1\n1 2 1\n1 3 3 1\n1 4 6 4 1\n1 5 10 10 5 1\n1 6 15 20 15 6 1\n1 7 21 35 35 21 7 1"
       },
       "cases": [
         {
-          "in": "7\n1\n2\n3\n4\n5\n6\n7",
-          "out": "1 2 3 4 5 6 7\n3 5 7 9 11 13\n8 12 16 20 24\n20 28 36 44\n48 64 80\n112 144\n256"
+          "in": "8",
+          "out": "1\n1 1\n1 2 1\n1 3 3 1\n1 4 6 4 1\n1 5 10 10 5 1\n1 6 15 20 15 6 1\n1 7 21 35 35 21 7 1"
         },
         {
-          "in": "4\n1\n2\n3\n4",
-          "out": "1 2 3 4\n3 5 7\n8 12\n20"
+          "in": "1",
+          "out": "1"
+        },
+        {
+          "in": "10",
+          "out": "1\n1 1\n1 2 1\n1 3 3 1\n1 4 6 4 1\n1 5 10 10 5 1\n1 6 15 20 15 6 1\n1 7 21 35 35 21 7 1\n1 8 28 56 70 56 28 8 1\n1 9 36 84 126 126 84 36 9 1"
         }
       ]
     },
     {
       "id": 295,
       "tier": {
-        "category": "god",
+        "category": "diamond",
         "stage": 1
       },
       "tags": [
@@ -9139,7 +9143,7 @@
     {
       "id": 296,
       "tier": {
-        "category": "god",
+        "category": "diamond",
         "stage": 1
       },
       "tags": [
@@ -9170,7 +9174,7 @@
     {
       "id": 297,
       "tier": {
-        "category": "god",
+        "category": "diamond",
         "stage": 1
       },
       "tags": [
@@ -9196,7 +9200,7 @@
     {
       "id": 298,
       "tier": {
-        "category": "god",
+        "category": "diamond",
         "stage": 1
       },
       "tags": [
@@ -9226,7 +9230,7 @@
     {
       "id": 299,
       "tier": {
-        "category": "god",
+        "category": "diamond",
         "stage": 1
       },
       "tags": [
@@ -9257,7 +9261,7 @@
     {
       "id": 300,
       "tier": {
-        "category": "god",
+        "category": "diamond",
         "stage": 1
       },
       "tags": [
