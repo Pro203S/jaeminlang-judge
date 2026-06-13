@@ -10,6 +10,10 @@ export const AVAILABLE_TAGS = [
         "value": "operate"
     },
     {
+        "label": "판단",
+        "value": "judgment"
+    },
+    {
         "label": "문자열",
         "value": "string"
     },
