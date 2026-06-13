@@ -72,6 +72,8 @@ export default function Page() {
         })();
     }, []);
 
+    useEffect(() => console.log("maxScore", maxScore), [maxScore]);
+
     if (ranking.length === 0 || maxScore < 0) return <div style={{ "width": "100vw", "height": "calc(100dvh - 65px)" }}><Loading /></div>;
 
     return <>

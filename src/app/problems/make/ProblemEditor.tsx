@@ -53,6 +53,7 @@ export default function ProblemEditor(props: Props) {
     const [nextCaseId, setNextCaseId] = useState(2);
     const [isLoading, setLoading] = useState(true);
     const [isSubmitting, setSubmitting] = useState(false);
+    const [isDeleting, setDeleting] = useState(false);
 
     const problemId = mode === "edit" ? props.problemId : undefined;
     const pageTitle = mode === "edit" ? "문제 수정" : "문제 만들기";
@@ -201,6 +202,27 @@ export default function ProblemEditor(props: Props) {
 
         alert(mode === "edit" ? "문제를 수정했습니다." : "문제를 만들었습니다.");
         router.push(mode === "edit" ? `/problems/${problemId}` : "/problems");
+    };
+
+    const deleteProblem = async () => {
+        if (mode !== "edit" || !problemId || isDeleting) return;
+
+        const confirmed = confirm("정말 이 문제를 삭제할까요?");
+        if (!confirmed) return;
+
+        setDeleting(true);
+        const result = await REST(`/api/problems/${problemId}`, {
+            "method": "DELETE"
+        });
+        setDeleting(false);
+
+        if (!result.success) {
+            alert(result.data.message);
+            return;
+        }
+
+        alert("문제를 삭제했습니다.");
+        router.push("/problems");
     };
 
     if (isLoading) return <>
@@ -381,10 +403,16 @@ export default function ProblemEditor(props: Props) {
                             <FontAwesomeIcon icon={faArrowLeft} />
                             <span>뒤로가기</span>
                         </Button>
-                        <Button className={css.submit} onClick={submit}>
-                            <FontAwesomeIcon icon={faFloppyDisk} />
-                            <span>{isSubmitting ? "저장 중" : mode === "edit" ? "수정하기" : "저장하기"}</span>
-                        </Button>
+                        <div className={css.buttonGroup}>
+                            {mode === "edit" && <Button className={`${css.submit} ${css.danger}`} onClick={deleteProblem}>
+                                <FontAwesomeIcon icon={faTrash} />
+                                <span>{isDeleting ? "삭제 중" : "삭제하기"}</span>
+                            </Button>}
+                            <Button className={css.submit} onClick={submit}>
+                                <FontAwesomeIcon icon={faFloppyDisk} />
+                                <span>{isSubmitting ? "저장 중" : mode === "edit" ? "수정하기" : "저장하기"}</span>
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>

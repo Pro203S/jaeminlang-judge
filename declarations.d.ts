@@ -15,18 +15,16 @@ declare global {
     type RESTDynamicPath =
         | `/api/problems/${string}`
         | `/api/problems/${string}/draft`
-        | `/api/problems/${string}/submit`;
+        | `/api/problems/${string}/submit`
+        | `/api/users/${string}`;
 
     type RESTResponse<Path extends string> =
-        Path extends `/api/problems/${string}/submit`
-            ? APISubmitResponse
-            : Path extends `/api/problems/${string}/draft`
-                ? null
-            : Path extends `/api/problems/${string}`
-                ? APIProblem
-                : Path extends keyof RESTResponseMap
-                    ? RESTResponseMap[Path]
-                    : never;
+        Path extends `/api/problems/${string}/submit` ? APISubmitResponse
+        : Path extends `/api/problems/${string}/draft` ? null
+        : Path extends `/api/problems/${string}` ? APIProblem
+        : Path extends `/api/users/${string}` ? APIUser
+        : Path extends keyof RESTResponseMap ? RESTResponseMap[Path]
+        : never;
 
     type APISubmitResponse = {
         "correct": boolean,

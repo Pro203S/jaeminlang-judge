@@ -188,10 +188,30 @@
     gap: 10px;
 }
 
+.buttonGroup {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
 .submit {
     display: inline-flex;
     align-items: center;
     gap: 8px;
+}
+
+.danger {
+    background-color: #ff6b6b;
+    border-color: #ff6b6b;
+}
+
+.danger:hover {
+    background-color: #3a1616;
+    border-color: #ff8a8a;
+}
+
+.danger:hover * {
+    color: #fff;
 }
 
 @media (max-width: 600px) {
@@ -202,7 +222,8 @@
 
     .linearV,
     .caseGrid,
-    .buttons {
+    .buttons,
+    .buttonGroup {
         flex-direction: column;
     }
 
