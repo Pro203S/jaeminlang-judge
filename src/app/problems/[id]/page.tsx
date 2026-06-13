@@ -9,9 +9,10 @@ import TierBadge from "@/components/tierbadge";
 import InOutAnimation from "@/components/InOutAnimation";
 import Button from "@/components/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faPaperPlane, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/loading";
 import { TierToScore } from "@/modules/tier";
+import { ADMIN_ID } from "@/modules/constants";
 
 const CONFETTI_PIECES = Array.from({ "length": 28 }, (_, index) => index);
 
@@ -167,31 +168,40 @@ export default function Page() {
                             <FontAwesomeIcon icon={faChevronLeft} />
                             <span>뒤로가기</span>
                         </Button>
-                        <Button
-                            className={css.submit}
-                            onClick={async () => {
-                                if (!user) {
-                                    alert("제출하려면 로그인해주세요.");
-                                    return;
-                                }
+                        <div className={css.buttonGroup}>
+                            {user?.id === ADMIN_ID && <Button
+                                className={css.submit}
+                                href={`/problems/${id}/edit`}
+                            >
+                                <FontAwesomeIcon icon={faPenToSquare} />
+                                <span>수정하기</span>
+                            </Button>}
+                            <Button
+                                className={css.submit}
+                                onClick={async () => {
+                                    if (!user) {
+                                        alert("제출하려면 로그인해주세요.");
+                                        return;
+                                    }
 
-                                const result = await REST(`/api/problems/${id}/submit`, {
-                                    "method": "POST",
-                                    "data": { code }
-                                });
+                                    const result = await REST(`/api/problems/${id}/submit`, {
+                                        "method": "POST",
+                                        "data": { code }
+                                    });
 
-                                if (!result.success) {
-                                    alert(result.data.message);
-                                    return;
-                                }
+                                    if (!result.success) {
+                                        alert(result.data.message);
+                                        return;
+                                    }
 
-                                setSubmitResult(result.data);
-                                if (result.data.correct) setConfettiRun((run) => run + 1);
-                            }}
-                        >
-                            <FontAwesomeIcon icon={faPaperPlane} />
-                            <span>제출하기</span>
-                        </Button>
+                                    setSubmitResult(result.data);
+                                    if (result.data.correct) setConfettiRun((run) => run + 1);
+                                }}
+                            >
+                                <FontAwesomeIcon icon={faPaperPlane} />
+                                <span>제출하기</span>
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>

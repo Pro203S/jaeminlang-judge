@@ -1,4 +1,5 @@
 import { APIErrorResponse } from "@/modules/apiError";
+import { ADMIN_ID } from "@/modules/constants";
 import { getDBUserById, getProblemsDatabase, sortProblemsByDifficulty } from "@/modules/database";
 import { MakeApiProblem } from "@/modules/makeApiType";
 import { Pro203SSessionError, attachSessionCookies, getCurrentSession } from "@/modules/pro203sAuth";
@@ -26,7 +27,10 @@ export async function GET(req: NextRequest, { params }: Params) {
         const savedCode = session
             ? getDBUserById(session.user.id)?.drafts?.[String(problem.id)]
             : undefined;
-        const response = NextResponse.json(MakeApiProblem(problem, savedCode));
+        const response = NextResponse.json(MakeApiProblem(problem, {
+            savedCode,
+            "includeCases": session?.user.id === ADMIN_ID
+        }));
 
         return session ? attachSessionCookies(response, session) : response;
     } catch (err) {
@@ -51,11 +55,11 @@ export async function PATCH(req: NextRequest, { params }: Params) {
         const parsed = PATCHApiProblemsId.safeParse(await req.json());
         if (!parsed.success) return NextResponse.json({
             "code": "type_mismatch",
-            "message": "어쩔"
+            "message": parsed.error.message
         }, { "status": 400 });
 
         const session = await getCurrentSession(req);
-        if (session.user.id !== "pro203s") return attachSessionCookies(NextResponse.json({
+        if (session.user.id !== ADMIN_ID) return attachSessionCookies(NextResponse.json({
             "code": "forbidden",
             "message": "관리자만 문제를 관리할 수 있습니다."
         }, { "status": 403 }), session);
@@ -68,10 +72,19 @@ export async function PATCH(req: NextRequest, { params }: Params) {
         }, { "status": 404 }), session);
         const origin = database.get(originIndex).value();
 
+        const { input, output, ...updates } = parsed.data;
         const prob: DBProblem = {
             ...origin,
-            ...parsed.data
+            ...updates
         };
+        if ("input" in parsed.data) {
+            if (input === null) delete prob.input;
+            else if (input !== undefined) prob.input = input;
+        }
+        if ("output" in parsed.data) {
+            if (output === null) delete prob.output;
+            else if (output !== undefined) prob.output = output;
+        }
 
         database.get(originIndex).set(prob);
         database.set(sortProblemsByDifficulty(database.value()));
@@ -97,7 +110,7 @@ export async function DELETE(req: NextRequest, { params }: Params) {
     try {
         const id = Number((await params).id);
         const session = await getCurrentSession(req);
-        if (session.user.id !== "pro203s") return attachSessionCookies(NextResponse.json({
+        if (session.user.id !== ADMIN_ID) return attachSessionCookies(NextResponse.json({
             "code": "forbidden",
             "message": "관리자만 문제를 관리할 수 있습니다."
         }, { "status": 403 }), session);

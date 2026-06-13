@@ -137,7 +137,11 @@ export default function Page() {
             <div className={css.problems}>
                 {filtered.length > 0 ?
                     filtered
-                        .map(v => <Link className={css.problem} key={v.id} href={`/problems/${v.id}`}>
+                        .map(v => <Link
+                            className={css.problem}
+                            key={v.id}
+                            href={`/problems/${v.id}`}
+                        >
                             {user ? (user.problems.map(v => v.id).includes(v.id) ? <FontAwesomeIcon icon={faCheck} className={css.solved} /> : <TierBadge tier={v.tier} className={css.tier} />) : <TierBadge tier={v.tier} className={css.tier} />}
                             <div className={css.texts}>
                                 <span className={css.title}>{v.name}</span>

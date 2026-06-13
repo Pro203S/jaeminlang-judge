@@ -1,10 +1,17 @@
 import { getProblemsDatabase } from "./database";
 
-export function MakeApiProblem(value: DBProblem, savedCode?: string): APIProblem {
-    const a: any = { ...value, "tags": value.tags ?? [] };
-    delete a.cases;
-    if (savedCode !== undefined) a.savedCode = savedCode;
-    return a;
+type MakeApiProblemOptions = {
+    "savedCode"?: string;
+    "includeCases"?: boolean;
+};
+
+export function MakeApiProblem(value: DBProblem, options: MakeApiProblemOptions = {}): APIProblem {
+    const problem: APIProblem = { ...value, "tags": value.tags ?? [] };
+
+    if (!options.includeCases) delete problem.cases;
+    if (options.savedCode !== undefined) problem.savedCode = options.savedCode;
+
+    return problem;
 }
 
 export function MakeApiUser(value: DBUser): APIUser {
@@ -24,6 +31,6 @@ export function MakeApiUser(value: DBUser): APIUser {
         "problems": value.problems
             .map((id) => problems.find((problem) => problem.id === id))
             .filter((problem): problem is DBProblem => problem !== undefined)
-            .map(MakeApiProblem)
+            .map((problem) => MakeApiProblem(problem))
     };
 }

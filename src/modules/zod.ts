@@ -32,8 +32,8 @@ export const PATCHApiProblemsId = z.object({
     "tags": z.optional(ZodTags),
     "name": z.optional(z.string()),
     "description": z.optional(z.string()),
-    "input": z.optional(ZodIO),
-    "output": z.optional(ZodIO),
+    "input": z.optional(z.nullable(ZodIO)),
+    "output": z.optional(z.nullable(ZodIO)),
     "cases": z.optional(z.array(ZodCase))
 });
 
