@@ -9,7 +9,6 @@ This version has breaking changes — APIs, conventions, and file structure may 
 문제를 낼 때 꼭 너가 풀어보고 풀 수 있으면 내도록 해.  
 그리고 무조건 중복되는 문제인지 확인 후 제출하도록 해.  
 원래 있던 문제는 남겨둬.  
-그리고 원래 있던 문제에 컨셉에 맞게 만들어줘.  
 
 검토하는 방법:  
 **재민랭 실행파일** **코드 텍스트 파일**  

@@ -52,42 +52,28 @@
       ]
     },
     {
-      "id": 2,
+      "id": 7,
       "tier": {
         "category": "bronze",
-        "stage": 3
+        "stage": 4
       },
       "tags": [
-        "inout",
-        "operate"
+        "inout"
       ],
-      "name": "재민이의 8만원 외주 프로젝트",
-      "description": "재민이가 8만원 외주를 완성할려면 시간이 얼마나 필요할까요?\n재민이는 기능 하나를 구현하는데 1개월이 걸린다고 하네요.\n그러면 재민이의 외주는 언제 끝날까요?",
-      "input": {
-        "description": "구현할 기능의 수",
-        "content": "5"
-      },
+      "name": "재민이의 여친",
+      "description": "재민랭에서 '여친'은 NULL입니다. 재민랭은 현실반영이기 때문입니다.\n변수를 선언 후, 값에 NULL 즉, 여친을 대입 후 출력해보세요.",
       "output": {
-        "description": "걸리는 총 일 수 (한 달은 무조건 30일이라고 가정)",
-        "content": "150"
+        "description": "여친",
+        "content": "여친"
       },
       "cases": [
         {
-          "in": "5",
-          "out": "150"
-        },
-        {
-          "in": "3",
-          "out": "90"
-        },
-        {
-          "in": "4",
-          "out": "120"
+          "out": "여친"
         }
       ]
     },
     {
-      "id": 3,
+      "id": 5,
       "tier": {
         "category": "bronze",
         "stage": 3
@@ -96,28 +82,1169 @@
         "inout",
         "operate"
       ],
-      "name": "어이쿠",
-      "description": "재민이는 '어이쿠' 단어를 즐겨 사용합니다.\n재민이는 30분에 한 번 '어이쿠'를 사용하는데요.\n그러면 재민이는 5시간 안에 '어이쿠'를 얼마나 사용했을까요?",
+      "name": "더하기",
+      "description": "A와 B를 입력받아 더해서 출력해보세요.",
       "input": {
-        "description": "시간",
+        "description": "A, B",
+        "content": "10\n5"
+      },
+      "output": {
+        "description": "더하기 결과",
+        "content": "15"
+      },
+      "cases": [
+        {
+          "in": "10\n5",
+          "out": "15"
+        },
+        {
+          "in": "20\n20",
+          "out": "40"
+        },
+        {
+          "in": "10\n15",
+          "out": "25"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "tier": {
+        "category": "bronze",
+        "stage": 3
+      },
+      "tags": [
+        "inout",
+        "operate"
+      ],
+      "name": "곱하기",
+      "description": "세 수를 입력받아 곱하여 출력하세요.",
+      "input": {
+        "description": "세 수",
+        "content": "1\n2\n3"
+      },
+      "output": {
+        "description": "곱한 수",
+        "content": "6"
+      },
+      "cases": [
+        {
+          "in": "1\n2\n3",
+          "out": "6"
+        },
+        {
+          "in": "2\n3\n4",
+          "out": "24"
+        },
+        {
+          "in": "3\n3\n3",
+          "out": "27"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "inout",
+        "string"
+      ],
+      "name": "혼잣말",
+      "description": "재민이는 혼잣말을 되게 많이 하는데요, 특히 말이 반복됩니다.\n숫자 A와 문자열 하나가 차례로 입력됩니다.\n문자열을 숫자 A만큼 반복해 출력하세요.",
+      "input": {
+        "description": "숫자 A\n문자열",
+        "content": "3\n혼잣말"
+      },
+      "output": {
+        "description": "반복된 문자열\n(문자열 끝에 줄바꿈 필수입니다!)",
+        "content": "혼잣말\n혼잣말\n혼잣말"
+      },
+      "cases": [
+        {
+          "in": "3\n혼잣말",
+          "out": "혼잣말\n혼잣말\n혼잣말"
+        },
+        {
+          "in": "55\n전재민",
+          "out": "전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민"
+        },
+        {
+          "in": "1\n전재민",
+          "out": "전재민"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "tier": {
+        "category": "bronze",
+        "stage": 2
+      },
+      "tags": [
+        "inout",
+        "operate"
+      ],
+      "name": "야근 수당 계산기",
+      "description": "평일 근무 시간과 주말 근무 시간이 주어집니다. 평일은 시간당 10000원, 주말은 시간당 15000원을 받습니다. 총 수당을 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 평일 근무 시간, 둘째 줄에 주말 근무 시간이 주어집니다.",
+        "content": "3\n2"
+      },
+      "output": {
+        "description": "총 수당을 출력합니다.",
+        "content": "60000"
+      },
+      "cases": [
+        {
+          "in": "3\n2",
+          "out": "60000"
+        },
+        {
+          "in": "0\n5",
+          "out": "75000"
+        },
+        {
+          "in": "8\n0",
+          "out": "80000"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "tier": {
+        "category": "bronze",
+        "stage": 2
+      },
+      "tags": [
+        "inout",
+        "operate"
+      ],
+      "name": "카페 스탬프 정산",
+      "description": "음료 한 잔은 스탬프 7개, 쿠폰 한 장은 스탬프 3개로 계산합니다. 음료 수와 쿠폰 수가 주어질 때 받을 스탬프 수를 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 음료 수, 둘째 줄에 쿠폰 수가 주어집니다.",
+        "content": "4\n2"
+      },
+      "output": {
+        "description": "받을 스탬프 수를 출력합니다.",
+        "content": "34"
+      },
+      "cases": [
+        {
+          "in": "4\n2",
+          "out": "34"
+        },
+        {
+          "in": "10\n0",
+          "out": "70"
+        },
+        {
+          "in": "1\n9",
+          "out": "34"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "tier": {
+        "category": "bronze",
+        "stage": 1
+      },
+      "tags": [
+        "inout",
+        "operate"
+      ],
+      "name": "급식 줄 번호",
+      "description": "층, 반, 자리 번호가 차례대로 주어집니다. 층에 100을 곱하고 반에 10을 곱한 뒤 자리 번호를 더해 줄 번호를 만드세요.",
+      "input": {
+        "description": "층, 반, 자리 번호가 한 줄에 하나씩 주어집니다.",
+        "content": "2\n4\n6"
+      },
+      "output": {
+        "description": "계산된 줄 번호를 출력합니다.",
+        "content": "246"
+      },
+      "cases": [
+        {
+          "in": "2\n4\n6",
+          "out": "246"
+        },
+        {
+          "in": "1\n0\n9",
+          "out": "109"
+        },
+        {
+          "in": "8\n3\n5",
+          "out": "835"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "inout",
+        "implement"
+      ],
+      "name": "마감 카운트다운",
+      "description": "자연수 N이 주어집니다. N부터 1까지 한 줄에 하나씩 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 자연수 N이 주어집니다.",
         "content": "5"
       },
       "output": {
-        "description": "어이쿠의 수",
-        "content": "10"
+        "description": "N부터 1까지 한 줄에 하나씩 출력합니다.",
+        "content": "5\n4\n3\n2\n1"
       },
       "cases": [
         {
           "in": "5",
-          "out": "10"
+          "out": "5\n4\n3\n2\n1"
+        },
+        {
+          "in": "1",
+          "out": "1"
+        },
+        {
+          "in": "8",
+          "out": "8\n7\n6\n5\n4\n3\n2\n1"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "두 배 줄서기",
+      "description": "자연수 N이 주어집니다. 1부터 N까지 각 수와 그 수의 두 배를 한 줄씩 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 자연수 N이 주어집니다.",
+        "content": "4"
+      },
+      "output": {
+        "description": "각 줄에 수와 그 수의 두 배를 공백으로 구분해 출력합니다.",
+        "content": "1 2\n2 4\n3 6\n4 8"
+      },
+      "cases": [
+        {
+          "in": "4",
+          "out": "1 2\n2 4\n3 6\n4 8"
+        },
+        {
+          "in": "2",
+          "out": "1 2\n2 4"
+        },
+        {
+          "in": "7",
+          "out": "1 2\n2 4\n3 6\n4 8\n5 10\n6 12\n7 14"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "tier": {
+        "category": "silver",
+        "stage": 4
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "계단 점수",
+      "description": "자연수 N이 주어집니다. 1부터 N까지 하나씩 더해 가며 매 단계의 누적 합을 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 자연수 N이 주어집니다.",
+        "content": "5"
+      },
+      "output": {
+        "description": "각 단계의 누적 합을 한 줄에 하나씩 출력합니다.",
+        "content": "1\n3\n6\n10\n15"
+      },
+      "cases": [
+        {
+          "in": "5",
+          "out": "1\n3\n6\n10\n15"
+        },
+        {
+          "in": "3",
+          "out": "1\n3\n6"
+        },
+        {
+          "in": "8",
+          "out": "1\n3\n6\n10\n15\n21\n28\n36"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "tier": {
+        "category": "silver",
+        "stage": 4
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "구간 모으기",
+      "description": "두 자연수 A와 B가 주어집니다. A 이상 B 이하의 모든 정수를 더해 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 A, 둘째 줄에 B가 주어집니다. A는 B보다 크지 않습니다.",
+        "content": "3\n7"
+      },
+      "output": {
+        "description": "A부터 B까지의 합을 출력합니다.",
+        "content": "25"
+      },
+      "cases": [
+        {
+          "in": "3\n7",
+          "out": "25"
+        },
+        {
+          "in": "1\n10",
+          "out": "55"
+        },
+        {
+          "in": "6\n6",
+          "out": "6"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "tier": {
+        "category": "silver",
+        "stage": 4
+      },
+      "tags": [
+        "inout",
+        "judgment"
+      ],
+      "name": "번호표 가격표",
+      "description": "번호표 종류가 0, 1, 2, 3 중 하나로 주어집니다. 0은 500원, 1은 900원, 2는 1200원, 3은 2000원입니다. 알맞은 가격을 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 번호표 종류가 주어집니다.",
+        "content": "0"
+      },
+      "output": {
+        "description": "해당 번호표의 가격을 출력합니다.",
+        "content": "500"
+      },
+      "cases": [
+        {
+          "in": "0",
+          "out": "500"
+        },
+        {
+          "in": "2",
+          "out": "1200"
+        },
+        {
+          "in": "3",
+          "out": "2000"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "tier": {
+        "category": "bronze",
+        "stage": 1
+      },
+      "tags": [
+        "inout",
+        "string"
+      ],
+      "name": "문자 꼬리표",
+      "description": "문자열과 번호가 주어집니다. 문자열 뒤에 공백, #, 번호를 붙여 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 문자열, 둘째 줄에 번호가 주어집니다.",
+        "content": "JAEMIN\n7"
+      },
+      "output": {
+        "description": "문자열과 번호를 지정된 형식으로 출력합니다.",
+        "content": "JAEMIN #7"
+      },
+      "cases": [
+        {
+          "in": "JAEMIN\n7",
+          "out": "JAEMIN #7"
+        },
+        {
+          "in": "lang\n12",
+          "out": "lang #12"
+        },
+        {
+          "in": "coffee\n3",
+          "out": "coffee #3"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "tier": {
+        "category": "silver",
+        "stage": 3
+      },
+      "tags": [
+        "inout",
+        "array",
+        "operate"
+      ],
+      "name": "보관함 점검",
+      "description": "세 칸짜리 보관함에 들어갈 수 세 개가 주어집니다. 가운데 칸의 값과 양쪽 끝 칸의 합을 출력하세요.",
+      "input": {
+        "description": "세 수가 한 줄에 하나씩 주어집니다.",
+        "content": "3\n9\n4"
+      },
+      "output": {
+        "description": "가운데 값과 양쪽 끝의 합을 공백으로 구분해 출력합니다.",
+        "content": "9 7"
+      },
+      "cases": [
+        {
+          "in": "3\n9\n4",
+          "out": "9 7"
+        },
+        {
+          "in": "10\n20\n30",
+          "out": "20 40"
+        },
+        {
+          "in": "6\n1\n5",
+          "out": "1 11"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "tier": {
+        "category": "silver",
+        "stage": 2
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "출장비 누적",
+      "description": "N일 동안의 출장비를 계산합니다. i일 차 출장비는 5000*i+1200원입니다. 전체 출장비를 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 출장 일수 N이 주어집니다.",
+        "content": "4"
+      },
+      "output": {
+        "description": "전체 출장비를 출력합니다.",
+        "content": "54800"
+      },
+      "cases": [
+        {
+          "in": "4",
+          "out": "54800"
+        },
+        {
+          "in": "1",
+          "out": "6200"
+        },
+        {
+          "in": "6",
+          "out": "112200"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "tier": {
+        "category": "silver",
+        "stage": 2
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "등차 일정표",
+      "description": "항의 개수 N, 첫 항 A, 공차 D가 주어집니다. 등차수열의 항을 한 줄에 하나씩 출력하세요.",
+      "input": {
+        "description": "N, A, D가 한 줄에 하나씩 주어집니다.",
+        "content": "5\n3\n4"
+      },
+      "output": {
+        "description": "등차수열의 각 항을 한 줄에 하나씩 출력합니다.",
+        "content": "3\n7\n11\n15\n19"
+      },
+      "cases": [
+        {
+          "in": "5\n3\n4",
+          "out": "3\n7\n11\n15\n19"
+        },
+        {
+          "in": "3\n10\n2",
+          "out": "10\n12\n14"
+        },
+        {
+          "in": "6\n1\n7",
+          "out": "1\n8\n15\n22\n29\n36"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "tier": {
+        "category": "gold",
+        "stage": 5
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "구구단 보고서",
+      "description": "자연수 K가 주어집니다. 1부터 9까지의 수와 K를 곱한 값을 한 줄씩 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 K가 주어집니다.",
+        "content": "3"
+      },
+      "output": {
+        "description": "각 줄에 곱하는 수와 곱셈 결과를 공백으로 구분해 출력합니다.",
+        "content": "1 3\n2 6\n3 9\n4 12\n5 15\n6 18\n7 21\n8 24\n9 27"
+      },
+      "cases": [
+        {
+          "in": "3",
+          "out": "1 3\n2 6\n3 9\n4 12\n5 15\n6 18\n7 21\n8 24\n9 27"
+        },
+        {
+          "in": "7",
+          "out": "1 7\n2 14\n3 21\n4 28\n5 35\n6 42\n7 49\n8 56\n9 63"
+        },
+        {
+          "in": "9",
+          "out": "1 9\n2 18\n3 27\n4 36\n5 45\n6 54\n7 63\n8 72\n9 81"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "tier": {
+        "category": "gold",
+        "stage": 5
+      },
+      "tags": [
+        "inout",
+        "judgment"
+      ],
+      "name": "할인 등급표",
+      "description": "할인 등급이 1, 2, 3, 4 중 하나로 주어집니다. 등급별 결제 비율은 1은 95, 2는 90, 3은 80, 4는 70입니다. 알맞은 비율을 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 할인 등급이 주어집니다.",
+        "content": "1"
+      },
+      "output": {
+        "description": "해당 등급의 결제 비율을 출력합니다.",
+        "content": "95"
+      },
+      "cases": [
+        {
+          "in": "1",
+          "out": "95"
+        },
+        {
+          "in": "3",
+          "out": "80"
         },
         {
           "in": "4",
-          "out": "8"
+          "out": "70"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "tier": {
+        "category": "gold",
+        "stage": 4
+      },
+      "tags": [
+        "inout",
+        "array"
+      ],
+      "name": "가운데 칸 교체",
+      "description": "다섯 칸짜리 배열에 들어갈 수 다섯 개와 새 값 R이 주어집니다. 세 번째 칸을 R로 바꾼 뒤 배열 전체를 출력하세요.",
+      "input": {
+        "description": "다섯 수와 R이 한 줄에 하나씩 주어집니다.",
+        "content": "1\n2\n3\n4\n5\n9"
+      },
+      "output": {
+        "description": "교체된 배열을 출력합니다.",
+        "content": "[1, 2, 9, 4, 5]"
+      },
+      "cases": [
+        {
+          "in": "1\n2\n3\n4\n5\n9",
+          "out": "[1, 2, 9, 4, 5]"
         },
         {
-          "in": "15",
+          "in": "7\n7\n7\n7\n7\n1",
+          "out": "[7, 7, 1, 7, 7]"
+        },
+        {
+          "in": "3\n6\n9\n12\n15\n30",
+          "out": "[3, 6, 30, 12, 15]"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "tier": {
+        "category": "gold",
+        "stage": 4
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "함수 할인 계산",
+      "description": "상품 가격과 개수가 주어집니다. 가격에 개수를 곱한 뒤 500을 뺀 값을 함수로 계산해 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 상품 가격, 둘째 줄에 개수가 주어집니다.",
+        "content": "1500\n3"
+      },
+      "output": {
+        "description": "계산된 금액을 출력합니다.",
+        "content": "4000"
+      },
+      "cases": [
+        {
+          "in": "1500\n3",
+          "out": "4000"
+        },
+        {
+          "in": "700\n4",
+          "out": "2300"
+        },
+        {
+          "in": "3200\n2",
+          "out": "5900"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "tier": {
+        "category": "gold",
+        "stage": 3
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "보너스 제곱",
+      "description": "자연수 X가 주어집니다. X*X+X를 함수로 계산해 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 X가 주어집니다.",
+        "content": "5"
+      },
+      "output": {
+        "description": "X*X+X의 값을 출력합니다.",
+        "content": "30"
+      },
+      "cases": [
+        {
+          "in": "5",
           "out": "30"
+        },
+        {
+          "in": "1",
+          "out": "2"
+        },
+        {
+          "in": "12",
+          "out": "156"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "tier": {
+        "category": "gold",
+        "stage": 3
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "좌석 행 합",
+      "description": "N개의 행과 M개의 열이 있습니다. i행 j열의 값은 i*j입니다. 각 행의 합을 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 N, 둘째 줄에 M이 주어집니다.",
+        "content": "3\n4"
+      },
+      "output": {
+        "description": "각 줄에 행 번호와 그 행의 합을 공백으로 구분해 출력합니다.",
+        "content": "1 10\n2 20\n3 30"
+      },
+      "cases": [
+        {
+          "in": "3\n4",
+          "out": "1 10\n2 20\n3 30"
+        },
+        {
+          "in": "2\n5",
+          "out": "1 15\n2 30"
+        },
+        {
+          "in": "4\n3",
+          "out": "1 6\n2 12\n3 18\n4 24"
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "tier": {
+        "category": "gold",
+        "stage": 2
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "삼각 점수판",
+      "description": "자연수 N이 주어집니다. i번째 줄에는 i+1부터 i+i까지의 값을 공백으로 구분해 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 N이 주어집니다.",
+        "content": "4"
+      },
+      "output": {
+        "description": "삼각 점수판을 출력합니다.",
+        "content": "2\n3 4\n4 5 6\n5 6 7 8"
+      },
+      "cases": [
+        {
+          "in": "4",
+          "out": "2\n3 4\n4 5 6\n5 6 7 8"
+        },
+        {
+          "in": "2",
+          "out": "2\n3 4"
+        },
+        {
+          "in": "5",
+          "out": "2\n3 4\n4 5 6\n5 6 7 8\n6 7 8 9 10"
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "tier": {
+        "category": "silver",
+        "stage": 1
+      },
+      "tags": [
+        "inout",
+        "string"
+      ],
+      "name": "이름표 만들기",
+      "description": "이름, 방 번호, 자리 번호가 주어집니다. [방] 이름-자리 형식으로 출력하세요.",
+      "input": {
+        "description": "이름, 방 번호, 자리 번호가 한 줄에 하나씩 주어집니다.",
+        "content": "jaemin\n204\n7"
+      },
+      "output": {
+        "description": "지정된 이름표 형식으로 출력합니다.",
+        "content": "[204] jaemin-7"
+      },
+      "cases": [
+        {
+          "in": "jaemin\n204\n7",
+          "out": "[204] jaemin-7"
+        },
+        {
+          "in": "guest\n10\n12",
+          "out": "[10] guest-12"
+        },
+        {
+          "in": "admin\n1\n1",
+          "out": "[1] admin-1"
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "tier": {
+        "category": "platinum",
+        "stage": 5
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "보정 피보나치",
+      "description": "수열 F는 F1=1, F2=2이고, i가 3 이상일 때 Fi=F(i-1)+F(i-2)+1입니다. N이 주어질 때 FN을 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 3 이상의 자연수 N이 주어집니다.",
+        "content": "5"
+      },
+      "output": {
+        "description": "FN을 출력합니다.",
+        "content": "12"
+      },
+      "cases": [
+        {
+          "in": "5",
+          "out": "12"
+        },
+        {
+          "in": "3",
+          "out": "4"
+        },
+        {
+          "in": "8",
+          "out": "54"
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "tier": {
+        "category": "platinum",
+        "stage": 4
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "격자 좌표 계산표",
+      "description": "N행 M열의 격자가 있습니다. i행 j열의 값은 i*j+2*i+j입니다. 모든 칸의 행, 열, 값을 순서대로 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 N, 둘째 줄에 M이 주어집니다.",
+        "content": "2\n3"
+      },
+      "output": {
+        "description": "각 줄에 행, 열, 값을 공백으로 구분해 출력합니다.",
+        "content": "1 1 4\n1 2 6\n1 3 8\n2 1 7\n2 2 10\n2 3 13"
+      },
+      "cases": [
+        {
+          "in": "2\n3",
+          "out": "1 1 4\n1 2 6\n1 3 8\n2 1 7\n2 2 10\n2 3 13"
+        },
+        {
+          "in": "3\n2",
+          "out": "1 1 4\n1 2 6\n2 1 7\n2 2 10\n3 1 10\n3 2 14"
+        },
+        {
+          "in": "1\n4",
+          "out": "1 1 4\n1 2 6\n1 3 8\n1 4 10"
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "tier": {
+        "category": "platinum",
+        "stage": 4
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "행 합 보고서",
+      "description": "N행 M열의 표에서 i행 j열의 값은 i*j+i+j입니다. 각 행의 합을 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 N, 둘째 줄에 M이 주어집니다.",
+        "content": "3\n3"
+      },
+      "output": {
+        "description": "각 줄에 행 번호와 행의 합을 공백으로 구분해 출력합니다.",
+        "content": "1 15\n2 24\n3 33"
+      },
+      "cases": [
+        {
+          "in": "3\n3",
+          "out": "1 15\n2 24\n3 33"
+        },
+        {
+          "in": "2\n4",
+          "out": "1 24\n2 38"
+        },
+        {
+          "in": "4\n2",
+          "out": "1 8\n2 13\n3 18\n4 23"
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "tier": {
+        "category": "platinum",
+        "stage": 3
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "이차식 누적표",
+      "description": "A, B, C, N이 주어집니다. i가 1부터 N까지일 때 값 A*i*i+B*i+C와 누적 합을 출력하세요.",
+      "input": {
+        "description": "A, B, C, N이 한 줄에 하나씩 주어집니다.",
+        "content": "2\n3\n4\n4"
+      },
+      "output": {
+        "description": "각 줄에 i, 해당 값, 누적 합을 공백으로 구분해 출력합니다.",
+        "content": "1 9 9\n2 18 27\n3 31 58\n4 48 106"
+      },
+      "cases": [
+        {
+          "in": "2\n3\n4\n4",
+          "out": "1 9 9\n2 18 27\n3 31 58\n4 48 106"
+        },
+        {
+          "in": "1\n1\n1\n3",
+          "out": "1 3 3\n2 7 10\n3 13 23"
+        },
+        {
+          "in": "3\n2\n5\n5",
+          "out": "1 10 10\n2 21 31\n3 38 69\n4 61 130\n5 90 220"
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "tier": {
+        "category": "diamond",
+        "stage": 5
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "삼각 누적 보고서",
+      "description": "자연수 N이 주어집니다. i번째 줄에는 i+1부터 i+i까지의 값, 그 줄의 합, 지금까지의 전체 합을 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 N이 주어집니다.",
+        "content": "4"
+      },
+      "output": {
+        "description": "각 줄의 값들과 줄 합, 전체 합을 공백으로 구분해 출력합니다.",
+        "content": "2 2 2\n3 4 7 9\n4 5 6 15 24\n5 6 7 8 26 50"
+      },
+      "cases": [
+        {
+          "in": "4",
+          "out": "2 2 2\n3 4 7 9\n4 5 6 15 24\n5 6 7 8 26 50"
+        },
+        {
+          "in": "2",
+          "out": "2 2 2\n3 4 7 9"
+        },
+        {
+          "in": "5",
+          "out": "2 2 2\n3 4 7 9\n4 5 6 15 24\n5 6 7 8 26 50\n6 7 8 9 10 40 90"
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "tier": {
+        "category": "diamond",
+        "stage": 5
+      },
+      "tags": [
+        "inout",
+        "array",
+        "operate"
+      ],
+      "name": "행렬 벡터 곱",
+      "description": "3x3 행렬의 값 9개와 벡터의 값 3개가 주어집니다. 행렬과 벡터를 곱한 결과 벡터를 출력하세요.",
+      "input": {
+        "description": "행렬의 값을 행 우선 순서로 9개 입력한 뒤, 벡터 x, y, z가 한 줄에 하나씩 주어집니다.",
+        "content": "1\n2\n3\n4\n5\n6\n7\n8\n9\n2\n1\n3"
+      },
+      "output": {
+        "description": "결과 벡터의 세 값을 한 줄에 하나씩 출력합니다.",
+        "content": "13\n31\n49"
+      },
+      "cases": [
+        {
+          "in": "1\n2\n3\n4\n5\n6\n7\n8\n9\n2\n1\n3",
+          "out": "13\n31\n49"
+        },
+        {
+          "in": "2\n0\n1\n1\n3\n2\n4\n1\n0\n5\n2\n1",
+          "out": "11\n13\n22"
+        },
+        {
+          "in": "3\n1\n4\n1\n5\n9\n2\n6\n5\n1\n2\n3",
+          "out": "17\n38\n29"
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "tier": {
+        "category": "diamond",
+        "stage": 4
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "함수 조합 계산",
+      "description": "세 수 A, B, C가 주어집니다. f(x)=x*x+3, g(x,y)=x*y+2일 때 f(A)+g(B,C)를 함수로 계산해 출력하세요.",
+      "input": {
+        "description": "A, B, C가 한 줄에 하나씩 주어집니다.",
+        "content": "4\n5\n6"
+      },
+      "output": {
+        "description": "f(A)+g(B,C)의 값을 출력합니다.",
+        "content": "51"
+      },
+      "cases": [
+        {
+          "in": "4\n5\n6",
+          "out": "51"
+        },
+        {
+          "in": "1\n2\n3",
+          "out": "12"
+        },
+        {
+          "in": "7\n8\n2",
+          "out": "70"
+        }
+      ]
+    },
+    {
+      "id": 36,
+      "tier": {
+        "category": "diamond",
+        "stage": 4
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "누적 곱 표",
+      "description": "자연수 N이 주어집니다. 1부터 N까지 차례대로 곱해 만든 값과 그 누적 합을 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 자연수 N이 주어집니다.",
+        "content": "5"
+      },
+      "output": {
+        "description": "각 줄에 i, 현재까지의 곱, 누적 합을 공백으로 구분해 출력합니다.",
+        "content": "1 1 1\n2 2 3\n3 6 9\n4 24 33\n5 120 153"
+      },
+      "cases": [
+        {
+          "in": "5",
+          "out": "1 1 1\n2 2 3\n3 6 9\n4 24 33\n5 120 153"
+        },
+        {
+          "in": "3",
+          "out": "1 1 1\n2 2 3\n3 6 9"
+        },
+        {
+          "in": "6",
+          "out": "1 1 1\n2 2 3\n3 6 9\n4 24 33\n5 120 153\n6 720 873"
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "tier": {
+        "category": "diamond",
+        "stage": 3
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "차이 누적표",
+      "description": "N과 시작값 S가 주어집니다. i가 1부터 N까지일 때 i*i-i+S와 그 누적 합을 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 N, 둘째 줄에 S가 주어집니다.",
+        "content": "5\n10"
+      },
+      "output": {
+        "description": "각 줄에 i, 계산값, 누적 합을 공백으로 구분해 출력합니다.",
+        "content": "1 10 10\n2 12 22\n3 16 38\n4 22 60\n5 30 90"
+      },
+      "cases": [
+        {
+          "in": "5\n10",
+          "out": "1 10 10\n2 12 22\n3 16 38\n4 22 60\n5 30 90"
+        },
+        {
+          "in": "3\n2",
+          "out": "1 2 2\n2 4 6\n3 8 14"
+        },
+        {
+          "in": "6\n7",
+          "out": "1 7 7\n2 9 16\n3 13 29\n4 19 48\n5 27 75\n6 37 112"
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "tier": {
+        "category": "diamond",
+        "stage": 3
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "implement"
+      ],
+      "name": "두 겹 일정표",
+      "description": "N행 M열의 표를 만듭니다. i행 j열의 값은 기준값 B+i*j입니다. 표를 그대로 출력하세요.",
+      "input": {
+        "description": "N, M, B가 한 줄에 하나씩 주어집니다.",
+        "content": "3\n4\n10"
+      },
+      "output": {
+        "description": "N줄에 걸쳐 각 행의 값을 공백으로 구분해 출력합니다.",
+        "content": "11 12 13 14\n12 14 16 18\n13 16 19 22"
+      },
+      "cases": [
+        {
+          "in": "3\n4\n10",
+          "out": "11 12 13 14\n12 14 16 18\n13 16 19 22"
+        },
+        {
+          "in": "2\n3\n5",
+          "out": "6 7 8\n7 9 11"
+        },
+        {
+          "in": "4\n2\n1",
+          "out": "2 3\n3 5\n4 7\n5 9"
         }
       ]
     }
