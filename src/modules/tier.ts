@@ -150,6 +150,9 @@ export function TierToScore(tier: Tier): number {
             break;
     }
 
+    // 베이스 점수
+    score *= score;
+
     // 5 -> 1, 1 -> 5로 만들기
     score *= (6 - tier.stage);
 
