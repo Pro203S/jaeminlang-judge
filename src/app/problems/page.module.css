@@ -104,7 +104,9 @@
 }
 
 .problem .solved {
-    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    font-size: 28px;
     color: #75ff5a;
     margin: auto 0;
 }
