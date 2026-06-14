@@ -27,7 +27,7 @@
 .links {
     display: flex;
     flex-direction: row;
-    margin: auto;
+    margin: auto auto auto 15px;
     gap: 15px;
 }
 
