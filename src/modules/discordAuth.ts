@@ -6,20 +6,23 @@ import { NextResponse } from "next/server";
 import { createAPIErrorResponse, toAPIErrorResponse } from "./apiError";
 import type {
     AuthConfig,
+    DiscordUserResponse,
     OAuthErrorResponse,
     OAuthState,
     OAuthTokenResponse,
     OAuthTokenResult,
     OAuthUserResponse,
     OAuthUserResult,
-} from "./pro203sAuthTypes";
+} from "./discordAuthTypes";
 
-const DEFAULT_AUTH_BASE_URL = "https://user.pro203s.kr";
-const DEFAULT_SCOPE = "profile email";
+const DEFAULT_AUTH_BASE_URL = "https://discord.com";
+const DEFAULT_API_BASE_URL = "https://discord.com/api";
+const DEFAULT_CDN_BASE_URL = "https://cdn.discordapp.com";
+const DEFAULT_SCOPE = "identify email";
 
-export const ACCESS_TOKEN_COOKIE = "pro203s_access_token";
-export const REFRESH_TOKEN_COOKIE = "pro203s_refresh_token";
-export const OAUTH_STATE_COOKIE = "pro203s_oauth_state";
+export const ACCESS_TOKEN_COOKIE = "discord_access_token";
+export const REFRESH_TOKEN_COOKIE = "discord_refresh_token";
+export const OAUTH_STATE_COOKIE = "discord_oauth_state";
 
 const secureCookie = process.env.NODE_ENV === "production";
 
@@ -30,51 +33,64 @@ const baseCookieOptions = {
     path: "/",
 };
 
-export class Pro203SSessionError extends Error {
+export class DiscordSessionError extends Error {
     status: number;
     detail: OAuthErrorResponse;
 
     constructor(status: number, detail: OAuthErrorResponse) {
         super(detail.message);
-        this.name = "Pro203SSessionError";
+        this.name = "DiscordSessionError";
         this.status = status;
         this.detail = detail;
     }
 }
 
-export type Pro203SSession = {
+export type DiscordSession = {
     user: OAuthUserResponse;
     tokens?: OAuthTokenResponse;
 };
 
 export function getAuthConfig(requestUrl?: string): AuthConfig {
     const authBaseUrl = trimTrailingSlash(
-        process.env.PRO203S_AUTH_BASE_URL ?? DEFAULT_AUTH_BASE_URL,
+        process.env.DISCORD_AUTH_BASE_URL ?? DEFAULT_AUTH_BASE_URL,
     );
-    const clientId = process.env.PRO203S_CLIENT_ID ?? process.env.CLIENT_ID;
-    const clientSecret =
-        process.env.PRO203S_CLIENT_SECRET ?? process.env.CLIENT_SECRET;
+    const apiBaseUrl = trimTrailingSlash(
+        process.env.DISCORD_API_BASE_URL ?? DEFAULT_API_BASE_URL,
+    );
+    const cdnBaseUrl = trimTrailingSlash(
+        process.env.DISCORD_CDN_BASE_URL ?? DEFAULT_CDN_BASE_URL,
+    );
+    const clientId = firstEnv("DISCORD_CLIENT_ID", "CLIENT_ID");
+    const clientSecret = firstEnv("DISCORD_CLIENT_SECRET", "CLIENT_SECRET");
     const redirectUri =
-        process.env.PRO203S_REDIRECT_URI ??
-        process.env.REDIRECT_URI ??
-        process.env.redirect_uri ??
+        firstEnv("DISCORD_REDIRECT_URI", "REDIRECT_URI", "redirect_uri") ??
         (requestUrl
             ? new URL("/api/auth/callback", requestUrl).toString()
             : undefined);
-    const scope = process.env.PRO203S_OAUTH_SCOPE ?? DEFAULT_SCOPE;
+    const scope = firstEnv("DISCORD_OAUTH_SCOPE", "OAUTH_SCOPE") ?? DEFAULT_SCOPE;
 
     if (!clientId || !clientSecret || !redirectUri) {
         throw new Error(
-            "Pro203S OAuth environment variables are missing. Set CLIENT_ID, CLIENT_SECRET, and redirect_uri.",
+            "Discord OAuth environment variables are missing. Set DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, and DISCORD_REDIRECT_URI.",
         );
     }
 
     return {
         authBaseUrl,
-        authorizeUrl: `${authBaseUrl}/oauth2/authorize`,
-        tokenUrl: `${authBaseUrl}/api/oauth2/token`,
-        revokeUrl: `${authBaseUrl}/api/oauth2/revoke`,
-        meUrl: `${authBaseUrl}/api/oauth2/me`,
+        apiBaseUrl,
+        cdnBaseUrl,
+        authorizeUrl:
+            process.env.DISCORD_AUTHORIZE_URL ??
+            `${authBaseUrl}/oauth2/authorize`,
+        tokenUrl:
+            process.env.DISCORD_TOKEN_URL ??
+            `${apiBaseUrl}/oauth2/token`,
+        revokeUrl:
+            process.env.DISCORD_REVOKE_URL ??
+            `${apiBaseUrl}/oauth2/token/revoke`,
+        meUrl:
+            process.env.DISCORD_ME_URL ??
+            `${apiBaseUrl}/users/@me`,
         clientId,
         clientSecret,
         redirectUri,
@@ -166,19 +182,20 @@ export async function fetchCurrentUser(
     accessToken: string,
 ): Promise<OAuthUserResult> {
     const response = await axios.get<
-        OAuthUserResponse | OAuthErrorResponse
+        DiscordUserResponse | OAuthErrorResponse
     >(config.meUrl, {
         validateStatus: () => true,
         headers: {
             Authorization: `Bearer ${accessToken}`,
         },
     });
+    const userData = parseDiscordUserResponse(response.data, config);
 
-    if (response.status >= 200 && response.status < 300 && isUserResponse(response.data)) {
+    if (response.status >= 200 && response.status < 300 && userData) {
         return {
             ok: true,
             status: response.status,
-            data: response.data,
+            data: userData,
         };
     }
 
@@ -199,13 +216,13 @@ export async function getCurrentSessionUser(
 
 export async function getCurrentSession(
     request: NextRequest,
-): Promise<Pro203SSession> {
+): Promise<DiscordSession> {
     let config: AuthConfig;
 
     try {
         config = getAuthConfig(request.url);
     } catch (error) {
-        throw new Pro203SSessionError(
+        throw new DiscordSessionError(
             500,
             createAPIErrorResponse(
                 "server_misconfigured",
@@ -220,7 +237,7 @@ export async function getCurrentSession(
     const refreshToken = request.cookies.get(REFRESH_TOKEN_COOKIE)?.value;
 
     if (!accessToken && !refreshToken) {
-        throw new Pro203SSessionError(
+        throw new DiscordSessionError(
             401,
             createAPIErrorResponse("unauthorized", "로그인이 필요합니다."),
         );
@@ -234,7 +251,7 @@ export async function getCurrentSession(
         }
 
         if (userResult.status !== 401 || !refreshToken) {
-            throw new Pro203SSessionError(userResult.status, userResult.data);
+            throw new DiscordSessionError(userResult.status, userResult.data);
         }
     }
 
@@ -244,7 +261,7 @@ export async function getCurrentSession(
     });
 
     if (!refreshResult.ok) {
-        throw new Pro203SSessionError(refreshResult.status, refreshResult.data);
+        throw new DiscordSessionError(refreshResult.status, refreshResult.data);
     }
 
     const refreshedUserResult = await fetchCurrentUser(
@@ -259,7 +276,7 @@ export async function getCurrentSession(
         };
     }
 
-    throw new Pro203SSessionError(
+    throw new DiscordSessionError(
         refreshedUserResult.status,
         refreshedUserResult.data,
     );
@@ -267,7 +284,7 @@ export async function getCurrentSession(
 
 export function attachSessionCookies(
     response: NextResponse,
-    session: Pro203SSession,
+    session: DiscordSession,
 ) {
     if (session.tokens) {
         setTokenCookies(response, session.tokens);
@@ -295,7 +312,7 @@ export async function revokeToken(
         },
     );
 
-    return response.status === 204;
+    return response.status >= 200 && response.status < 300;
 }
 
 export function setOAuthStateCookie(
@@ -432,12 +449,66 @@ function parseOAuthTokenParams(params: URLSearchParams): OAuthTokenResponse | nu
     };
 }
 
-function isUserResponse(value: unknown): value is OAuthUserResponse {
-    return (
-        typeof value === "object" &&
-        value !== null &&
-        typeof (value as OAuthUserResponse).id === "string"
-    );
+function parseDiscordUserResponse(
+    value: unknown,
+    config: AuthConfig,
+): OAuthUserResponse | null {
+    if (typeof value !== "object" || value === null) {
+        return null;
+    }
+
+    const data = value as Record<string, unknown>;
+    const id = getString(data.id);
+    const username = getString(data.username);
+
+    if (!id || !username) {
+        return null;
+    }
+
+    const displayName = getString(data.global_name) ?? username;
+    const profile = createDiscordAvatarUrl({
+        id,
+        avatar: getString(data.avatar),
+        discriminator: getString(data.discriminator),
+    }, config);
+    const email = getString(data.email);
+
+    return {
+        id,
+        username,
+        displayName,
+        profile,
+        ...(email ? { email } : {}),
+    };
+}
+
+function createDiscordAvatarUrl(
+    user: Pick<DiscordUserResponse, "id" | "avatar" | "discriminator">,
+    config: AuthConfig,
+) {
+    if (user.avatar) {
+        const extension = user.avatar.startsWith("a_") ? "gif" : "webp";
+
+        return `${config.cdnBaseUrl}/avatars/${user.id}/${user.avatar}.${extension}?size=256`;
+    }
+
+    return `${config.cdnBaseUrl}/embed/avatars/${getDefaultAvatarIndex(user)}.png`;
+}
+
+function getDefaultAvatarIndex(
+    user: Pick<DiscordUserResponse, "id" | "discriminator">,
+) {
+    const discriminator = getNumber(user.discriminator);
+
+    if (discriminator !== undefined && discriminator > 0) {
+        return discriminator % 5;
+    }
+
+    try {
+        return Number((BigInt(user.id) >> BigInt(22)) % BigInt(6));
+    } catch {
+        return 0;
+    }
 }
 
 function toOAuthErrorResponse(value: unknown): OAuthErrorResponse {
@@ -461,8 +532,8 @@ function toOAuthErrorResponse(value: unknown): OAuthErrorResponse {
 
             if (code || message) {
                 return createAPIErrorResponse(
-                    code ?? "pro203s_request_failed",
-                    message ?? "Pro203S 요청에 실패했습니다.",
+                    code ?? "discord_request_failed",
+                    message ?? "Discord 요청에 실패했습니다.",
                 );
             }
         }
@@ -470,8 +541,8 @@ function toOAuthErrorResponse(value: unknown): OAuthErrorResponse {
 
     return toAPIErrorResponse(
         value,
-        "pro203s_request_failed",
-        "Pro203S 요청에 실패했습니다.",
+        "discord_request_failed",
+        "Discord 요청에 실패했습니다.",
     );
 }
 
@@ -509,4 +580,16 @@ function normalizeMaxAge(value: number | undefined, fallback: number) {
 
 function trimTrailingSlash(value: string) {
     return value.endsWith("/") ? value.slice(0, -1) : value;
+}
+
+function firstEnv(...names: string[]) {
+    for (const name of names) {
+        const value = process.env[name];
+
+        if (value?.trim()) {
+            return value.trim();
+        }
+    }
+
+    return undefined;
 }

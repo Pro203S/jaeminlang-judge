@@ -10,9 +10,9 @@ import {
     getAuthConfig,
     requestToken,
     setTokenCookies,
-} from "@/modules/pro203sAuth";
+} from "@/modules/discordAuth";
 import { createAPIErrorResponse } from "@/modules/apiError";
-import type { AuthCallbackResponse } from "@/modules/pro203sAuthTypes";
+import type { AuthCallbackResponse } from "@/modules/discordAuthTypes";
 
 export async function GET(request: NextRequest) {
     let config;

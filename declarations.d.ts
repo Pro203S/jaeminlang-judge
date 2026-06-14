@@ -1,5 +1,5 @@
-import { OAuthUserResult } from "@/modules/pro203sAuthTypes";
-import { AuthLoginResponse, AuthCallbackResponse, AuthRefreshResponse, AuthLogoutResponse } from "@/modules/pro203sAuthTypes";
+import { OAuthUserResult } from "@/modules/discordAuthTypes";
+import { AuthLoginResponse, AuthCallbackResponse, AuthRefreshResponse, AuthLogoutResponse } from "@/modules/discordAuthTypes";
 
 declare global {
     type RESTResponseMap = {

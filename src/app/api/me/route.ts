@@ -4,12 +4,12 @@ import { createAPIErrorResponse } from "@/modules/apiError";
 import { getDatabase, upsertOAuthUser } from "@/modules/database";
 import { MakeApiUser } from "@/modules/makeApiType";
 import {
-    Pro203SSessionError,
+    DiscordSessionError,
     attachSessionCookies,
     clearAuthCookies,
     getCurrentSession,
-} from "@/modules/pro203sAuth";
-import type { AuthMeResponse } from "@/modules/pro203sAuthTypes";
+} from "@/modules/discordAuth";
+import type { AuthMeResponse } from "@/modules/discordAuthTypes";
 
 export async function GET(request: NextRequest) {
     try {
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
 
         return attachSessionCookies(response, session);
     } catch (error) {
-        if (error instanceof Pro203SSessionError) {
+        if (error instanceof DiscordSessionError) {
             return sessionErrorResponse(error);
         }
 
@@ -53,7 +53,7 @@ export async function DELETE(request: NextRequest) {
         clearAuthCookies(response);
         return response;
     } catch (error) {
-        if (error instanceof Pro203SSessionError) {
+        if (error instanceof DiscordSessionError) {
             return sessionErrorResponse(error);
         }
 
@@ -67,7 +67,7 @@ export async function DELETE(request: NextRequest) {
     }
 }
 
-function sessionErrorResponse(error: Pro203SSessionError) {
+function sessionErrorResponse(error: DiscordSessionError) {
     const status = error.status === 401
         ? 401
         : error.status >= 200 && error.status < 300

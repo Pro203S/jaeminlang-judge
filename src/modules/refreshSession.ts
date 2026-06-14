@@ -1,6 +1,6 @@
 import REST from "./rest";
 import type { APIErrorResponse } from "./apiError";
-import type { AuthRefreshResponse } from "./pro203sAuthTypes";
+import type { AuthRefreshResponse } from "./discordAuthTypes";
 
 export async function refreshSession(): Promise<AuthRefreshResponse | APIErrorResponse> {
     const result = await REST("/api/auth/refresh", {

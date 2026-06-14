@@ -33,6 +33,14 @@ function coloringScore(score: number, max: number) {
     return "linear-gradient(90deg, #ff3737, #ff934b, #ffdd1f, #7bff00, #3df2ff, #2f4eff, #a83eff)";
 }
 
+function nan(n: number, d: number) {
+    if (isNaN(n)) {
+        return d;
+    } else {
+        return n;
+    }
+}
+
 export default function Page() {
     const router = useRouter();
     const { id } = useParams<{ "id": string }>();
@@ -63,7 +71,7 @@ export default function Page() {
                 <div className={css.section}>
                     <img
                         draggable={false}
-                        src={user?.profile ?? "https://user.pro203s.kr/defaultUser.png"}
+                        src={user?.profile ?? "https://cdn.discordapp.com/embed/avatars/0.png"}
                         className={css.profile}
                     />
                     <div className={css.texts}>
@@ -94,7 +102,7 @@ export default function Page() {
                 <div className={css.section}>
                     <div className={css.texts}>
                         <span className={css.title}>정답률</span>
-                        <span className={css.desc}>{Math.round((user.stat.corrects / user.stat.submits) * 100)}%</span>
+                        <span className={css.desc}>{nan(Math.round((user.stat.corrects / user.stat.submits) * 100), 0)}%</span>
                     </div>
                 </div>
             </div>

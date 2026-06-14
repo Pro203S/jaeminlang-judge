@@ -6,10 +6,10 @@ import path from "node:path";
 import { APIErrorResponse, createAPIErrorResponse } from "@/modules/apiError";
 import { createDefaultDBUser, getDatabase, getProblemsDatabase, normalizeDBUser } from "@/modules/database";
 import {
-    Pro203SSessionError,
+    DiscordSessionError,
     attachSessionCookies,
     getCurrentSession
-} from "@/modules/pro203sAuth";
+} from "@/modules/discordAuth";
 import { normalizeProblemRuntimeFiles } from "@/modules/problemRuntimeFiles";
 import { getMissingRequiredKeywords } from "@/modules/requiredKeywords";
 import { TierToScore } from "@/modules/tier";
@@ -153,7 +153,7 @@ export async function POST(req: NextRequest, { params }: Params) {
 
         return attachSessionCookies(NextResponse.json(payload), session);
     } catch (err) {
-        if (err instanceof Pro203SSessionError) {
+        if (err instanceof DiscordSessionError) {
             return NextResponse.json({
                 "code": err.status === 401 ? "unauthorized" : err.detail.code,
                 "message": err.detail.message

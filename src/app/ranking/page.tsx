@@ -131,7 +131,7 @@ function RankingRow({
         <span className={RankClassName(value.rank)}>{value.rank}</span>
         <img
             className={css.profile}
-            src={value.profile ?? "https://user.pro203s.kr/defaultUser.png"}
+            src={value.profile ?? "https://cdn.discordapp.com/embed/avatars/0.png"}
             alt={`${value.displayName}의 유저 프로필`}
         />
         <span className={css.name}>{value.displayName}</span>

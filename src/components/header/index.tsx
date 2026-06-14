@@ -70,7 +70,7 @@ export default function Header(props: Props) {
             >
                 <img
                     className={css.avatar}
-                    src={user?.profile ?? "https://user.pro203s.kr/defaultUser.png"}
+                    src={user?.profile ?? "https://cdn.discordapp.com/embed/avatars/0.png"}
                     alt={accountName}
                     draggable={false}
                 />
@@ -111,7 +111,7 @@ export default function Header(props: Props) {
                     role="menuitem"
                     href="/api/auth/login"
                 >
-                    로그인
+                    Discord로 로그인
                 </Link>}
             </InOutAnimation>
         </div>

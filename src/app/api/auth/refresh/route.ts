@@ -6,9 +6,9 @@ import {
     getAuthConfig,
     requestToken,
     setTokenCookies,
-} from "@/modules/pro203sAuth";
+} from "@/modules/discordAuth";
 import { createAPIErrorResponse } from "@/modules/apiError";
-import type { AuthRefreshResponse } from "@/modules/pro203sAuthTypes";
+import type { AuthRefreshResponse } from "@/modules/discordAuthTypes";
 
 export async function POST(request: NextRequest) {
     let config;

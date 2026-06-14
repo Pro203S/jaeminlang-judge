@@ -6,8 +6,8 @@ import {
     clearAuthCookies,
     getAuthConfig,
     revokeToken,
-} from "@/modules/pro203sAuth";
-import type { AuthLogoutResponse } from "@/modules/pro203sAuthTypes";
+} from "@/modules/discordAuth";
+import type { AuthLogoutResponse } from "@/modules/discordAuthTypes";
 
 export async function GET(request: NextRequest) {
     await revokeExistingTokens(request);

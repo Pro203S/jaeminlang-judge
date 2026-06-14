@@ -1,7 +1,7 @@
 import { APIErrorResponse } from "@/modules/apiError";
 import { getDatabase } from "@/modules/database";
 import { MakeApiUser } from "@/modules/makeApiType";
-import { Pro203SSessionError } from "@/modules/pro203sAuth";
+import { DiscordSessionError } from "@/modules/discordAuth";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -14,7 +14,7 @@ export async function GET() {
             "stat": undefined
         })));
     } catch (err) {
-        if (err instanceof Pro203SSessionError) {
+        if (err instanceof DiscordSessionError) {
             return NextResponse.json({
                 "code": err.status === 401 ? "unauthorized" : err.detail.code,
                 "message": err.detail.message

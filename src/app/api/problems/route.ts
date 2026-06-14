@@ -3,7 +3,7 @@ import { ADMIN_ID } from "@/modules/constants";
 import { getProblemsDatabase, sortProblemsByDifficulty } from "@/modules/database";
 import { MakeApiProblem } from "@/modules/makeApiType";
 import { normalizeProblemRuntimeFiles } from "@/modules/problemRuntimeFiles";
-import { Pro203SSessionError, attachSessionCookies, getCurrentSession } from "@/modules/pro203sAuth";
+import { DiscordSessionError, attachSessionCookies, getCurrentSession } from "@/modules/discordAuth";
 import { normalizeRequiredKeywords } from "@/modules/requiredKeywords";
 import { POSTApiProblems } from "@/modules/zod";
 import { NextRequest, NextResponse } from "next/server";
@@ -13,7 +13,7 @@ export async function GET() {
         const problems = getProblemsDatabase().get("problems").value();
         return NextResponse.json(sortProblemsByDifficulty(problems).map((problem) => MakeApiProblem(problem)));
     } catch (err) {
-        if (err instanceof Pro203SSessionError) {
+        if (err instanceof DiscordSessionError) {
             return NextResponse.json({
                 "code": err.status === 401 ? "unauthorized" : err.detail.code,
                 "message": err.detail.message
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
 
         return attachSessionCookies(new NextResponse(null, { "status": 204 }), session);
     } catch (err) {
-        if (err instanceof Pro203SSessionError) {
+        if (err instanceof DiscordSessionError) {
             return NextResponse.json({
                 "code": err.status === 401 ? "unauthorized" : err.detail.code,
                 "message": err.detail.message

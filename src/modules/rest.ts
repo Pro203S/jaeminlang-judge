@@ -3,7 +3,7 @@ import { toAPIErrorResponse } from "./apiError";
 import type { APIErrorResponse } from "./apiError";
 import type {
     AuthRefreshResponse,
-} from "./pro203sAuthTypes";
+} from "./discordAuthTypes";
 
 const AUTH_REFRESH_URL = "/api/auth/refresh";
 

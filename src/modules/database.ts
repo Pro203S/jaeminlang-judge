@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import Shadowly from 'shadowly';
-import type { OAuthUserResponse, OAuthUserResult } from './pro203sAuthTypes';
+import type { OAuthUserResponse, OAuthUserResult } from './discordAuthTypes';
 import { CompareTier } from './tier';
 
 const DATABASE_PATH = "./database.json";

@@ -4,6 +4,8 @@ export type { APIErrorResponse } from "./apiError";
 
 export type AuthConfig = {
     authBaseUrl: string;
+    apiBaseUrl: string;
+    cdnBaseUrl: string;
     authorizeUrl: string;
     tokenUrl: string;
     revokeUrl: string;
@@ -28,12 +30,21 @@ export type OAuthTokenResponse = {
     scope?: string;
 };
 
+export type DiscordUserResponse = {
+    id: string;
+    username: string;
+    discriminator?: string;
+    global_name?: string | null;
+    avatar?: string | null;
+    email?: string | null;
+};
+
 export type OAuthUserResponse = {
     id: string;
     username: string;
     displayName: string;
     profile?: string;
-    email: string;
+    email?: string;
 };
 
 export type OAuthErrorResponse = APIErrorResponse;

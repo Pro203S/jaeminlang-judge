@@ -3,7 +3,7 @@ import z from "zod";
 
 import { APIErrorResponse } from "@/modules/apiError";
 import { createDefaultDBUser, getDatabase, getProblemsDatabase, normalizeDBUser } from "@/modules/database";
-import { Pro203SSessionError, attachSessionCookies, getCurrentSession } from "@/modules/pro203sAuth";
+import { DiscordSessionError, attachSessionCookies, getCurrentSession } from "@/modules/discordAuth";
 
 type Params = { "params": Promise<{ id: string }> };
 
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest, { params }: Params) {
 
         return attachSessionCookies(new NextResponse(null, { "status": 204 }), session);
     } catch (err) {
-        if (err instanceof Pro203SSessionError) {
+        if (err instanceof DiscordSessionError) {
             return NextResponse.json({
                 "code": err.status === 401 ? "unauthorized" : err.detail.code,
                 "message": err.detail.message

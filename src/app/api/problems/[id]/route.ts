@@ -3,7 +3,7 @@ import { ADMIN_ID } from "@/modules/constants";
 import { getDBUserById, getProblemsDatabase, sortProblemsByDifficulty } from "@/modules/database";
 import { MakeApiProblem } from "@/modules/makeApiType";
 import { normalizeProblemRuntimeFiles } from "@/modules/problemRuntimeFiles";
-import { Pro203SSessionError, attachSessionCookies, getCurrentSession } from "@/modules/pro203sAuth";
+import { DiscordSessionError, attachSessionCookies, getCurrentSession } from "@/modules/discordAuth";
 import { normalizeRequiredKeywords } from "@/modules/requiredKeywords";
 import { PATCHApiProblemsId } from "@/modules/zod";
 import { NextRequest, NextResponse } from "next/server";
@@ -23,7 +23,7 @@ export async function GET(req: NextRequest, { params }: Params) {
         try {
             session = await getCurrentSession(req);
         } catch (err) {
-            if (!(err instanceof Pro203SSessionError)) throw err;
+            if (!(err instanceof DiscordSessionError)) throw err;
         }
 
         const savedCode = session
@@ -37,7 +37,7 @@ export async function GET(req: NextRequest, { params }: Params) {
 
         return session ? attachSessionCookies(response, session) : response;
     } catch (err) {
-        if (err instanceof Pro203SSessionError) {
+        if (err instanceof DiscordSessionError) {
             return NextResponse.json({
                 "code": err.status === 401 ? "unauthorized" : err.detail.code,
                 "message": err.detail.message
@@ -102,7 +102,7 @@ export async function PATCH(req: NextRequest, { params }: Params) {
 
         return attachSessionCookies(new NextResponse(null, { "status": 204 }), session);
     } catch (err) {
-        if (err instanceof Pro203SSessionError) {
+        if (err instanceof DiscordSessionError) {
             return NextResponse.json({
                 "code": err.status === 401 ? "unauthorized" : err.detail.code,
                 "message": err.detail.message
@@ -137,7 +137,7 @@ export async function DELETE(req: NextRequest, { params }: Params) {
 
         return attachSessionCookies(new NextResponse(null, { "status": 204 }), session);
     } catch (err) {
-        if (err instanceof Pro203SSessionError) {
+        if (err instanceof DiscordSessionError) {
             return NextResponse.json({
                 "code": err.status === 401 ? "unauthorized" : err.detail.code,
                 "message": err.detail.message
