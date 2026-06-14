@@ -93,12 +93,10 @@
 }
 
 .currentAccount {
-    margin-bottom: 5px;
     display: flex;
     flex-direction: column;
     gap: 3px;
     padding: 8px 10px 10px;
-    border-bottom: 1px solid #333;
     color: #fff;
 }
 
@@ -135,4 +133,9 @@
 .dropdownAction:hover,
 .dropdownAction:focus-visible {
     background: #2b2b2b;
+}
+
+.line {
+    margin: 3px 0;
+    border-bottom: 1px solid #333;
 }

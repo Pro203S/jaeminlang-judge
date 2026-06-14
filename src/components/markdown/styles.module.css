@@ -1,0 +1,124 @@
+.markdown {
+    width: 100%;
+    color: #fff;
+    line-height: 1.75;
+    user-select: text;
+}
+
+.markdown * {
+    user-select: text;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+    margin: 1.35em 0 .5em;
+    line-height: 1.25;
+}
+
+.markdown h1:first-child,
+.markdown h2:first-child,
+.markdown h3:first-child {
+    margin-top: 0;
+}
+
+.markdown h1 {
+    font-size: 2.1rem;
+}
+
+.markdown h2 {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #333;
+    font-size: 1.55rem;
+}
+
+.markdown h3 {
+    font-size: 1.25rem;
+}
+
+.markdown p {
+    margin: .75em 0;
+    color: #e6e6e6;
+}
+
+.markdown a {
+    color: #9cd8ff;
+    text-decoration: none;
+}
+
+.markdown a:hover {
+    text-decoration: underline;
+}
+
+.markdown ul,
+.markdown ol {
+    margin: .75em 0;
+    padding-left: 1.4rem;
+    color: #e6e6e6;
+}
+
+.markdown li {
+    margin: .3em 0;
+}
+
+.markdown blockquote {
+    margin: 1em 0;
+    padding: 2px 0 2px 14px;
+    border-left: 3px solid #616161;
+    color: #cfcfcf;
+}
+
+.markdown hr {
+    margin: 24px 0;
+    border: 0;
+    border-top: 1px solid #333;
+}
+
+.inlineCode {
+    padding: 2px 5px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    background: #101010;
+    color: #fff;
+    font-size: .92em;
+}
+
+.codeBlock {
+    overflow-x: auto;
+    margin: 1em 0;
+    padding: 14px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #101010;
+    color: #fff;
+    line-height: 1.55;
+}
+
+.codeBlock code {
+    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    white-space: pre;
+}
+
+.tableWrap {
+    overflow-x: auto;
+    margin: 1em 0;
+}
+
+.tableWrap table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tableWrap th,
+.tableWrap td {
+    padding: 10px;
+    border: 1px solid #333;
+    text-align: left;
+}
+
+.tableWrap th {
+    background: #101010;
+}

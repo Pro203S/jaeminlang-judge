@@ -1,0 +1,91 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1024px;
+    min-height: calc(100dvh - 95px);
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.section {
+    box-sizing: border-box;
+    width: 90%;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: #464646 solid 1.5px;
+    border-radius: 23px;
+}
+
+.title {
+    color: #fff;
+    font-size: 1.674839rem;
+    font-weight: 600;
+}
+
+.desc {
+    color: #cfcfcf;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.docList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.docItem {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 12px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color .25s, border-color .25s;
+}
+
+.docItem:hover {
+    border-color: #616161;
+    background: #101010;
+}
+
+.docTitle {
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.docDesc {
+    color: #aaa;
+    font-size: .95rem;
+    line-height: 1.55;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 90%;
+    margin-bottom: 15px;
+}
+
+.backLink {
+    color: #cfcfcf;
+    text-decoration: none;
+}
+
+.backLink:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .section,
+    .toolbar {
+        width: 100%;
+    }
+}
