@@ -94,11 +94,11 @@ export async function POST(req: NextRequest, { params }: Params) {
 
         const problems = userdb.get("problems");
         const problemsValue = problems.value();
-        if (!problemsValue.includes(problem.id))
+        if (!problemsValue.includes(problem.id)) {
             problems.add(problem.id);
-        
-        const score = userdb.get("score").value();
-        userdb.get("score").set(score + TierToScore(problem.tier));
+            const score = userdb.get("score").value();
+            userdb.get("score").set(score + TierToScore(problem.tier));
+        }
 
         return NextResponse.json({
             "error": problemError,
