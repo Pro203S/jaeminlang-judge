@@ -20,16 +20,13 @@ type SpawnResultTrue = {
 };
 type SpawnResultFalse = {
     "success": false,
-    "data": {
-        "code": number,
-        "error": string
-    }
+    "data": string
 }
 
 type SpawnResult = SpawnResultTrue | SpawnResultFalse;
 
 function spawn(command: string, args: string[], stdin?: string) {
-    return new Promise<SpawnResult>((resolve, reject) => {
+    return new Promise<SpawnResult>((resolve) => {
         const c = spawnProc(command, args, {
             "timeout": EXECUTION_TIMEOUT_MS
         });
@@ -42,49 +39,54 @@ function spawn(command: string, args: string[], stdin?: string) {
             if (!handleClose) return;
             if (code && code !== 0) return resolve({
                 "success": false,
-                "data": {
-                    "code": code,
-                    "error": stderr
-                }
+                "data": stderr.slice(stderr.indexOf("]") + 1, stderr.indexOf("at jaeminlang")).trim()
             });
 
             return resolve({
                 "success": true,
-                "data": stdout
+                "data": stdout.trim()
             });
         });
 
+        c.stderr.on("data", (data) => stderr += data);
         c.stdout.on("data", (data) => {
             stdout += data;
             if (stdout.length >= MAX_OUTPUT_LENGTH) {
-                reject(new Error("stdout too long"));
+                resolve({
+                    "success": false,
+                    "data": stdout.trim()
+                });
                 handleClose = false;
                 c.kill('SIGTERM');
                 return;
             }
         });
-        c.stderr.on("data", (data) => stderr += data);
 
-        if (stdin) c.stdin.write(stdin, (err) => reject(err));
+        if (stdin) c.stdin.write(stdin, (err) => resolve({
+            "success": false,
+            "data": err ? err.message : "Unknown error"
+        }));
     });
 }
 
 export async function RunJaeminlang(code: string, option: Option) {
-    const { libraries, stdin } = option;
-
     const jmlPath = path.join(process.cwd(), "jaeminlang", "bin", JAEMINLANG_FILENAME);
     const tmpPath = path.join(process.cwd(), "temp", String(Date.now() + Math.round(Math.random() * 1000000)));
-    await fs.mkdir(tmpPath, { "recursive": true });
 
-    for await (const lib of (libraries ?? [])) {
-        await fs.writeFile(path.join(tmpPath, lib.filename), lib.code, "utf-8");
+    try {
+        const { libraries, stdin } = option;
+
+        await fs.mkdir(tmpPath, { "recursive": true });
+
+        for await (const lib of (libraries ?? [])) {
+            await fs.writeFile(path.join(tmpPath, lib.filename), lib.code, "utf-8");
+        }
+
+        const codePath = path.join(tmpPath, "code.jml");
+        await fs.writeFile(codePath, code, "utf-8");
+
+        return await spawn(jmlPath, [codePath], stdin);
+    } finally {
+        await fs.rm(tmpPath, { "recursive": true, "force": true });
     }
-
-    const codePath = path.join(tmpPath, "code.jml");
-    await fs.writeFile(codePath, code, "utf-8");
-
-    const result = await spawn(jmlPath, [codePath], stdin);
-    if (!result.success) throw new Error(result.data.code + " " + result.data.error);
-
-    return result.data;
 }
