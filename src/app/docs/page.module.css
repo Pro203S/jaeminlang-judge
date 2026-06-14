@@ -67,18 +67,26 @@
 
 .toolbar {
     display: flex;
-    justify-content: space-between;
-    gap: 10px;
+    gap: 3px;
     width: 90%;
     margin-bottom: 15px;
+}
+
+.toolbar svg {
+    margin: auto 0;
+    color: #cfcfcf;
 }
 
 .backLink {
     color: #cfcfcf;
     text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-.backLink:hover {
+.backLink:hover span,
+.backLink:hover svg {
     color: #fff;
     text-decoration: underline;
 }

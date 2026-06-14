@@ -7,6 +7,8 @@ import Markdown from "@/components/markdown";
 import { getMarkdownDoc, getMarkdownDocIds } from "@/modules/docs";
 
 import css from "../page.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 type Props = {
     params: Promise<{ id: string }>;
@@ -41,7 +43,10 @@ export default async function Page({ params }: Props) {
         <Header />
         <main className={css.container}>
             <div className={css.toolbar}>
-                <Link className={css.backLink} href="/docs">문서 목록</Link>
+                <Link className={css.backLink} href="/docs">
+                    <FontAwesomeIcon icon={faChevronLeft} />
+                    <span>문서 목록</span>
+                </Link>
             </div>
             <section className={css.section}>
                 <Markdown content={content} />
