@@ -92,27 +92,41 @@
 }
 
 .user .name {
-    font-size: 1.67rem;
+    font-size: 1.37rem;
     font-weight: 600;
     color: #fff;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin: auto 0;
 }
 
 .user .score {
     display: inline-block;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 600;
     margin: auto 0;
-    margin-left: auto;
     background: var(--score-gradient, "#fff");
     background-clip: text;
     color: transparent;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     white-space: nowrap;
+}
+
+.user .icon {
+    font-size: 1.2rem;
+    color: #464646;
+    margin: auto 0 auto auto;
+    will-change: transform, color;
+    transition-property: transform, color;
+    transition-duration: .25s;
+}
+
+.user:hover .icon {
+    color: #fff;
+    transform: translateX(-5px);
 }
 
 .empty {

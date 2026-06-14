@@ -9,6 +9,8 @@ import Loading from "@/components/loading";
 import InOutAnimation from "@/components/InOutAnimation";
 import { GetMaxProblemScore } from "@/modules/problemScore";
 import Link from "next/link";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type RankingUser = RESTResponseMap["/api/ranking"][number];
 type RankedUser = RankingUser & { "rank": number };
@@ -139,5 +141,6 @@ function RankingRow({
         >
             {value.score}점
         </span>
+        <FontAwesomeIcon className={css.icon} icon={faChevronRight} />
     </Link>;
 }
