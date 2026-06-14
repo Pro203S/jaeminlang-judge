@@ -62,10 +62,7 @@ function spawn(command: string, args: string[], stdin?: string) {
             }
         });
 
-        if (stdin) c.stdin.write(stdin, (err) => resolve({
-            "success": false,
-            "data": err ? err.message : "Unknown error"
-        }));
+        if (stdin) c.stdin.write(stdin);
     });
 }
 

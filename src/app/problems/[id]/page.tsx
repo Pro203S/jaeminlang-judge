@@ -30,7 +30,7 @@ export default function Page() {
     const lineNumbers = Array.from({ "length": code.split("\n").length }, (_, index) => index + 1);
     const submitStatus = submitResult
         ? submitResult.error
-            ? "오류"
+            ? submitResult.errorInOtherCase ? "다른 케이스에서 오류 발생" : "오류"
             : submitResult.correct
                 ? "정답"
                 : "오답"

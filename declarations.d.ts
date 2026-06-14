@@ -28,7 +28,7 @@ declare global {
 
     type APISubmitResponse = {
         "correct": boolean,
-        "errorInOtherCase": boolean,
+        "errorInOtherCase"?: boolean,
         "error": boolean,
         "output": string
     };
