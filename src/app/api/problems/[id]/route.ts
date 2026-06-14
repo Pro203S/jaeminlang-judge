@@ -3,7 +3,7 @@ import { ADMIN_ID } from "@/modules/constants";
 import { getDBUserById, getProblemsDatabase, recalculateScoresForProblemSolvers, sortProblemsByDifficulty } from "@/modules/database";
 import { MakeApiProblem } from "@/modules/makeApiType";
 import { normalizeProblemRuntimeFiles } from "@/modules/problemRuntimeFiles";
-import { DiscordSessionError, attachSessionCookies, getCurrentSession } from "@/modules/discordAuth";
+import { decodeProxyAuthUser } from "@/modules/proxyAuth";
 import { normalizeRequiredKeywords } from "@/modules/requiredKeywords";
 import { CompareTier } from "@/modules/tier";
 import { PATCHApiProblemsId } from "@/modules/zod";
@@ -20,31 +20,16 @@ export async function GET(req: NextRequest, { params }: Params) {
             "message": "문제를 찾지 못했습니다."
         }, { "status": 404 });
 
-        let session: Awaited<ReturnType<typeof getCurrentSession>> | undefined;
-        try {
-            session = await getCurrentSession(req);
-        } catch (err) {
-            if (!(err instanceof DiscordSessionError)) throw err;
-        }
-
-        const savedCode = session
-            ? getDBUserById(session.user.id)?.drafts?.[String(problem.id)]
+        const user = decodeProxyAuthUser(req.headers);
+        const savedCode = user
+            ? getDBUserById(user.id)?.drafts?.[String(problem.id)]
             : undefined;
-        const response = NextResponse.json(MakeApiProblem(problem, {
+        return NextResponse.json(MakeApiProblem(problem, {
             savedCode,
-            "includeCases": session?.user.id === ADMIN_ID,
-            "includeRuntimeFiles": session?.user.id === ADMIN_ID
+            "includeCases": user?.id === ADMIN_ID,
+            "includeRuntimeFiles": user?.id === ADMIN_ID
         }));
-
-        return session ? attachSessionCookies(response, session) : response;
     } catch (err) {
-        if (err instanceof DiscordSessionError) {
-            return NextResponse.json({
-                "code": err.status === 401 ? "unauthorized" : err.detail.code,
-                "message": err.detail.message
-            } satisfies APIErrorResponse, { "status": err.status });
-        }
-
         const e = err as Error;
         return NextResponse.json({
             "code": e.name,
@@ -62,18 +47,22 @@ export async function PATCH(req: NextRequest, { params }: Params) {
             "message": parsed.error.message
         }, { "status": 400 });
 
-        const session = await getCurrentSession(req);
-        if (session.user.id !== ADMIN_ID) return attachSessionCookies(NextResponse.json({
+        const user = decodeProxyAuthUser(req.headers);
+        if (!user) return NextResponse.json({
+            "code": "unauthorized",
+            "message": "로그인이 필요합니다."
+        } satisfies APIErrorResponse, { "status": 401 });
+        if (user.id !== ADMIN_ID) return NextResponse.json({
             "code": "forbidden",
             "message": "관리자만 문제를 관리할 수 있습니다."
-        }, { "status": 403 }), session);
+        }, { "status": 403 });
 
         const database = getProblemsDatabase().get("problems");
         const originIndex = database.findIndex(v => v.id === id);
-        if (originIndex === -1) return attachSessionCookies(NextResponse.json({
+        if (originIndex === -1) return NextResponse.json({
             "code": "not_found",
             "message": "문제를 찾지 못했습니다."
-        }, { "status": 404 }), session);
+        }, { "status": 404 });
         const origin = database.get(originIndex).value();
 
         const { input, output, requireKeyword, runtimeFiles, ...updates } = parsed.data;
@@ -106,15 +95,8 @@ export async function PATCH(req: NextRequest, { params }: Params) {
             recalculateScoresForProblemSolvers(prob.id, sortedProblems);
         }
 
-        return attachSessionCookies(new NextResponse(null, { "status": 204 }), session);
+        return NextResponse.json(null);
     } catch (err) {
-        if (err instanceof DiscordSessionError) {
-            return NextResponse.json({
-                "code": err.status === 401 ? "unauthorized" : err.detail.code,
-                "message": err.detail.message
-            } satisfies APIErrorResponse, { "status": err.status });
-        }
-
         const e = err as Error;
         return NextResponse.json({
             "code": e.name,
@@ -126,30 +108,27 @@ export async function PATCH(req: NextRequest, { params }: Params) {
 export async function DELETE(req: NextRequest, { params }: Params) {
     try {
         const id = Number((await params).id);
-        const session = await getCurrentSession(req);
-        if (session.user.id !== ADMIN_ID) return attachSessionCookies(NextResponse.json({
+        const user = decodeProxyAuthUser(req.headers);
+        if (!user) return NextResponse.json({
+            "code": "unauthorized",
+            "message": "로그인이 필요합니다."
+        } satisfies APIErrorResponse, { "status": 401 });
+        if (user.id !== ADMIN_ID) return NextResponse.json({
             "code": "forbidden",
             "message": "관리자만 문제를 관리할 수 있습니다."
-        }, { "status": 403 }), session);
+        }, { "status": 403 });
 
         const database = getProblemsDatabase().get("problems");
         const originIndex = database.findIndex(v => v.id === id);
-        if (originIndex === -1) return attachSessionCookies(NextResponse.json({
+        if (originIndex === -1) return NextResponse.json({
             "code": "not_found",
             "message": "문제를 찾지 못했습니다."
-        }, { "status": 404 }), session);
+        }, { "status": 404 });
 
         database.remove(originIndex);
 
-        return attachSessionCookies(new NextResponse(null, { "status": 204 }), session);
+        return NextResponse.json(null);
     } catch (err) {
-        if (err instanceof DiscordSessionError) {
-            return NextResponse.json({
-                "code": err.status === 401 ? "unauthorized" : err.detail.code,
-                "message": err.detail.message
-            } satisfies APIErrorResponse, { "status": err.status });
-        }
-
         const e = err as Error;
         return NextResponse.json({
             "code": e.name,

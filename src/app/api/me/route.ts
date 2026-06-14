@@ -3,27 +3,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { createAPIErrorResponse } from "@/modules/apiError";
 import { getDatabase, upsertOAuthUser } from "@/modules/database";
 import { MakeApiUser } from "@/modules/makeApiType";
-import {
-    DiscordSessionError,
-    attachSessionCookies,
-    clearAuthCookies,
-    getCurrentSession,
-} from "@/modules/discordAuth";
 import type { AuthMeResponse } from "@/modules/discordAuthTypes";
+import { decodeProxyAuthUser } from "@/modules/proxyAuth";
 
 export async function GET(request: NextRequest) {
     try {
-        const session = await getCurrentSession(request);
-        const user = upsertOAuthUser(session.user);
+        const authUser = decodeProxyAuthUser(request.headers);
+        if (!authUser) return unauthorizedResponse();
+
+        const user = upsertOAuthUser(authUser);
         const payload: AuthMeResponse = MakeApiUser(user);
-        const response = NextResponse.json(payload);
 
-        return attachSessionCookies(response, session);
+        return NextResponse.json(payload);
     } catch (error) {
-        if (error instanceof DiscordSessionError) {
-            return sessionErrorResponse(error);
-        }
-
         return NextResponse.json(
             createAPIErrorResponse(
                 "internal_server_error",
@@ -36,9 +28,11 @@ export async function GET(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
     try {
-        const session = await getCurrentSession(request);
+        const authUser = decodeProxyAuthUser(request.headers);
+        if (!authUser) return unauthorizedResponse();
+
         const users = getDatabase().get("users");
-        const userIndex = users.findIndex((value) => value.id === session.user.id);
+        const userIndex = users.findIndex((value) => value.id === authUser.id);
 
         if (userIndex === -1) {
             return NextResponse.json(
@@ -49,14 +43,8 @@ export async function DELETE(request: NextRequest) {
 
         users.remove(userIndex);
 
-        const response = new NextResponse(null, { status: 204 });
-        clearAuthCookies(response);
-        return response;
+        return NextResponse.json(null);
     } catch (error) {
-        if (error instanceof DiscordSessionError) {
-            return sessionErrorResponse(error);
-        }
-
         return NextResponse.json(
             createAPIErrorResponse(
                 "internal_server_error",
@@ -67,23 +55,9 @@ export async function DELETE(request: NextRequest) {
     }
 }
 
-function sessionErrorResponse(error: DiscordSessionError) {
-    const status = error.status === 401
-        ? 401
-        : error.status >= 200 && error.status < 300
-            ? 502
-            : error.status;
-    const payload = status === 401
-        ? createAPIErrorResponse(
-            "unauthorized",
-            error.detail.message || "로그인이 필요합니다.",
-        )
-        : error.detail;
-    const response = NextResponse.json(payload, { status });
-
-    if (status === 401) {
-        clearAuthCookies(response);
-    }
-
-    return response;
+function unauthorizedResponse() {
+    return NextResponse.json(
+        createAPIErrorResponse("unauthorized", "로그인이 필요합니다."),
+        { "status": 401 },
+    );
 }

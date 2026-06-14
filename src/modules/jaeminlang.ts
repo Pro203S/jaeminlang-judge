@@ -85,4 +85,6 @@ export async function RunJaeminlang(code: string, option: Option) {
 
     const result = await spawn(jmlPath, [codePath], stdin);
     if (!result.success) throw new Error(result.data.code + " " + result.data.error);
+
+    return result.data;
 }

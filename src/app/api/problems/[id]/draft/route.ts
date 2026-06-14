@@ -3,7 +3,7 @@ import z from "zod";
 
 import { APIErrorResponse } from "@/modules/apiError";
 import { createDefaultDBUser, getDatabase, getProblemsDatabase, normalizeDBUser } from "@/modules/database";
-import { DiscordSessionError, attachSessionCookies, getCurrentSession } from "@/modules/discordAuth";
+import { decodeProxyAuthUser } from "@/modules/proxyAuth";
 
 type Params = { "params": Promise<{ id: string }> };
 
@@ -26,8 +26,13 @@ export async function POST(req: NextRequest, { params }: Params) {
             "message": "문제를 찾지 못했습니다."
         } satisfies APIErrorResponse, { "status": 404 });
 
-        const session = await getCurrentSession(req);
-        const userNode = getOrCreateUserNode(session.user);
+        const user = decodeProxyAuthUser(req.headers);
+        if (!user) return NextResponse.json({
+            "code": "unauthorized",
+            "message": "로그인이 필요합니다."
+        } satisfies APIErrorResponse, { "status": 401 });
+
+        const userNode = getOrCreateUserNode(user);
         const currentUser = normalizeDBUser(userNode.value());
 
         userNode.set({
@@ -38,15 +43,8 @@ export async function POST(req: NextRequest, { params }: Params) {
             }
         });
 
-        return attachSessionCookies(new NextResponse(null, { "status": 204 }), session);
+        return NextResponse.json(null);
     } catch (err) {
-        if (err instanceof DiscordSessionError) {
-            return NextResponse.json({
-                "code": err.status === 401 ? "unauthorized" : err.detail.code,
-                "message": err.detail.message
-            } satisfies APIErrorResponse, { "status": err.status });
-        }
-
         const e = err as Error;
         return NextResponse.json({
             "code": e.name,
