@@ -5,12 +5,8 @@ import path from "node:path";
 
 import { APIErrorResponse, createAPIErrorResponse } from "@/modules/apiError";
 import { createDefaultDBUser, getDatabase, getProblemsDatabase, normalizeDBUser } from "@/modules/database";
-import {
-    DiscordSessionError,
-    attachSessionCookies,
-    getCurrentSession
-} from "@/modules/discordAuth";
 import { normalizeProblemRuntimeFiles } from "@/modules/problemRuntimeFiles";
+import { decodeProxyAuthUser } from "@/modules/proxyAuth";
 import { getMissingRequiredKeywords } from "@/modules/requiredKeywords";
 import { TierToScore } from "@/modules/tier";
 import { POSTApiProblemsIdSubmit } from "@/modules/zod";
@@ -29,15 +25,18 @@ type RunResult = {
 
 const EXECUTION_TIMEOUT_MS = 5000;
 const MAX_OUTPUT_LENGTH = 1024 * 1024;
-const JAEMINLANG_EXECUTABLE_CANDIDATES = [
-    "jaeminlang.exe",
-    "jaeminlang"
-];
+const JAEMINLANG_FILENAME = process.platform === "win32" ? "jaeminlang.exe" : "jaeminlang";
 
 export async function POST(req: NextRequest, { params }: Params) {
     let submissionDir: string | undefined;
 
     try {
+        const user = decodeProxyAuthUser(req.headers);
+        if (!user) return NextResponse.json({
+            "code": "unauthorized",
+            "message": "로그인이 필요합니다."
+        } satisfies APIErrorResponse, { "status": 401 });
+
         const parsed = POSTApiProblemsIdSubmit.safeParse(await req.json());
         if (!parsed.success) return NextResponse.json({
             "code": "type_mismatch",
@@ -53,16 +52,15 @@ export async function POST(req: NextRequest, { params }: Params) {
             "message": "문제를 찾지 못했습니다."
         } satisfies APIErrorResponse, { "status": 404 });
 
-        const session = await getCurrentSession(req);
         const root = process.cwd();
         const tempRoot = path.join(root, "temp");
         const jaeminlangPath = resolveJaeminlangExecutable(root);
 
         if (!jaeminlangPath) {
-            return attachSessionCookies(NextResponse.json(
+            return NextResponse.json(
                 createAPIErrorResponse("jaeminlang_not_found", "재민랭 실행 파일을 찾지 못했습니다."),
                 { "status": 500 },
-            ), session);
+            );
         }
 
         await mkdir(tempRoot, { "recursive": true });
@@ -75,6 +73,7 @@ export async function POST(req: NextRequest, { params }: Params) {
         await writeFile(codePath, parsed.data.code, "utf8");
 
         let passed = 0;
+        let failedCaseIndex: number | undefined;
         let hasExecutionError = false;
         let executionOutput = "";
         let debugOutput = "";
@@ -85,7 +84,7 @@ export async function POST(req: NextRequest, { params }: Params) {
         } else {
             await prepareProblemRuntimeFiles(problem, submissionDir);
 
-            for (const testCase of problem.cases) {
+            for (const [caseIndex, testCase] of problem.cases.entries()) {
                 const result = await runJaeminlang(
                     jaeminlangPath,
                     submissionDir,
@@ -94,12 +93,14 @@ export async function POST(req: NextRequest, { params }: Params) {
                 );
 
                 if (result.timedOut || result.exitCode !== 0) {
+                    failedCaseIndex = caseIndex;
                     hasExecutionError = true;
                     executionOutput = getExecutionOutput(result);
                     break;
                 }
 
                 if (normalizeOutput(result.stdout) !== normalizeOutput(testCase.out)) {
+                    failedCaseIndex = caseIndex;
                     break;
                 }
 
@@ -122,7 +123,7 @@ export async function POST(req: NextRequest, { params }: Params) {
                 : formatExecutionOutput(getExecutionOutput(sampleResult));
         }
 
-        const userNode = getOrCreateUserNode(session.user);
+        const userNode = getOrCreateUserNode(user);
         const currentUser = normalizeDBUser(userNode.value());
         const alreadySolved = currentUser.problems.includes(problem.id);
         const nextUser: DBUser = {
@@ -145,21 +146,15 @@ export async function POST(req: NextRequest, { params }: Params) {
 
         const payload: APISubmitResponse = {
             correct,
+            "errorInOtherCase": failedCaseIndex !== undefined && failedCaseIndex > 0,
             "error": hasExecutionError,
             "output": hasExecutionError
                 ? formatExecutionOutput(executionOutput)
                 : debugOutput
         };
 
-        return attachSessionCookies(NextResponse.json(payload), session);
+        return NextResponse.json(payload);
     } catch (err) {
-        if (err instanceof DiscordSessionError) {
-            return NextResponse.json({
-                "code": err.status === 401 ? "unauthorized" : err.detail.code,
-                "message": err.detail.message
-            } satisfies APIErrorResponse, { "status": err.status });
-        }
-
         const e = err as Error;
         return NextResponse.json({
             "code": e.name,
@@ -187,12 +182,8 @@ function getOrCreateUserNode(user: Parameters<typeof createDefaultDBUser>[0]) {
 }
 
 function resolveJaeminlangExecutable(root: string) {
-    const binDir = path.join(root, "jaeminlang", "bin");
-
-    for (const candidate of JAEMINLANG_EXECUTABLE_CANDIDATES) {
-        const executablePath = path.join(binDir, candidate);
-        if (existsSync(executablePath)) return executablePath;
-    }
+    const executablePath = path.join(root, "jaeminlang", "bin", JAEMINLANG_FILENAME);
+    if (existsSync(executablePath)) return executablePath;
 
     return null;
 }

@@ -83,78 +83,82 @@ export default function Page() {
         <Header sessionOverride={user} doNotRequest />
         {problem ? <InOutAnimation className={css.container} animate>
             <div className={css.problem}>
-                <div className={css.section}>
-                    <div className={css.titleBox}>
-                        <TierBadge tier={problem.tier} />
-                        <span className={css.title}>{problem.name}</span>
-                    </div>
-                    {problem.description.split("\n").map((v, i) => <span className={css.desc} key={i}>{v}</span>)}
-                    <span className={css.desc} style={{ "marginTop": "15px" }}>이 문제를 풀면 {TierToScore(problem.tier)}점을 얻어요.</span>
-                </div>
-                {problem.requireKeyword.length > 0 && <div className={css.section}>
-                    <span className={css.title}>필수 키워드</span>
-                    <div className={css.keywordList}>
-                        {problem.requireKeyword.map((keyword) => <span className={css.keywordPill} key={keyword}>{keyword}</span>)}
-                    </div>
-                </div>}
-                <div className={css.linearV}>
-                    {problem.input && <div className={css.section}>
-                        <span className={css.title}>입력</span>
-                        <span className={css.subtitle}>설명</span>
-                        <span className={css.desc}>{problem.input.description}</span>
-                        <span className={css.subtitle}>실제 입력 값</span>
-                        {problem.input.content.split("\n").map((v, i) => <span key={i} className={css.desc}>{v}</span>)}
-                        <div style={{ "marginBottom": "auto" }} />
-                    </div>}
-                    {problem.output && <div className={css.section} style={{ "marginBottom": "auto" }}>
-                        <span className={css.title}>출력</span>
-                        <span className={css.subtitle}>설명</span>
-                        <span className={css.desc}>{problem.output.description}</span>
-                        <span className={css.subtitle}>실제 출력 값</span>
-                        {problem.output.content.split("\n").map((v, i) => <span key={i} className={css.desc} style={{ "userSelect": "text", "width": "100%" }}>{v}</span>)}
-                    </div>}
-                </div>
-                <div className={css.section}>
-                    <label className={css.title} htmlFor="solution-code">코드</label>
-                    <div className={css.codeEditorFrame}>
-                        <div className={css.lineNumbers} ref={lineNumbersRef} aria-hidden="true">
-                            {lineNumbers.map((lineNumber) => <span key={lineNumber}>{lineNumber}</span>)}
+                <div className={css.problemLinearV}>
+                    <div className={css.problemInfo}>
+                        <div className={css.section}>
+                            <div className={css.titleBox}>
+                                <TierBadge tier={problem.tier} />
+                                <span className={css.title}>{problem.name}</span>
+                            </div>
+                            {problem.description.split("\n").map((v, i) => <span className={css.desc} key={i}>{v}</span>)}
+                            <span className={css.desc} style={{ "marginTop": "15px" }}>이 문제를 풀면 {TierToScore(problem.tier)}점을 얻어요.</span>
                         </div>
-                        <textarea
-                            id="solution-code"
-                            className={css.codeEditor}
-                            value={code}
-                            spellCheck={false}
-                            placeholder="코드를 입력하세요..."
-                            onChange={(ev) => setCode(ev.currentTarget.value)}
-                            onScroll={(ev) => {
-                                if (!lineNumbersRef.current) return;
+                        {problem.requireKeyword.length > 0 && <div className={css.section}>
+                            <span className={css.title}>필수 키워드</span>
+                            <div className={css.keywordList}>
+                                {problem.requireKeyword.map((keyword) => <span className={css.keywordPill} key={keyword}>{keyword}</span>)}
+                            </div>
+                        </div>}
+                        <div className={css.linearV}>
+                            {problem.input && <div className={css.section}>
+                                <span className={css.title}>입력</span>
+                                <span className={css.subtitle}>설명</span>
+                                <span className={css.desc}>{problem.input.description}</span>
+                                <span className={css.subtitle}>실제 입력 값</span>
+                                {problem.input.content.split("\n").map((v, i) => <span key={i} className={css.desc}>{v}</span>)}
+                                <div style={{ "marginBottom": "auto" }} />
+                            </div>}
+                            {problem.output && <div className={css.section} style={{ "marginBottom": "auto" }}>
+                                <span className={css.title}>출력</span>
+                                <span className={css.subtitle}>설명</span>
+                                <span className={css.desc}>{problem.output.description}</span>
+                                <span className={css.subtitle}>실제 출력 값</span>
+                                {problem.output.content.split("\n").map((v, i) => <span key={i} className={css.desc} style={{ "userSelect": "text", "width": "100%" }}>{v}</span>)}
+                            </div>}
+                        </div>
+                    </div>
+                    <div className={css.section}>
+                        <label className={css.title} htmlFor="solution-code">코드</label>
+                        <div className={css.codeEditorFrame}>
+                            <div className={css.lineNumbers} ref={lineNumbersRef} aria-hidden="true">
+                                {lineNumbers.map((lineNumber) => <span key={lineNumber}>{lineNumber}</span>)}
+                            </div>
+                            <textarea
+                                id="solution-code"
+                                className={css.codeEditor}
+                                value={code}
+                                spellCheck={false}
+                                placeholder="코드를 입력하세요..."
+                                onChange={(ev) => setCode(ev.currentTarget.value)}
+                                onScroll={(ev) => {
+                                    if (!lineNumbersRef.current) return;
 
-                                lineNumbersRef.current.scrollTop = ev.currentTarget.scrollTop;
-                            }}
-                            onKeyDown={(ev) => {
-                                // Tab키 핸들링
-                                if (ev.key === "Tab") {
-                                    ev.preventDefault();
+                                    lineNumbersRef.current.scrollTop = ev.currentTarget.scrollTop;
+                                }}
+                                onKeyDown={(ev) => {
+                                    // Tab키 핸들링
+                                    if (ev.key === "Tab") {
+                                        ev.preventDefault();
 
-                                    const target = ev.currentTarget;
-                                    const { selectionStart, selectionEnd } = target;
-                                    const nextCode = `${code.slice(0, selectionStart)}  ${code.slice(selectionEnd)}`;
+                                        const target = ev.currentTarget;
+                                        const { selectionStart, selectionEnd } = target;
+                                        const nextCode = `${code.slice(0, selectionStart)}  ${code.slice(selectionEnd)}`;
 
-                                    setCode(nextCode);
-                                    requestAnimationFrame(() => {
-                                        target.setSelectionRange(selectionStart + 4, selectionStart + 4);
-                                    });
+                                        setCode(nextCode);
+                                        requestAnimationFrame(() => {
+                                            target.setSelectionRange(selectionStart + 4, selectionStart + 4);
+                                        });
 
-                                    return;
-                                }
+                                        return;
+                                    }
 
-                                // 습관성 Ctrl S 방지
-                                if (ev.ctrlKey && ev.key === "s") {
-                                    ev.preventDefault();
-                                }
-                            }}
-                        />
+                                    // 습관성 Ctrl S 방지
+                                    if (ev.ctrlKey && ev.key === "s") {
+                                        ev.preventDefault();
+                                    }
+                                }}
+                            />
+                        </div>
                     </div>
                 </div>
                 {submitResult && <div className={css.section}>
@@ -165,7 +169,7 @@ export default function Page() {
                     </pre>}
                 </div>}
 
-                <div className={css.section}>
+                <div className={css.section} style={{ "width": "100%" }}>
                     <div className={css.buttons}>
                         <Button
                             className={css.submit}

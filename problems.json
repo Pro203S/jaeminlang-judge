@@ -20,7 +20,8 @@
           "out": "Hello World!"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "runtimeFiles": []
     },
     {
       "id": 4,
