@@ -2,6 +2,7 @@ import { APIErrorResponse } from "@/modules/apiError";
 import { ADMIN_ID } from "@/modules/constants";
 import { getDBUserById, getProblemsDatabase, sortProblemsByDifficulty } from "@/modules/database";
 import { MakeApiProblem } from "@/modules/makeApiType";
+import { normalizeProblemRuntimeFiles } from "@/modules/problemRuntimeFiles";
 import { Pro203SSessionError, attachSessionCookies, getCurrentSession } from "@/modules/pro203sAuth";
 import { normalizeRequiredKeywords } from "@/modules/requiredKeywords";
 import { PATCHApiProblemsId } from "@/modules/zod";
@@ -30,7 +31,8 @@ export async function GET(req: NextRequest, { params }: Params) {
             : undefined;
         const response = NextResponse.json(MakeApiProblem(problem, {
             savedCode,
-            "includeCases": session?.user.id === ADMIN_ID
+            "includeCases": session?.user.id === ADMIN_ID,
+            "includeRuntimeFiles": session?.user.id === ADMIN_ID
         }));
 
         return session ? attachSessionCookies(response, session) : response;
@@ -73,10 +75,11 @@ export async function PATCH(req: NextRequest, { params }: Params) {
         }, { "status": 404 }), session);
         const origin = database.get(originIndex).value();
 
-        const { input, output, requireKeyword, ...updates } = parsed.data;
+        const { input, output, requireKeyword, runtimeFiles, ...updates } = parsed.data;
         const prob: DBProblem = {
             ...origin,
             "requireKeyword": origin.requireKeyword ?? [],
+            "runtimeFiles": origin.runtimeFiles ?? [],
             ...updates
         };
         if ("requireKeyword" in parsed.data && requireKeyword) {
@@ -89,6 +92,9 @@ export async function PATCH(req: NextRequest, { params }: Params) {
         if ("output" in parsed.data) {
             if (output === null) delete prob.output;
             else if (output !== undefined) prob.output = output;
+        }
+        if ("runtimeFiles" in parsed.data && runtimeFiles) {
+            prob.runtimeFiles = normalizeProblemRuntimeFiles(runtimeFiles);
         }
 
         database.get(originIndex).set(prob);

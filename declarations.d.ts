@@ -61,6 +61,7 @@ declare global {
             "in"?: string,
             "out": string,
         }[],
+        "runtimeFiles"?: ProblemRuntimeFile[],
         "savedCode"?: string
     };
 
@@ -73,6 +74,11 @@ declare global {
     type UserStat = {
         "corrects": number,
         "submits": number
+    };
+
+    type ProblemRuntimeFile = {
+        "name": string,
+        "content": string
     };
 
     type DBProblem = {
@@ -93,7 +99,8 @@ declare global {
         "cases": {
             "in"?: string
             "out": string,
-        }[]
+        }[],
+        "runtimeFiles"?: ProblemRuntimeFile[]
     };
 
     type DBUser = {

@@ -1340,6 +1340,12 @@
       ],
       "requireKeyword": [
         "팝콘"
+      ],
+      "runtimeFiles": [
+        {
+          "name": "godlib.jml",
+          "content": "엘릭서,신탁,x,y,d\n그램,result,x\n그램,result,*x\n그램,tmp,y\n그램,tmp,*d\n그램,result,+tmp\n그램,result,+7\n음...,result"
+        }
       ]
     }
   ]

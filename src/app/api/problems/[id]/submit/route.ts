@@ -10,6 +10,7 @@ import {
     attachSessionCookies,
     getCurrentSession
 } from "@/modules/pro203sAuth";
+import { normalizeProblemRuntimeFiles } from "@/modules/problemRuntimeFiles";
 import { getMissingRequiredKeywords } from "@/modules/requiredKeywords";
 import { TierToScore } from "@/modules/tier";
 import { POSTApiProblemsIdSubmit } from "@/modules/zod";
@@ -33,22 +34,8 @@ const JAEMINLANG_EXECUTABLE_CANDIDATES = [
     "jaeminlang"
 ];
 
-// 재민랭의 신 문제는 팝콘으로 불러올 기본 라이브러리를 채점 디렉터리에 같이 둔다.
-const GOD_I_PROBLEM_NAME = "재민랭의 신";
-const GOD_I_LIBRARY_FILE_NAME = "godlib.jml";
-const GOD_I_LIBRARY_CODE = [
-    "엘릭서,신탁,x,y,d",
-    "그램,result,x",
-    "그램,result,*x",
-    "그램,tmp,y",
-    "그램,tmp,*d",
-    "그램,result,+tmp",
-    "그램,result,+7",
-    "음...,result"
-].join("\n");
-
 export async function POST(req: NextRequest, { params }: Params) {
-    let codePath: string | undefined;
+    let submissionDir: string | undefined;
 
     try {
         const parsed = POSTApiProblemsIdSubmit.safeParse(await req.json());
@@ -68,7 +55,7 @@ export async function POST(req: NextRequest, { params }: Params) {
 
         const session = await getCurrentSession(req);
         const root = process.cwd();
-        const tempDir = path.join(root, "temp");
+        const tempRoot = path.join(root, "temp");
         const jaeminlangPath = resolveJaeminlangExecutable(root);
 
         if (!jaeminlangPath) {
@@ -78,10 +65,13 @@ export async function POST(req: NextRequest, { params }: Params) {
             ), session);
         }
 
-        await mkdir(tempDir, { "recursive": true });
+        await mkdir(tempRoot, { "recursive": true });
 
-        const fileName = `code-${Date.now() + Math.floor(Math.random() * 100000)}.txt`;
-        codePath = path.join(tempDir, fileName);
+        submissionDir = path.join(tempRoot, `submit-${Date.now()}-${Math.floor(Math.random() * 100000)}`);
+        await mkdir(submissionDir, { "recursive": true });
+
+        const fileName = "code.txt";
+        const codePath = path.join(submissionDir, fileName);
         await writeFile(codePath, parsed.data.code, "utf8");
 
         let passed = 0;
@@ -93,13 +83,12 @@ export async function POST(req: NextRequest, { params }: Params) {
         if (missingRequiredKeywords.length) {
             debugOutput = `필수 키워드가 빠졌습니다: ${missingRequiredKeywords.join(", ")}`;
         } else {
-            // 보조 파일이 필요한 문제는 제출 코드와 같은 임시 디렉터리에 파일을 준비한다.
-            await prepareProblemRuntimeFiles(problem, tempDir);
+            await prepareProblemRuntimeFiles(problem, submissionDir);
 
             for (const testCase of problem.cases) {
                 const result = await runJaeminlang(
                     jaeminlangPath,
-                    tempDir,
+                    submissionDir,
                     fileName,
                     testCase.in ?? "",
                 );
@@ -123,7 +112,7 @@ export async function POST(req: NextRequest, { params }: Params) {
             // 오답이면 예제 입력 실행 결과를 돌려줘서 사용자가 출력 차이를 확인할 수 있게 한다.
             const sampleResult = await runJaeminlang(
                 jaeminlangPath,
-                tempDir,
+                submissionDir,
                 fileName,
                 problem.input?.content ?? "",
             );
@@ -177,7 +166,7 @@ export async function POST(req: NextRequest, { params }: Params) {
             "message": e.message
         } satisfies APIErrorResponse, { "status": 500 });
     } finally {
-        if (codePath) await deleteTempFile(codePath);
+        if (submissionDir) await deleteTempDirectory(submissionDir);
     }
 }
 
@@ -209,20 +198,14 @@ function resolveJaeminlangExecutable(root: string) {
 }
 
 async function prepareProblemRuntimeFiles(problem: DBProblem, tempDir: string) {
-    if (!isGodIProblem(problem)) return;
-
-    await writeFile(path.join(tempDir, GOD_I_LIBRARY_FILE_NAME), GOD_I_LIBRARY_CODE, "utf8");
+    for (const file of normalizeProblemRuntimeFiles(problem.runtimeFiles ?? [])) {
+        await writeFile(path.join(tempDir, file.name), file.content, "utf8");
+    }
 }
 
-function isGodIProblem(problem: DBProblem) {
-    return problem.name === GOD_I_PROBLEM_NAME
-        && problem.tier.category === "god"
-        && problem.tier.stage === 1;
-}
-
-async function deleteTempFile(filePath: string) {
+async function deleteTempDirectory(dirPath: string) {
     try {
-        await rm(filePath, { "force": true });
+        await rm(dirPath, { "force": true, "recursive": true });
     } catch {
     }
 }

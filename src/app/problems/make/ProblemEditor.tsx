@@ -9,6 +9,11 @@ import InOutAnimation from "@/components/InOutAnimation";
 import Button from "@/components/button";
 import Loading from "@/components/loading";
 import { ADMIN_ID, AVAILABLE_TAGS } from "@/modules/constants";
+import {
+    getDuplicateProblemRuntimeFileNames,
+    isProblemRuntimeFileName,
+    normalizeProblemRuntimeFiles
+} from "@/modules/problemRuntimeFiles";
 import { normalizeRequiredKeywords } from "@/modules/requiredKeywords";
 import { AVAILABLE_TIERS, TierToString } from "@/modules/tier";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -23,6 +28,10 @@ type EditableCase = {
     "id": number;
     "in": string;
     "out": string;
+};
+
+type EditableRuntimeFile = ProblemRuntimeFile & {
+    "id": number;
 };
 
 type ProblemMutationPayload = Omit<DBProblem, "id" | "input" | "output"> & {
@@ -53,7 +62,9 @@ export default function ProblemEditor(props: Props) {
     const [problemInput, setProblemInput] = useState<IOState>({ "description": "", "content": "" });
     const [problemOutput, setProblemOutput] = useState<IOState>({ "description": "", "content": "" });
     const [cases, setCases] = useState<EditableCase[]>([{ "id": 1, "in": "", "out": "" }]);
+    const [runtimeFiles, setRuntimeFiles] = useState<EditableRuntimeFile[]>([]);
     const [nextCaseId, setNextCaseId] = useState(2);
+    const [nextRuntimeFileId, setNextRuntimeFileId] = useState(1);
     const [isLoading, setLoading] = useState(true);
     const [isSubmitting, setSubmitting] = useState(false);
     const [isDeleting, setDeleting] = useState(false);
@@ -70,6 +81,10 @@ export default function ProblemEditor(props: Props) {
                 "out": testCase.out
             }))
             : [{ "id": 1, "in": "", "out": "" }];
+        const loadedRuntimeFiles = problem.runtimeFiles?.map((file, index) => ({
+            ...file,
+            "id": index + 1
+        })) ?? [];
 
         setName(problem.name);
         setDescription(problem.description);
@@ -80,6 +95,8 @@ export default function ProblemEditor(props: Props) {
         setProblemOutput(toIOState(problem.output));
         setCases(loadedCases);
         setNextCaseId(loadedCases.length + 1);
+        setRuntimeFiles(loadedRuntimeFiles);
+        setNextRuntimeFileId(loadedRuntimeFiles.length + 1);
     };
 
     useEffect(() => {
@@ -171,6 +188,21 @@ export default function ProblemEditor(props: Props) {
             : current.filter((testCase) => testCase.id !== caseId));
     };
 
+    const updateRuntimeFile = (fileId: number, key: "name" | "content", value: string) => {
+        setRuntimeFiles((current) => current.map((file) => file.id === fileId
+            ? { ...file, [key]: value }
+            : file));
+    };
+
+    const addRuntimeFile = () => {
+        setRuntimeFiles((current) => [...current, { "id": nextRuntimeFileId, "name": "", "content": "" }]);
+        setNextRuntimeFileId((current) => current + 1);
+    };
+
+    const removeRuntimeFile = (fileId: number) => {
+        setRuntimeFiles((current) => current.filter((file) => file.id !== fileId));
+    };
+
     const submit = async () => {
         if (isSubmitting) return;
 
@@ -189,6 +221,29 @@ export default function ProblemEditor(props: Props) {
             return;
         }
 
+        const normalizedRuntimeFiles = normalizeProblemRuntimeFiles(runtimeFiles);
+        if (runtimeFiles.some((file) => file.name.trim() || file.content)) {
+            const missingNameFileIndex = runtimeFiles.findIndex((file) => !file.name.trim() && file.content);
+            if (missingNameFileIndex >= 0) {
+                alert(`런타임 파일 ${missingNameFileIndex + 1}의 이름을 입력해주세요.`);
+                return;
+            }
+
+            const invalidName = runtimeFiles
+                .map((file) => file.name.trim())
+                .find((fileName) => fileName && !isProblemRuntimeFileName(fileName));
+            if (invalidName) {
+                alert(`런타임 파일 이름을 확인해주세요: ${invalidName}`);
+                return;
+            }
+
+            const duplicateNames = getDuplicateProblemRuntimeFileNames(runtimeFiles);
+            if (duplicateNames.length) {
+                alert(`중복된 런타임 파일 이름입니다: ${duplicateNames.join(", ")}`);
+                return;
+            }
+        }
+
         const payload: ProblemMutationPayload = {
             tier,
             tags,
@@ -198,7 +253,8 @@ export default function ProblemEditor(props: Props) {
             "cases": cases.map((testCase) => ({
                 ...(testCase.in ? { "in": testCase.in } : {}),
                 "out": testCase.out
-            }))
+            })),
+            "runtimeFiles": normalizedRuntimeFiles
         };
         const input = optionalIO(problemInput);
         const output = optionalIO(problemOutput);
@@ -350,6 +406,49 @@ export default function ProblemEditor(props: Props) {
                             >
                                 <FontAwesomeIcon icon={faTrash} />
                             </button>
+                        </div>)}
+                    </div>}
+                </div>
+                <div className={css.section}>
+                    <div className={css.titleRow}>
+                        <span className={css.title}>런타임 파일</span>
+                        <button className={css.iconButton} type="button" onClick={addRuntimeFile} aria-label="런타임 파일 추가">
+                            <FontAwesomeIcon icon={faPlus} />
+                        </button>
+                    </div>
+                    {runtimeFiles.length > 0 && <div className={css.caseList}>
+                        {runtimeFiles.map((file, index) => <div className={css.caseItem} key={file.id}>
+                            <div className={css.caseHeader}>
+                                <span className={css.subtitle}>파일 {index + 1}</span>
+                                <button
+                                    className={css.iconButton}
+                                    type="button"
+                                    onClick={() => removeRuntimeFile(file.id)}
+                                    aria-label={`런타임 파일 ${index + 1} 삭제`}
+                                >
+                                    <FontAwesomeIcon icon={faTrash} />
+                                </button>
+                            </div>
+                            <div className={css.field}>
+                                <label className={css.subtitle} htmlFor={`runtime-file-${file.id}-name`}>파일 이름</label>
+                                <input
+                                    id={`runtime-file-${file.id}-name`}
+                                    className={css.input}
+                                    value={file.name}
+                                    onChange={(ev) => updateRuntimeFile(file.id, "name", ev.currentTarget.value)}
+                                    placeholder="godlib.jml"
+                                />
+                            </div>
+                            <div className={css.field}>
+                                <label className={css.subtitle} htmlFor={`runtime-file-${file.id}-content`}>내용</label>
+                                <textarea
+                                    id={`runtime-file-${file.id}-content`}
+                                    className={css.textarea}
+                                    value={file.content}
+                                    onChange={(ev) => updateRuntimeFile(file.id, "content", ev.currentTarget.value)}
+                                    placeholder="파일 내용"
+                                />
+                            </div>
                         </div>)}
                     </div>}
                 </div>

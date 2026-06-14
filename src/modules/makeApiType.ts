@@ -1,18 +1,22 @@
 import { getProblemsDatabase, normalizeDBUser } from "./database";
+import { normalizeProblemRuntimeFiles } from "./problemRuntimeFiles";
 
 type MakeApiProblemOptions = {
     "savedCode"?: string;
     "includeCases"?: boolean;
+    "includeRuntimeFiles"?: boolean;
 };
 
 export function MakeApiProblem(value: DBProblem, options: MakeApiProblemOptions = {}): APIProblem {
     const problem: APIProblem = {
         ...value,
         "tags": value.tags ?? [],
-        "requireKeyword": value.requireKeyword ?? []
+        "requireKeyword": value.requireKeyword ?? [],
+        "runtimeFiles": normalizeProblemRuntimeFiles(value.runtimeFiles ?? [])
     };
 
     if (!options.includeCases) delete problem.cases;
+    if (!options.includeRuntimeFiles) delete problem.runtimeFiles;
     if (options.savedCode !== undefined) problem.savedCode = options.savedCode;
 
     return problem;

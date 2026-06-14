@@ -2,6 +2,7 @@ import { APIErrorResponse } from "@/modules/apiError";
 import { ADMIN_ID } from "@/modules/constants";
 import { getProblemsDatabase, sortProblemsByDifficulty } from "@/modules/database";
 import { MakeApiProblem } from "@/modules/makeApiType";
+import { normalizeProblemRuntimeFiles } from "@/modules/problemRuntimeFiles";
 import { Pro203SSessionError, attachSessionCookies, getCurrentSession } from "@/modules/pro203sAuth";
 import { normalizeRequiredKeywords } from "@/modules/requiredKeywords";
 import { POSTApiProblems } from "@/modules/zod";
@@ -46,7 +47,8 @@ export async function POST(req: NextRequest) {
         const prob: DBProblem = {
             "id": Math.max(0, ...problems.map((problem) => problem.id)) + 1,
             ...parsed.data,
-            "requireKeyword": normalizeRequiredKeywords(parsed.data.requireKeyword)
+            "requireKeyword": normalizeRequiredKeywords(parsed.data.requireKeyword),
+            "runtimeFiles": normalizeProblemRuntimeFiles(parsed.data.runtimeFiles)
         };
 
         database.set(sortProblemsByDifficulty([...problems, prob]));
