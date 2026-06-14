@@ -143,41 +143,6 @@
       ]
     },
     {
-      "id": 8,
-      "tier": {
-        "category": "silver",
-        "stage": 5
-      },
-      "tags": [
-        "inout",
-        "string"
-      ],
-      "name": "혼잣말",
-      "description": "재민이는 혼잣말을 되게 많이 하는데요, 특히 말이 반복됩니다.\n숫자 A와 문자열 하나가 차례로 입력됩니다.\n문자열을 숫자 A만큼 반복해 출력하세요.",
-      "input": {
-        "description": "숫자 A\n문자열",
-        "content": "3\n혼잣말"
-      },
-      "output": {
-        "description": "반복된 문자열\n(문자열 끝에 줄바꿈 필수입니다!)",
-        "content": "혼잣말\n혼잣말\n혼잣말"
-      },
-      "cases": [
-        {
-          "in": "3\n혼잣말",
-          "out": "혼잣말\n혼잣말\n혼잣말"
-        },
-        {
-          "in": "55\n전재민",
-          "out": "전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민"
-        },
-        {
-          "in": "1\n전재민",
-          "out": "전재민"
-        }
-      ]
-    },
-    {
       "id": 9,
       "tier": {
         "category": "bronze",
@@ -248,37 +213,111 @@
       ]
     },
     {
-      "id": 11,
+      "id": 17,
       "tier": {
         "category": "bronze",
         "stage": 1
       },
       "tags": [
         "inout",
-        "operate"
+        "string"
       ],
-      "name": "급식 줄 번호",
-      "description": "층, 반, 자리 번호가 차례대로 주어집니다. 층에 100을 곱하고 반에 10을 곱한 뒤 자리 번호를 더해 줄 번호를 만드세요.",
+      "name": "문자 꼬리표",
+      "description": "문자열과 번호가 주어집니다. 문자열 뒤에 공백, #, 번호를 붙여 출력하세요.",
       "input": {
-        "description": "층, 반, 자리 번호가 한 줄에 하나씩 주어집니다.",
-        "content": "2\n4\n6"
+        "description": "첫째 줄에 문자열, 둘째 줄에 번호가 주어집니다.",
+        "content": "JAEMIN\n7"
       },
       "output": {
-        "description": "계산된 줄 번호를 출력합니다.",
-        "content": "246"
+        "description": "문자열과 번호를 지정된 형식으로 출력합니다.",
+        "content": "JAEMIN #7"
       },
       "cases": [
         {
-          "in": "2\n4\n6",
-          "out": "246"
+          "in": "JAEMIN\n7",
+          "out": "JAEMIN #7"
         },
         {
-          "in": "1\n0\n9",
-          "out": "109"
+          "in": "lang\n12",
+          "out": "lang #12"
         },
         {
-          "in": "8\n3\n5",
-          "out": "835"
+          "in": "coffee\n3",
+          "out": "coffee #3"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "inout",
+        "string"
+      ],
+      "name": "혼잣말",
+      "description": "재민이는 혼잣말을 되게 많이 하는데요, 특히 말이 반복됩니다.\n숫자 A와 문자열 하나가 차례로 입력됩니다.\n문자열을 숫자 A만큼 반복해 출력하세요.",
+      "input": {
+        "description": "숫자 A\n문자열",
+        "content": "3\n혼잣말"
+      },
+      "output": {
+        "description": "반복된 문자열\n(문자열 끝에 줄바꿈 필수입니다!)",
+        "content": "혼잣말\n혼잣말\n혼잣말"
+      },
+      "cases": [
+        {
+          "in": "3\n혼잣말",
+          "out": "혼잣말\n혼잣말\n혼잣말"
+        },
+        {
+          "in": "55\n전재민",
+          "out": "전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민\n전재민"
+        },
+        {
+          "in": "1\n전재민",
+          "out": "전재민"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "tier": {
+        "category": "silver",
+        "stage": 5
+      },
+      "tags": [
+        "inout",
+        "operate"
+      ],
+      "name": "재민이의 이동수업",
+      "description": "재민이가 이동수업을 가야합니다.\n호관, 층, 호실이 주어집니다.\n호관 * 100 + 층 * 10 + 호실을 계산해 출력하세요.",
+      "input": {
+        "description": "호관, 층, 호실이 주어집니다.",
+        "content": "3\n4\n2"
+      },
+      "output": {
+        "description": "계산된 호실을 출력합니다.",
+        "content": "342"
+      },
+      "cases": [
+        {
+          "in": "3\n4\n2",
+          "out": "342\n"
+        },
+        {
+          "in": "4\n4\n2",
+          "out": "442"
+        },
+        {
+          "in": "1\n3\n1",
+          "out": "131"
+        },
+        {
+          "in": "10\n2\n1",
+          "out": "1021"
         }
       ]
     },
@@ -292,7 +331,7 @@
         "inout",
         "implement"
       ],
-      "name": "마감 카운트다운",
+      "name": "카운트다운",
       "description": "자연수 N이 주어집니다. N부터 1까지 한 줄에 하나씩 출력하세요.",
       "input": {
         "description": "첫째 줄에 자연수 N이 주어집니다.",
@@ -461,41 +500,6 @@
       ]
     },
     {
-      "id": 17,
-      "tier": {
-        "category": "bronze",
-        "stage": 1
-      },
-      "tags": [
-        "inout",
-        "string"
-      ],
-      "name": "문자 꼬리표",
-      "description": "문자열과 번호가 주어집니다. 문자열 뒤에 공백, #, 번호를 붙여 출력하세요.",
-      "input": {
-        "description": "첫째 줄에 문자열, 둘째 줄에 번호가 주어집니다.",
-        "content": "JAEMIN\n7"
-      },
-      "output": {
-        "description": "문자열과 번호를 지정된 형식으로 출력합니다.",
-        "content": "JAEMIN #7"
-      },
-      "cases": [
-        {
-          "in": "JAEMIN\n7",
-          "out": "JAEMIN #7"
-        },
-        {
-          "in": "lang\n12",
-          "out": "lang #12"
-        },
-        {
-          "in": "coffee\n3",
-          "out": "coffee #3"
-        }
-      ]
-    },
-    {
       "id": 18,
       "tier": {
         "category": "silver",
@@ -600,6 +604,41 @@
         {
           "in": "6\n1\n7",
           "out": "1\n8\n15\n22\n29\n36"
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "tier": {
+        "category": "silver",
+        "stage": 1
+      },
+      "tags": [
+        "inout",
+        "string"
+      ],
+      "name": "이름표 만들기",
+      "description": "이름, 방 번호, 자리 번호가 주어집니다. [방] 이름-자리 형식으로 출력하세요.",
+      "input": {
+        "description": "이름, 방 번호, 자리 번호가 한 줄에 하나씩 주어집니다.",
+        "content": "jaemin\n204\n7"
+      },
+      "output": {
+        "description": "지정된 이름표 형식으로 출력합니다.",
+        "content": "[204] jaemin-7"
+      },
+      "cases": [
+        {
+          "in": "jaemin\n204\n7",
+          "out": "[204] jaemin-7"
+        },
+        {
+          "in": "guest\n10\n12",
+          "out": "[10] guest-12"
+        },
+        {
+          "in": "admin\n1\n1",
+          "out": "[1] admin-1"
         }
       ]
     },
@@ -850,41 +889,6 @@
         {
           "in": "5",
           "out": "2\n3 4\n4 5 6\n5 6 7 8\n6 7 8 9 10"
-        }
-      ]
-    },
-    {
-      "id": 28,
-      "tier": {
-        "category": "silver",
-        "stage": 1
-      },
-      "tags": [
-        "inout",
-        "string"
-      ],
-      "name": "이름표 만들기",
-      "description": "이름, 방 번호, 자리 번호가 주어집니다. [방] 이름-자리 형식으로 출력하세요.",
-      "input": {
-        "description": "이름, 방 번호, 자리 번호가 한 줄에 하나씩 주어집니다.",
-        "content": "jaemin\n204\n7"
-      },
-      "output": {
-        "description": "지정된 이름표 형식으로 출력합니다.",
-        "content": "[204] jaemin-7"
-      },
-      "cases": [
-        {
-          "in": "jaemin\n204\n7",
-          "out": "[204] jaemin-7"
-        },
-        {
-          "in": "guest\n10\n12",
-          "out": "[10] guest-12"
-        },
-        {
-          "in": "admin\n1\n1",
-          "out": "[1] admin-1"
         }
       ]
     },
@@ -1245,6 +1249,57 @@
         {
           "in": "4\n2\n1",
           "out": "2 3\n3 5\n4 7\n5 9"
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "tier": {
+        "category": "god",
+        "stage": 1
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "judgment",
+        "string",
+        "array",
+        "implement"
+      ],
+      "name": "재민랭의 신",
+      "description": "당신은 재민랭의 신이 되기 위해 이 문제에 도전합니다.\n채점 환경에는 godlib.jml 파일이 함께 놓입니다. godlib.jml을 불러오면 신탁(x, y, d) = x*x + y*d + 7 함수가 등록됩니다.\n\nN, A, B, C, D가 주어집니다. i가 1부터 N까지일 때 다음 값을 계산하세요.\nP_i = A*i*i + B*i + C\nQ_i = P_i*P_i + i*D + 7\nT_i = Q_i + i*D\nS_i = S_(i-1) + T_i, 단 S_0 = 0\n\n각 i마다 i, P_i, Q_i, S_i를 출력하세요.",
+      "input": {
+        "description": "첫째 줄에 N, 둘째 줄에 A, 셋째 줄에 B, 넷째 줄에 C, 다섯째 줄에 D가 주어집니다. 모든 값은 자연수입니다.",
+        "content": "3\n2\n3\n5\n4"
+      },
+      "output": {
+        "description": "1부터 N까지 각 줄에 i, P_i, Q_i, S_i를 공백으로 구분해 출력한 뒤 마지막 줄에 여친을 출력합니다.",
+        "content": "1 10 111 115\n2 19 376 499\n3 32 1043 1554"
+      },
+      "cases": [
+        {
+          "in": "3\n2\n3\n5\n4",
+          "out": "1 10 111 115\n2 19 376 499\n3 32 1043 1554"
+        },
+        {
+          "in": "1\n7\n2\n9\n3",
+          "out": "1 18 334 337"
+        },
+        {
+          "in": "4\n1\n5\n2\n6",
+          "out": "1 8 77 83\n2 16 275 370\n3 26 701 1089\n4 38 1475 2588"
+        },
+        {
+          "in": "5\n3\n1\n4\n2",
+          "out": "1 8 73 75\n2 18 335 414\n3 34 1169 1589\n4 56 3151 4748\n5 84 7073 11831"
+        },
+        {
+          "in": "6\n2\n4\n1\n5",
+          "out": "1 7 61 66\n2 17 306 382\n3 31 983 1380\n4 49 2428 3828\n5 71 5073 8926\n6 97 9446 18402"
+        },
+        {
+          "in": "8\n1\n2\n3\n4",
+          "out": "1 6 47 51\n2 11 136 195\n3 18 343 550\n4 27 752 1318\n5 38 1471 2809\n6 51 2632 5465\n7 66 4391 9884\n8 83 6928 16844"
         }
       ]
     }

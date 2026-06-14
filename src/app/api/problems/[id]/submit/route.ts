@@ -32,6 +32,20 @@ const JAEMINLANG_EXECUTABLE_CANDIDATES = [
     "jaeminlang"
 ];
 
+// 재민랭의 신 문제는 팝콘으로 불러올 기본 라이브러리를 채점 디렉터리에 같이 둔다.
+const GOD_I_PROBLEM_NAME = "재민랭의 신";
+const GOD_I_LIBRARY_FILE_NAME = "godlib.jml";
+const GOD_I_LIBRARY_CODE = [
+    "엘릭서,신탁,x,y,d",
+    "그램,result,x",
+    "그램,result,*x",
+    "그램,tmp,y",
+    "그램,tmp,*d",
+    "그램,result,+tmp",
+    "그램,result,+7",
+    "음...,result"
+].join("\n");
+
 export async function POST(req: NextRequest, { params }: Params) {
     let codePath: string | undefined;
 
@@ -74,6 +88,9 @@ export async function POST(req: NextRequest, { params }: Params) {
         let executionOutput = "";
         let debugOutput = "";
 
+        // 보조 파일이 필요한 문제는 제출 코드와 같은 임시 디렉터리에 파일을 준비한다.
+        await prepareProblemRuntimeFiles(problem, tempDir);
+
         for (const testCase of problem.cases) {
             const result = await runJaeminlang(
                 jaeminlangPath,
@@ -97,6 +114,7 @@ export async function POST(req: NextRequest, { params }: Params) {
 
         const correct = passed === problem.cases.length;
         if (!correct && !hasExecutionError) {
+            // 오답이면 예제 입력 실행 결과를 돌려줘서 사용자가 출력 차이를 확인할 수 있게 한다.
             const sampleResult = await runJaeminlang(
                 jaeminlangPath,
                 tempDir,
@@ -207,6 +225,18 @@ function resolveJaeminlangExecutable(root: string) {
     }
 
     return null;
+}
+
+async function prepareProblemRuntimeFiles(problem: DBProblem, tempDir: string) {
+    if (!isGodIProblem(problem)) return;
+
+    await writeFile(path.join(tempDir, GOD_I_LIBRARY_FILE_NAME), GOD_I_LIBRARY_CODE, "utf8");
+}
+
+function isGodIProblem(problem: DBProblem) {
+    return problem.name === GOD_I_PROBLEM_NAME
+        && problem.tier.category === "god"
+        && problem.tier.stage === 1;
 }
 
 async function deleteTempFile(filePath: string) {

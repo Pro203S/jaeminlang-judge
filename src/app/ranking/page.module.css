@@ -107,7 +107,7 @@
     font-weight: 600;
     margin: auto 0;
     margin-left: auto;
-    background: var(--score-gradient, linear-gradient(90deg, #ffd166, #6ee7f9, #c084fc));
+    background: var(--score-gradient, "#fff");
     background-clip: text;
     color: transparent;
     -webkit-background-clip: text;

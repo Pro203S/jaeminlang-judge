@@ -1,8 +1,6 @@
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     max-width: 1024px;
     padding: 15px;
     margin: 0 auto;
@@ -21,3 +19,67 @@
     overflow: visible;
 }
 
+.userInfo {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.userInfo>.section {
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+}
+
+@media (max-width: 600px) {
+    .userInfo {
+        flex-direction: column;
+    }
+}
+
+.profile {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}
+
+.texts {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.texts .title {
+    font-size: 1.45rem;
+    color: #fff;
+    font-weight: 600;
+}
+
+.texts .score {
+    font-size: 1.45rem;
+    color: #fff;
+    font-weight: 600;
+    background: var(--score-color, "#fff");
+    background-clip: text;
+    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.texts .desc {
+    font-size: 1.01rem;
+    color: #dedede;
+    font-weight: 400;
+}
+
+.section {
+    border: 1.5px solid #464646;
+    border-radius: 23px;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: calc(100vw - 60px);
+    padding: 15px;
+    display: flex;
+    overflow: visible;
+}

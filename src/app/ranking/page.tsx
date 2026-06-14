@@ -15,12 +15,17 @@ type RankedUser = RankingUser & { "rank": number };
 
 function coloringScore(score: number, max: number) {
     // God I 문제는 배제 후 step
-    const step = score / (max - 30);
+    const step = score / (max - 180);
 
-    if (step < 0.40) return "#ffffff";
-    if (step < 0.50) return "#ffd166";
-    if (step < 0.75) return "#6ee7f9";
-    if (step < 0.93) return "#c084fc";
+    if (step < 0.10) return "#ffffff";
+    if (step < 0.20) return "#00a2ca";
+    if (step < 0.30) return "#91ff65";
+    if (step < 0.40) return "#fff672";
+    if (step < 0.50) return "#ff7e7e";
+    if (step < 0.60) return "#ff68ff";
+    if (step < 0.70) return "linear-gradient(242deg, #ffcd9f, #ffa632)";
+    if (step < 0.80) return "linear-gradient(242deg, #757575, #ffffff)";
+    if (step < 0.90) return "linear-gradient(242deg, #fff2a8, #ffeb38)";
     if (step < 1.01) return "linear-gradient(242deg, #ffd166, #6ee7f9, #c084fc)";
 
     return "linear-gradient(90deg, #ff3737, #ff934b, #ffdd1f, #7bff00, #3df2ff, #2f4eff, #a83eff)";
