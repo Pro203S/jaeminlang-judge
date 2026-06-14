@@ -25,8 +25,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (!doc) return {};
 
     return {
-        "title": `${doc.title} - jaeminlang judge`,
-        "description": doc.description
+        "title": `jaeminlang judge`,
+        "description": `# ${doc.title}\n\n${doc.description}`
     };
 }
 

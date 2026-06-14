@@ -58,7 +58,7 @@ export default function Header(props: Props) {
             <Link href="/problems">문제 풀기</Link>
             <Link href="/ranking">랭킹</Link>
             <Link href="/docs">문서</Link>
-            <Link href="https://github.com/Pro203S/jaeminlang#jaeminlang" target='_blank'>재민랭 알아보기</Link>
+            <Link href="https://github.com/Pro203S/jaeminlang#jaeminlang" target='_blank'>재민랭 문법</Link>
         </div>
         <div className={css.accountMenu} ref={accountMenuRef}>
             <button
@@ -113,23 +113,6 @@ export default function Header(props: Props) {
                 >
                     로그인
                 </Link>}
-                <div className={css.line} />
-                <Link
-                    className={css.dropdownAction}
-                    href="/docs"
-                    role="menuitem"
-                    onClick={() => setIsAccountMenuOpen(false)}
-                >
-                    문서 목록
-                </Link>
-                <Link
-                    className={css.dropdownAction}
-                    href="/docs/score"
-                    role="menuitem"
-                    onClick={() => setIsAccountMenuOpen(false)}
-                >
-                    점수 제도
-                </Link>
             </InOutAnimation>
         </div>
     </div>
