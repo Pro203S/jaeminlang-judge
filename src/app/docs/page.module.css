@@ -72,9 +72,11 @@
     margin-bottom: 15px;
 }
 
-.toolbar svg {
+.backLink svg {
     margin: auto 0;
     color: #cfcfcf;
+    width: 20px;
+    height: 20px;
 }
 
 .backLink {
