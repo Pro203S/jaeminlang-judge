@@ -73,7 +73,10 @@
           "out": "여친"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [
+        "그램"
+      ],
+      "runtimeFiles": []
     },
     {
       "id": 5,
@@ -182,48 +185,6 @@
         }
       ],
       "requireKeyword": []
-    },
-    {
-      "id": 10,
-      "tier": {
-        "category": "bronze",
-        "stage": 2
-      },
-      "tags": [
-        "inout",
-        "operate",
-        "judgment"
-      ],
-      "name": "메가커피 스탬프",
-      "description": "재민이는 메가커피의 음료를 자주 마시는데요, 이에 따라 재민이는 스탬프 적립을 많이한답니다.\n\n재민이의 스탬프 수가 주어집니다.\n스탬프 10개당 음료수를 하나 마실 수 있습니다.\n재민이가 스탬프만으로 마실 수 있는 음료수의 수를 구해주세요.",
-      "input": {
-        "description": "재민이의 스탬프 수가 주어집니다.",
-        "content": "20"
-      },
-      "output": {
-        "description": "재민이가 마실 수 있는 음료의 수를 출력하세요.",
-        "content": "2"
-      },
-      "cases": [
-        {
-          "in": "20",
-          "out": "2"
-        },
-        {
-          "in": "10",
-          "out": "1"
-        },
-        {
-          "in": "15",
-          "out": "1"
-        },
-        {
-          "in": "5",
-          "out": "0"
-        }
-      ],
-      "requireKeyword": [],
-      "runtimeFiles": []
     },
     {
       "id": 17,
@@ -519,6 +480,48 @@
         }
       ],
       "requireKeyword": []
+    },
+    {
+      "id": 10,
+      "tier": {
+        "category": "silver",
+        "stage": 3
+      },
+      "tags": [
+        "inout",
+        "operate",
+        "judgment"
+      ],
+      "name": "메가커피 스탬프",
+      "description": "재민이는 메가커피의 음료를 자주 마시는데요, 이에 따라 재민이는 스탬프 적립을 많이한답니다.\n\n재민이의 스탬프 수가 주어집니다.\n스탬프 10개당 음료수를 하나 마실 수 있습니다.\n재민이가 스탬프만으로 마실 수 있는 음료수의 수를 구해주세요.",
+      "input": {
+        "description": "재민이의 스탬프 수가 주어집니다.",
+        "content": "20"
+      },
+      "output": {
+        "description": "재민이가 마실 수 있는 음료의 수를 출력하세요.",
+        "content": "2"
+      },
+      "cases": [
+        {
+          "in": "20",
+          "out": "2"
+        },
+        {
+          "in": "10",
+          "out": "1"
+        },
+        {
+          "in": "15",
+          "out": "1"
+        },
+        {
+          "in": "5",
+          "out": "0"
+        }
+      ],
+      "requireKeyword": [],
+      "runtimeFiles": []
     },
     {
       "id": 18,
@@ -1345,12 +1348,13 @@
         }
       ],
       "requireKeyword": [
-        "팝콘"
+        "팝콘",
+        "함수"
       ],
       "runtimeFiles": [
         {
           "name": "godlib.jml",
-          "content": "엘릭서,신탁,x,y,d\n그램,result,x\n그램,result,*x\n그램,tmp,y\n그램,tmp,*d\n그램,result,+tmp\n그램,result,+7\n음...,result"
+          "content": "엘릭서,함수,x,y,d\n그램,result,x\n그램,result,*x\n그램,tmp,y\n그램,tmp,*d\n그램,result,+tmp\n그램,result,+7\n음...,result"
         }
       ]
     }
