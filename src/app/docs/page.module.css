@@ -43,15 +43,15 @@
     gap: 5px;
     padding: 12px;
     border: 1px solid #333;
-    border-radius: 8px;
+    border-radius: 13px;
     color: #fff;
     text-decoration: none;
     transition: background-color .25s, border-color .25s;
 }
 
 .docItem:hover {
-    border-color: #616161;
-    background: #101010;
+    border-color: #464646;
+    background: #464646;
 }
 
 .docTitle {

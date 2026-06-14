@@ -17,9 +17,15 @@ type GithubRelease = {
 
 import axios from "axios";
 import { mkdir, writeFile } from "fs/promises";
+import { existsSync } from "fs";
 import extract from "extract-zip";
 import path from "path";
 import { exec } from "child_process";
+import {
+    getJaeminlangReleaseUrl,
+    readJaeminlangReleaseInfo,
+    writeJaeminlangReleaseInfo
+} from "./src/modules/jaeminlangRelease";
 
 function execPromise(command: string, args: string[]): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -46,6 +52,15 @@ function getPlatform() {
     return `${platform}-${process.arch}`;
 }
 
+function getExecutablePath() {
+    return path.join(
+        process.cwd(),
+        "jaeminlang",
+        "bin",
+        process.platform === "win32" ? "jaeminlang.exe" : "jaeminlang"
+    );
+}
+
 async function downloadFile(url: string, path: string): Promise<void> {
     const response = await axios.get<ArrayBuffer>(url, {
         responseType: "arraybuffer",
@@ -54,7 +69,7 @@ async function downloadFile(url: string, path: string): Promise<void> {
     await writeFile(path, Buffer.from(response.data));
 }
 
-function runAtMidnight(callback: () => void): void {
+function runAtMidnight(callback: () => void | Promise<void>): void {
     const schedule = () => {
         const now = new Date();
 
@@ -64,7 +79,9 @@ function runAtMidnight(callback: () => void): void {
         const delay = nextMidnight.getTime() - now.getTime();
 
         setTimeout(() => {
-            callback();
+            void Promise.resolve(callback()).catch((error) => {
+                console.error("[update]", error);
+            });
             schedule();
         }, delay);
     };
@@ -77,10 +94,17 @@ export async function register() {
 
     const update = async () => {
         const releases = await axios.get<GithubRelease[]>("https://api.github.com/repos/Pro203S/jaeminlang/releases");
-        const release = releases.data[0];
+        const release = releases.data.find((value) => !value.draft) ?? releases.data[0];
+        if (!release) throw new Error("jaeminlang release not found.");
 
         console.log("[update]", `detected platform: ${getPlatform()}`);
         console.log("[update]", `latest jaeminlang version: ${release.tag_name}`);
+
+        const current = await readJaeminlangReleaseInfo();
+        if (current.version === release.tag_name && existsSync(getExecutablePath())) {
+            console.log("[update]", `jaeminlang ${release.tag_name} is already installed`);
+            return;
+        }
 
         const found = release.assets.find(v => v.name.includes(getPlatform()));
         if (!found) throw new Error("jaeminlang platform not found.");
@@ -98,10 +122,19 @@ export async function register() {
             await execPromise("/bin/chmod", ["+x", path.join(process.cwd(), "./jaeminlang/bin/jaeminlang")]);
         }
 
+        await writeJaeminlangReleaseInfo({
+            "version": release.tag_name,
+            "releaseUrl": release.html_url || getJaeminlangReleaseUrl(release.tag_name),
+            "assetName": found.name,
+            "updatedAt": new Date().toISOString()
+        });
+
         console.log("[update]", `done`);
     };
 
     runAtMidnight(update);
 
-    await update();
+    await update().catch((error) => {
+        console.error("[update]", error);
+    });
 }

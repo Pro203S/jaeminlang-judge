@@ -35,3 +35,6 @@ export const TAG_TO_STRING = (tag: string): string => {
 }
 
 export const ADMIN_ID = "ca51bc59-4f53-44b6-bd11-143cbd2115e5";
+
+export const JAEMINLANG_VERSION = "v0.6.1";
+export const JAEMINLANG_RELEASE_URL = `https://github.com/Pro203S/jaeminlang/releases/tag/${JAEMINLANG_VERSION}`;

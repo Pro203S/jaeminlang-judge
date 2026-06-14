@@ -1,0 +1,21 @@
+.version {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    z-index: 50;
+}
+
+.version span,
+.version a {
+    color: #5a5a5a;
+    font-size: .57rem;
+    text-align: end;
+    text-decoration: none;
+}
+
+.version a:hover {
+    text-decoration: underline;
+}
