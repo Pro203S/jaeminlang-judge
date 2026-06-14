@@ -58,7 +58,6 @@ export default function Header(props: Props) {
             <Link href="/problems">문제 풀기</Link>
             <Link href="/ranking">랭킹</Link>
             <Link href="/docs">문서</Link>
-            <Link href="https://github.com/Pro203S/jaeminlang#jaeminlang" target='_blank'>재민랭 문법</Link>
         </div>
         <div className={css.accountMenu} ref={accountMenuRef}>
             <button
