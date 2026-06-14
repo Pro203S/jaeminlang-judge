@@ -4,6 +4,7 @@ import { decodeProxyAuthUser } from "@/modules/proxyAuth";
 import { POSTApiProblemsIdSubmit } from "@/modules/zod";
 import { NextRequest, NextResponse } from "next/server";
 import { RunJaeminlang } from "@/modules/jaeminlang";
+import { TierToScore } from "@/modules/tier";
 
 export const runtime = "nodejs";
 
@@ -15,6 +16,13 @@ export async function POST(req: NextRequest, { params }: Params) {
         if (!user) return NextResponse.json({
             "code": "unauthorized",
             "message": "로그인이 필요합니다."
+        } satisfies APIErrorResponse, { "status": 401 });
+
+        const db = getDatabase();
+        const userdb = db.get("users").find(v => v.id === user.id);
+        if (!userdb) return NextResponse.json({
+            "code": "not_found",
+            "message": "유저를 DB에서 찾을 수 없습니다."
         } satisfies APIErrorResponse, { "status": 401 });
 
         const parsed = POSTApiProblemsIdSubmit.safeParse(await req.json());
@@ -33,10 +41,25 @@ export async function POST(req: NextRequest, { params }: Params) {
             "message": "문제를 찾지 못했습니다."
         } satisfies APIErrorResponse, { "status": 404 });
 
+        const stat = userdb.get("stat");
+        const submits = stat.get("submits").value() + 1;
+        stat.get("submits").set(submits);
+
         let problemError = false;
         let problemErrorInOtherCase = false;
         let problemOutput = "";
         let problemCorrect = true;
+
+        for (let i = 0; i < problem.requireKeyword.length; i++) {
+            const keyword = problem.requireKeyword[i];
+            if (code.includes(keyword)) continue;
+
+            return NextResponse.json({
+                "error": true,
+                "correct": false,
+                "output": `코드에 '${keyword}' 키워드가 들어가있지 않습니다.`
+            } satisfies APISubmitResponse);
+        }
 
         for (let i = 0; i < problem.cases.length; i++) {
             const problemCase = problem.cases[i];
@@ -47,7 +70,7 @@ export async function POST(req: NextRequest, { params }: Params) {
                 })),
                 "stdin": problemCase.in
             });
-            
+
             if (!result.success || result.data !== problemCase.out) {
                 problemError = true;
                 problemErrorInOtherCase = i !== 0;
@@ -66,11 +89,15 @@ export async function POST(req: NextRequest, { params }: Params) {
             "output": problemOutput
         } satisfies APISubmitResponse);
 
-        const db = getDatabase();
+        const corrects = stat.get("corrects").value() + 1;
+        stat.get("corrects").set(corrects);
+
+        userdb.get("problems").add(problem.id);
+        const score = userdb.get("score").value();
+        userdb.get("score").set(score + TierToScore(problem.tier));
 
         return NextResponse.json({
             "error": problemError,
-            "errorInOtherCase": problemErrorInOtherCase,
             "correct": problemCorrect,
             "output": problemOutput
         } satisfies APISubmitResponse);
