@@ -13,6 +13,7 @@ import { TAG_TO_STRING } from "@/modules/constants";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import InOutAnimation from "@/components/InOutAnimation";
 
 function coloringScore(score: number, max: number) {
     // God I 문제는 배제 후 step
@@ -57,7 +58,7 @@ export default function Page() {
 
     return <>
         <Header />
-        <div className={css.container}>
+        <InOutAnimation animate className={css.container}>
             <div className={css.linearV}>
                 <div className={css.section}>
                     <img
@@ -114,6 +115,6 @@ export default function Page() {
                     <FontAwesomeIcon className={css.icon} icon={faChevronRight} />
                 </Link>)}
             </div>}
-        </div>
+        </InOutAnimation>
     </>;
 }
