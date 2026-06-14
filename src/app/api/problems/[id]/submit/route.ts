@@ -92,7 +92,11 @@ export async function POST(req: NextRequest, { params }: Params) {
         const corrects = stat.get("corrects").value() + 1;
         stat.get("corrects").set(corrects);
 
-        userdb.get("problems").add(problem.id);
+        const problems = userdb.get("problems");
+        const problemsValue = problems.value();
+        if (!problemsValue.includes(problem.id))
+            problems.add(problem.id);
+        
         const score = userdb.get("score").value();
         userdb.get("score").set(score + TierToScore(problem.tier));
 
