@@ -38,11 +38,7 @@ declare global {
         "profile"?: string,
         "registerAt": number,
         "score": number,
-        "stat": {
-            "correct": number,
-            "incorrect": number,
-            "submits": number
-        },
+        "stat": UserStat,
         "problems": APIProblem[]
     };
 
@@ -50,6 +46,7 @@ declare global {
         "id": number,
         "tier": Tier,
         "tags": string[],
+        "requireKeyword": string[],
         "name": string,
         "description": string,
         "input"?: {
@@ -73,10 +70,16 @@ declare global {
         "stage": 5 | 4 | 3 | 2 | 1;
     };
 
+    type UserStat = {
+        "corrects": number,
+        "submits": number
+    };
+
     type DBProblem = {
         "id": number,
         "tier": Tier,
         "tags": string[],
+        "requireKeyword": string[],
         "name": string,
         "description": string,
         "input"?: {
@@ -98,14 +101,9 @@ declare global {
         "userData": OAuthUserResult,
         "registerAt": number,
         "score": number,
-        "stat": {
-            "correct": number,
-            "incorrect": number,
-            "submits": number
-        },
+        "stat": UserStat,
         "problems": number[],
-        "drafts": Record<string, string>,
-        "incorrectProblems": number[]
+        "drafts": Record<string, string>
     }
 
     type Database = {

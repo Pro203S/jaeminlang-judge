@@ -16,10 +16,12 @@ export const ZodCase = z.object({
 });
 
 export const ZodTags = z.array(z.string());
+export const ZodRequireKeyword = z.array(z.string());
 
 export const POSTApiProblems = z.object({
     "tier": ZodTier,
     "tags": ZodTags,
+    "requireKeyword": ZodRequireKeyword.default([]),
     "name": z.string(),
     "description": z.string(),
     "input": z.optional(ZodIO),
@@ -30,6 +32,7 @@ export const POSTApiProblems = z.object({
 export const PATCHApiProblemsId = z.object({
     "tier": z.optional(ZodTier),
     "tags": z.optional(ZodTags),
+    "requireKeyword": z.optional(ZodRequireKeyword),
     "name": z.optional(z.string()),
     "description": z.optional(z.string()),
     "input": z.optional(z.nullable(ZodIO)),

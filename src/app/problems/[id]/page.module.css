@@ -51,6 +51,24 @@
     font-size: .87rem;
 }
 
+.keywordList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.keywordPill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    padding: 0 10px;
+    border: 1px solid #464646;
+    border-radius: 999px;
+    background: #101010;
+    color: #fff;
+    font-size: .95rem;
+}
+
 .codeEditorFrame {
     box-sizing: border-box;
     width: 100%;

@@ -5,6 +5,7 @@
     padding: 15px;
     margin: 0 auto;
     min-height: calc(100dvh - 95px);
+    gap: 15px;
 }
 
 .users {
@@ -19,20 +20,20 @@
     overflow: visible;
 }
 
-.userInfo {
+.linearV {
     display: flex;
     flex-direction: row;
     gap: 15px;
 }
 
-.userInfo>.section {
+.linearV>.section {
     flex-direction: row;
     gap: 15px;
     align-items: center;
 }
 
 @media (max-width: 600px) {
-    .userInfo {
+    .linearV {
         flex-direction: column;
     }
 }

@@ -9,6 +9,7 @@ import InOutAnimation from "@/components/InOutAnimation";
 import Button from "@/components/button";
 import Loading from "@/components/loading";
 import { ADMIN_ID, AVAILABLE_TAGS } from "@/modules/constants";
+import { normalizeRequiredKeywords } from "@/modules/requiredKeywords";
 import { AVAILABLE_TIERS, TierToString } from "@/modules/tier";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faFloppyDisk, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -47,6 +48,8 @@ export default function ProblemEditor(props: Props) {
     const [description, setDescription] = useState("");
     const [tier, setTier] = useState<Tier>(AVAILABLE_TIERS[0]);
     const [tags, setTags] = useState<string[]>([]);
+    const [requireKeyword, setRequireKeyword] = useState<string[]>([]);
+    const [keywordDraft, setKeywordDraft] = useState("");
     const [problemInput, setProblemInput] = useState<IOState>({ "description": "", "content": "" });
     const [problemOutput, setProblemOutput] = useState<IOState>({ "description": "", "content": "" });
     const [cases, setCases] = useState<EditableCase[]>([{ "id": 1, "in": "", "out": "" }]);
@@ -72,6 +75,7 @@ export default function ProblemEditor(props: Props) {
         setDescription(problem.description);
         setTier(problem.tier);
         setTags(problem.tags ?? []);
+        setRequireKeyword(problem.requireKeyword ?? []);
         setProblemInput(toIOState(problem.input));
         setProblemOutput(toIOState(problem.output));
         setCases(loadedCases);
@@ -132,6 +136,24 @@ export default function ProblemEditor(props: Props) {
             : [...current, tag]);
     };
 
+    const addRequiredKeyword = () => {
+        const nextKeywords = normalizeRequiredKeywords(keywordDraft.split(/[,\n]/));
+        if (!nextKeywords.length) return;
+
+        setRequireKeyword((current) => normalizeRequiredKeywords([...current, ...nextKeywords]));
+        setKeywordDraft("");
+    };
+
+    const updateRequiredKeyword = (index: number, value: string) => {
+        setRequireKeyword((current) => current.map((keyword, keywordIndex) => keywordIndex === index
+            ? value
+            : keyword));
+    };
+
+    const removeRequiredKeyword = (index: number) => {
+        setRequireKeyword((current) => current.filter((_, keywordIndex) => keywordIndex !== index));
+    };
+
     const updateCase = (caseId: number, key: "in" | "out", value: string) => {
         setCases((current) => current.map((testCase) => testCase.id === caseId
             ? { ...testCase, [key]: value }
@@ -170,6 +192,7 @@ export default function ProblemEditor(props: Props) {
         const payload: ProblemMutationPayload = {
             tier,
             tags,
+            "requireKeyword": normalizeRequiredKeywords(requireKeyword),
             "name": name.trim(),
             "description": description.trim(),
             "cases": cases.map((testCase) => ({
@@ -290,6 +313,45 @@ export default function ProblemEditor(props: Props) {
                             </label>)}
                         </div>
                     </div>
+                </div>
+                <div className={css.section}>
+                    <span className={css.title}>필수 키워드</span>
+                    <div className={css.keywordControls}>
+                        <input
+                            className={css.input}
+                            value={keywordDraft}
+                            onChange={(ev) => setKeywordDraft(ev.currentTarget.value)}
+                            onKeyDown={(ev) => {
+                                if (ev.key !== "Enter") return;
+
+                                ev.preventDefault();
+                                addRequiredKeyword();
+                            }}
+                            placeholder="안산"
+                        />
+                        <button className={css.iconButton} type="button" onClick={addRequiredKeyword} aria-label="필수 키워드 추가">
+                            <FontAwesomeIcon icon={faPlus} />
+                        </button>
+                    </div>
+                    {requireKeyword.length > 0 && <div className={css.keywordList}>
+                        {requireKeyword.map((keyword, index) => <div className={css.keywordItem} key={`${keyword}:${index}`}>
+                            <input
+                                className={css.input}
+                                value={keyword}
+                                onChange={(ev) => updateRequiredKeyword(index, ev.currentTarget.value)}
+                                onBlur={() => setRequireKeyword((current) => normalizeRequiredKeywords(current))}
+                                aria-label={`필수 키워드 ${index + 1}`}
+                            />
+                            <button
+                                className={css.iconButton}
+                                type="button"
+                                onClick={() => removeRequiredKeyword(index)}
+                                aria-label={`필수 키워드 ${index + 1} 삭제`}
+                            >
+                                <FontAwesomeIcon icon={faTrash} />
+                            </button>
+                        </div>)}
+                    </div>}
                 </div>
                 <div className={css.linearV}>
                     <div className={css.section}>

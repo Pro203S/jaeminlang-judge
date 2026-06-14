@@ -6,6 +6,15 @@ import { CompareTier } from './tier';
 const DATABASE_PATH = "./database.json";
 const PROBLEMS_PATH = "./problems.json";
 
+type LegacyDBUser = Omit<DBUser, "stat" | "drafts"> & {
+    "stat"?: Partial<UserStat> & {
+        "correct"?: number;
+        "incorrect"?: number;
+    };
+    "drafts"?: DBUser["drafts"];
+    "incorrectProblems"?: number[];
+};
+
 if (!fs.existsSync(DATABASE_PATH)) {
     fs.writeFileSync(DATABASE_PATH, JSON.stringify({
         "users": []
@@ -40,18 +49,22 @@ export function createDefaultDBUser(user: OAuthUserResponse): DBUser {
         "registerAt": Date.now(),
         "score": 0,
         "stat": {
-            "correct": 0,
-            "incorrect": 0,
+            "corrects": 0,
             "submits": 0
         },
         "problems": [],
-        "drafts": {},
-        "incorrectProblems": []
+        "drafts": {}
     };
 }
 
 export function getDBUserById(id: string): DBUser | undefined {
-    return getDatabase().get("users").find((value) => value.id === id)?.value();
+    const userNode = getDatabase().get("users").find((value) => value.id === id);
+    if (!userNode) return undefined;
+
+    const normalized = normalizeDBUser(userNode.value());
+    userNode.set(normalized);
+
+    return normalized;
 }
 
 export function getOrCreateDBUser(user: OAuthUserResponse): DBUser {
@@ -59,12 +72,12 @@ export function getOrCreateDBUser(user: OAuthUserResponse): DBUser {
     const current = users.find((value) => value.id === user.id);
 
     if (current) {
+        const currentUser = normalizeDBUser(current.value());
         const next: DBUser = {
-            ...current.value(),
+            ...currentUser,
             "id": user.id,
             "userData": createOAuthUserResult(user),
-            "drafts": current.value().drafts ?? {},
-            "incorrectProblems": current.value().incorrectProblems ?? []
+            "drafts": currentUser.drafts ?? {}
         };
         current.set(next);
         return next;
@@ -78,4 +91,25 @@ export function getOrCreateDBUser(user: OAuthUserResponse): DBUser {
 
 export function upsertOAuthUser(user: OAuthUserResponse): DBUser {
     return getOrCreateDBUser(user);
+}
+
+export function normalizeDBUser(value: DBUser | LegacyDBUser): DBUser {
+    const legacyStat = (value.stat ?? {}) as Partial<UserStat> & {
+        "correct"?: number;
+    };
+    const normalizedBase = { ...value } as LegacyDBUser;
+    delete normalizedBase.incorrectProblems;
+
+    return {
+        ...normalizedBase,
+        "stat": {
+            "corrects": normalizeNumber(legacyStat.corrects ?? legacyStat.correct),
+            "submits": normalizeNumber(legacyStat.submits)
+        },
+        "drafts": value.drafts ?? {}
+    };
+}
+
+function normalizeNumber(value: unknown) {
+    return typeof value === "number" && Number.isFinite(value) ? value : 0;
 }

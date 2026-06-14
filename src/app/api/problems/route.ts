@@ -3,6 +3,7 @@ import { ADMIN_ID } from "@/modules/constants";
 import { getProblemsDatabase, sortProblemsByDifficulty } from "@/modules/database";
 import { MakeApiProblem } from "@/modules/makeApiType";
 import { Pro203SSessionError, attachSessionCookies, getCurrentSession } from "@/modules/pro203sAuth";
+import { normalizeRequiredKeywords } from "@/modules/requiredKeywords";
 import { POSTApiProblems } from "@/modules/zod";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -44,7 +45,8 @@ export async function POST(req: NextRequest) {
         const problems = database.value();
         const prob: DBProblem = {
             "id": Math.max(0, ...problems.map((problem) => problem.id)) + 1,
-            ...parsed.data
+            ...parsed.data,
+            "requireKeyword": normalizeRequiredKeywords(parsed.data.requireKeyword)
         };
 
         database.set(sortProblemsByDifficulty([...problems, prob]));

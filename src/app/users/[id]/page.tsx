@@ -53,7 +53,7 @@ export default function Page() {
     return <>
         <Header />
         <div className={css.container}>
-            <div className={css.userInfo}>
+            <div className={css.linearV}>
                 <div className={css.section}>
                     <img
                         draggable={false}
@@ -62,13 +62,27 @@ export default function Page() {
                     />
                     <div className={css.texts}>
                         <span className={css.title}>{user.displayName}</span>
-                        <span className={css.desc}>가입일: {dayjs(user.registerAt).format("YYYY/MM/DD HH:mm:ss")}</span>
+                        <span className={css.desc}>가입일: {dayjs(user.registerAt).format("YYYY/MM/DD")}</span>
                     </div>
                 </div>
                 <div className={css.section}>
                     <div className={css.texts}>
                         <span className={css.title} style={{ "fontSize": "1.01rem" }}>점수</span>
                         <span className={css.score} style={{ "--score-color": coloringScore(user.score, maxScore) } as CSSProperties}>{user.score}점</span>
+                    </div>
+                </div>
+            </div>
+            <div className={css.linearV}>
+                <div className={css.section}>
+                    <div className={css.texts}>
+                        <span className={css.title}>제출 수</span>
+                        <span className={css.desc}>{user.stat.submits}번</span>
+                    </div>
+                </div>
+                <div className={css.section}>
+                    <div className={css.texts}>
+                        <span className={css.title}>정답 횟수</span>
+                        <span className={css.desc}>{user.stat.corrects}번</span>
                     </div>
                 </div>
             </div>

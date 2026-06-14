@@ -1,4 +1,4 @@
-import { getProblemsDatabase } from "./database";
+import { getProblemsDatabase, normalizeDBUser } from "./database";
 
 type MakeApiProblemOptions = {
     "savedCode"?: string;
@@ -6,7 +6,11 @@ type MakeApiProblemOptions = {
 };
 
 export function MakeApiProblem(value: DBProblem, options: MakeApiProblemOptions = {}): APIProblem {
-    const problem: APIProblem = { ...value, "tags": value.tags ?? [] };
+    const problem: APIProblem = {
+        ...value,
+        "tags": value.tags ?? [],
+        "requireKeyword": value.requireKeyword ?? []
+    };
 
     if (!options.includeCases) delete problem.cases;
     if (options.savedCode !== undefined) problem.savedCode = options.savedCode;
@@ -15,20 +19,21 @@ export function MakeApiProblem(value: DBProblem, options: MakeApiProblemOptions 
 }
 
 export function MakeApiUser(value: DBUser): APIUser {
+    const user = normalizeDBUser(value);
     const problems = getProblemsDatabase().get("problems").value();
-    const profile = value.userData.ok ? value.userData.data.profile : undefined;
-    const displayName = value.userData.ok
-        ? value.userData.data.displayName
-        : value.id;
+    const profile = user.userData.ok ? user.userData.data.profile : undefined;
+    const displayName = user.userData.ok
+        ? user.userData.data.displayName
+        : user.id;
 
     return {
-        "id": value.id,
+        "id": user.id,
         "displayName": displayName,
         ...(profile ? { "profile": profile } : {}),
-        "registerAt": value.registerAt,
-        "score": value.score,
-        "stat": value.stat,
-        "problems": value.problems
+        "registerAt": user.registerAt,
+        "score": user.score,
+        "stat": user.stat,
+        "problems": user.problems
             .map((id) => problems.find((problem) => problem.id === id))
             .filter((problem): problem is DBProblem => problem !== undefined)
             .map((problem) => MakeApiProblem(problem))

@@ -120,6 +120,26 @@
     accent-color: #fff;
 }
 
+.keywordControls,
+.keywordItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.keywordControls .input,
+.keywordItem .input {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.keywordList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .caseList {
     display: flex;
     flex-direction: column;
@@ -223,7 +243,9 @@
     .linearV,
     .caseGrid,
     .buttons,
-    .buttonGroup {
+    .buttonGroup,
+    .keywordControls,
+    .keywordItem {
         flex-direction: column;
     }
 

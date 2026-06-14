@@ -91,6 +91,12 @@ export default function Page() {
                     {problem.description.split("\n").map((v, i) => <span className={css.desc} key={i}>{v}</span>)}
                     <span className={css.desc} style={{ "marginTop": "15px" }}>이 문제를 풀면 {TierToScore(problem.tier)}점을 얻어요.</span>
                 </div>
+                {problem.requireKeyword.length > 0 && <div className={css.section}>
+                    <span className={css.title}>필수 키워드</span>
+                    <div className={css.keywordList}>
+                        {problem.requireKeyword.map((keyword) => <span className={css.keywordPill} key={keyword}>{keyword}</span>)}
+                    </div>
+                </div>}
                 <div className={css.linearV}>
                     {problem.input && <div className={css.section}>
                         <span className={css.title}>입력</span>

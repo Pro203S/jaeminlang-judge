@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import z from "zod";
 
 import { APIErrorResponse } from "@/modules/apiError";
-import { createDefaultDBUser, getDatabase, getProblemsDatabase } from "@/modules/database";
+import { createDefaultDBUser, getDatabase, getProblemsDatabase, normalizeDBUser } from "@/modules/database";
 import { Pro203SSessionError, attachSessionCookies, getCurrentSession } from "@/modules/pro203sAuth";
 
 type Params = { "params": Promise<{ id: string }> };
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest, { params }: Params) {
 
         const session = await getCurrentSession(req);
         const userNode = getOrCreateUserNode(session.user);
-        const currentUser = userNode.value();
+        const currentUser = normalizeDBUser(userNode.value());
 
         userNode.set({
             ...currentUser,

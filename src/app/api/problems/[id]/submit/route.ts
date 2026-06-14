@@ -4,12 +4,13 @@ import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { APIErrorResponse, createAPIErrorResponse } from "@/modules/apiError";
-import { createDefaultDBUser, getDatabase, getProblemsDatabase } from "@/modules/database";
+import { createDefaultDBUser, getDatabase, getProblemsDatabase, normalizeDBUser } from "@/modules/database";
 import {
     Pro203SSessionError,
     attachSessionCookies,
     getCurrentSession
 } from "@/modules/pro203sAuth";
+import { getMissingRequiredKeywords } from "@/modules/requiredKeywords";
 import { TierToScore } from "@/modules/tier";
 import { POSTApiProblemsIdSubmit } from "@/modules/zod";
 import { NextRequest, NextResponse } from "next/server";
@@ -87,33 +88,38 @@ export async function POST(req: NextRequest, { params }: Params) {
         let hasExecutionError = false;
         let executionOutput = "";
         let debugOutput = "";
+        const missingRequiredKeywords = getMissingRequiredKeywords(parsed.data.code, problem.requireKeyword);
 
-        // 보조 파일이 필요한 문제는 제출 코드와 같은 임시 디렉터리에 파일을 준비한다.
-        await prepareProblemRuntimeFiles(problem, tempDir);
+        if (missingRequiredKeywords.length) {
+            debugOutput = `필수 키워드가 빠졌습니다: ${missingRequiredKeywords.join(", ")}`;
+        } else {
+            // 보조 파일이 필요한 문제는 제출 코드와 같은 임시 디렉터리에 파일을 준비한다.
+            await prepareProblemRuntimeFiles(problem, tempDir);
 
-        for (const testCase of problem.cases) {
-            const result = await runJaeminlang(
-                jaeminlangPath,
-                tempDir,
-                fileName,
-                testCase.in ?? "",
-            );
+            for (const testCase of problem.cases) {
+                const result = await runJaeminlang(
+                    jaeminlangPath,
+                    tempDir,
+                    fileName,
+                    testCase.in ?? "",
+                );
 
-            if (result.timedOut || result.exitCode !== 0) {
-                hasExecutionError = true;
-                executionOutput = getExecutionOutput(result);
-                break;
+                if (result.timedOut || result.exitCode !== 0) {
+                    hasExecutionError = true;
+                    executionOutput = getExecutionOutput(result);
+                    break;
+                }
+
+                if (normalizeOutput(result.stdout) !== normalizeOutput(testCase.out)) {
+                    break;
+                }
+
+                passed += 1;
             }
-
-            if (normalizeOutput(result.stdout) !== normalizeOutput(testCase.out)) {
-                break;
-            }
-
-            passed += 1;
         }
 
-        const correct = passed === problem.cases.length;
-        if (!correct && !hasExecutionError) {
+        const correct = missingRequiredKeywords.length === 0 && passed === problem.cases.length;
+        if (!correct && !hasExecutionError && missingRequiredKeywords.length === 0) {
             // 오답이면 예제 입력 실행 결과를 돌려줘서 사용자가 출력 차이를 확인할 수 있게 한다.
             const sampleResult = await runJaeminlang(
                 jaeminlangPath,
@@ -128,48 +134,23 @@ export async function POST(req: NextRequest, { params }: Params) {
         }
 
         const userNode = getOrCreateUserNode(session.user);
-        const currentUser = userNode.value();
+        const currentUser = normalizeDBUser(userNode.value());
         const alreadySolved = currentUser.problems.includes(problem.id);
-        const incorrectProblems = currentUser.incorrectProblems ?? [];
-        const hadIncorrectProblem = incorrectProblems.includes(problem.id);
-        const nextUser: DBUser = correct
-            ? {
-                ...currentUser,
-                "score": currentUser.score + (alreadySolved ? 0 : TierToScore(problem.tier)),
-                "stat": {
-                    ...currentUser.stat,
-                    "correct": currentUser.stat.correct + 1,
-                    "incorrect": hadIncorrectProblem
-                        ? Math.max(0, currentUser.stat.incorrect - 1)
-                        : currentUser.stat.incorrect,
-                    "submits": currentUser.stat.submits + 1
-                },
-                "problems": alreadySolved
-                    ? currentUser.problems
-                    : [...currentUser.problems, problem.id],
-                "drafts": {
-                    ...(currentUser.drafts ?? {}),
-                    [String(problem.id)]: parsed.data.code
-                },
-                "incorrectProblems": incorrectProblems.filter((value) => value !== problem.id)
+        const nextUser: DBUser = {
+            ...currentUser,
+            "score": currentUser.score + (correct && !alreadySolved ? TierToScore(problem.tier) : 0),
+            "stat": {
+                "corrects": currentUser.stat.corrects + (correct ? 1 : 0),
+                "submits": currentUser.stat.submits + 1
+            },
+            "problems": correct && !alreadySolved
+                ? [...currentUser.problems, problem.id]
+                : currentUser.problems,
+            "drafts": {
+                ...(currentUser.drafts ?? {}),
+                [String(problem.id)]: parsed.data.code
             }
-            : {
-                ...currentUser,
-                "stat": {
-                    ...currentUser.stat,
-                    "incorrect": hadIncorrectProblem
-                        ? currentUser.stat.incorrect
-                        : currentUser.stat.incorrect + 1,
-                    "submits": currentUser.stat.submits + 1
-                },
-                "drafts": {
-                    ...(currentUser.drafts ?? {}),
-                    [String(problem.id)]: parsed.data.code
-                },
-                "incorrectProblems": hadIncorrectProblem
-                    ? incorrectProblems
-                    : [...incorrectProblems, problem.id]
-            };
+        };
 
         userNode.set(nextUser);
 

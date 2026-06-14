@@ -3,6 +3,7 @@ import { ADMIN_ID } from "@/modules/constants";
 import { getDBUserById, getProblemsDatabase, sortProblemsByDifficulty } from "@/modules/database";
 import { MakeApiProblem } from "@/modules/makeApiType";
 import { Pro203SSessionError, attachSessionCookies, getCurrentSession } from "@/modules/pro203sAuth";
+import { normalizeRequiredKeywords } from "@/modules/requiredKeywords";
 import { PATCHApiProblemsId } from "@/modules/zod";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -72,11 +73,15 @@ export async function PATCH(req: NextRequest, { params }: Params) {
         }, { "status": 404 }), session);
         const origin = database.get(originIndex).value();
 
-        const { input, output, ...updates } = parsed.data;
+        const { input, output, requireKeyword, ...updates } = parsed.data;
         const prob: DBProblem = {
             ...origin,
+            "requireKeyword": origin.requireKeyword ?? [],
             ...updates
         };
+        if ("requireKeyword" in parsed.data && requireKeyword) {
+            prob.requireKeyword = normalizeRequiredKeywords(requireKeyword);
+        }
         if ("input" in parsed.data) {
             if (input === null) delete prob.input;
             else if (input !== undefined) prob.input = input;
