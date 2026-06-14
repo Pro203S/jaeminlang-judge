@@ -62,7 +62,10 @@ function spawn(command: string, args: string[], stdin?: string) {
             }
         });
 
-        if (stdin) c.stdin.write(stdin);
+        if (stdin) {
+            c.stdin.write(stdin);
+            c.stdin.end();
+        }
     });
 }
 
