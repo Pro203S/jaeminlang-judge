@@ -8,6 +8,11 @@ import REST from "@/modules/rest";
 import Loading from "@/components/loading";
 import dayjs from "dayjs";
 import { GetMaxProblemScore } from "@/modules/problemScore";
+import TierBadge from "@/components/tierbadge";
+import { TAG_TO_STRING } from "@/modules/constants";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
 function coloringScore(score: number, max: number) {
     // God I 문제는 배제 후 step
@@ -85,7 +90,30 @@ export default function Page() {
                         <span className={css.desc}>{user.stat.corrects}번</span>
                     </div>
                 </div>
+                <div className={css.section}>
+                    <div className={css.texts}>
+                        <span className={css.title}>정답률</span>
+                        <span className={css.desc}>{Math.round((user.stat.corrects / user.stat.submits) * 100)}%</span>
+                    </div>
+                </div>
             </div>
+            {user.problems.length > 0 && <div className={css.section}>
+                <div className={css.texts}>
+                    <span className={css.title}>푼 문제</span>
+                </div>
+                {user.problems.map(v => <Link
+                    className={css.problem}
+                    key={v.id}
+                    href={`/problems/${v.id}`}
+                >
+                    <TierBadge tier={v.tier} className={css.tier} />
+                    <div className={css.texts}>
+                        <span className={css.title}>{v.name}</span>
+                        <span className={css.tags}>태그: {v.tags.map(TAG_TO_STRING).join(", ")}</span>
+                    </div>
+                    <FontAwesomeIcon className={css.icon} icon={faChevronRight} />
+                </Link>)}
+            </div>}
         </div>
     </>;
 }
