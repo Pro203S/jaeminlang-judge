@@ -18,7 +18,9 @@ import type {
 const DEFAULT_AUTH_BASE_URL = "https://discord.com";
 const DEFAULT_API_BASE_URL = "https://discord.com/api";
 const DEFAULT_CDN_BASE_URL = "https://cdn.discordapp.com";
+const DEFAULT_PRODUCTION_ORIGIN = "https://jml.pro203s.kr";
 const DEFAULT_SCOPE = "identify email";
+const CALLBACK_PATH = "/api/auth/callback";
 
 export const ACCESS_TOKEN_COOKIE = "discord_access_token";
 export const REFRESH_TOKEN_COOKIE = "discord_refresh_token";
@@ -62,11 +64,14 @@ export function getAuthConfig(requestUrl?: string): AuthConfig {
     );
     const clientId = firstEnv("DISCORD_CLIENT_ID", "CLIENT_ID");
     const clientSecret = firstEnv("DISCORD_CLIENT_SECRET", "CLIENT_SECRET");
+    const configuredRedirectUri = firstEnv(
+        "DISCORD_REDIRECT_URI",
+        "REDIRECT_URI",
+        "redirect_uri",
+    );
     const redirectUri =
-        firstEnv("DISCORD_REDIRECT_URI", "REDIRECT_URI", "redirect_uri") ??
-        (requestUrl
-            ? new URL("/api/auth/callback", requestUrl).toString()
-            : undefined);
+        getAllowedRedirectUri(configuredRedirectUri) ??
+        createPublicAppUrl(CALLBACK_PATH, requestUrl)?.toString();
     const scope = firstEnv("DISCORD_OAUTH_SCOPE", "OAUTH_SCOPE") ?? DEFAULT_SCOPE;
 
     if (!clientId || !clientSecret || !redirectUri) {
@@ -364,7 +369,7 @@ export function authErrorRedirect(
     code: string,
     description?: string,
 ) {
-    const url = new URL("/", requestUrl);
+    const url = createPublicAppUrl("/", requestUrl) ?? new URL("/", requestUrl);
     url.searchParams.set("auth_error", code);
 
     if (description) {
@@ -372,6 +377,12 @@ export function authErrorRedirect(
     }
 
     return url;
+}
+
+export function createPublicAppUrl(path: string, requestUrl?: string) {
+    const origin = getPublicOrigin(requestUrl);
+
+    return origin ? new URL(path, origin) : undefined;
 }
 
 function createFormBody(
@@ -580,6 +591,94 @@ function normalizeMaxAge(value: number | undefined, fallback: number) {
 
 function trimTrailingSlash(value: string) {
     return value.endsWith("/") ? value.slice(0, -1) : value;
+}
+
+function getPublicOrigin(requestUrl?: string) {
+    const configuredOrigin = firstEnv(
+        "APP_ORIGIN",
+        "SITE_URL",
+        "NEXT_PUBLIC_SITE_URL",
+        "NEXT_PUBLIC_APP_URL",
+        "NEXTAUTH_URL",
+    );
+
+    const allowedOrigin = getAllowedOrigin(configuredOrigin);
+
+    if (allowedOrigin) {
+        return normalizeOrigin(allowedOrigin);
+    }
+
+    if (process.env.NODE_ENV === "production") {
+        return DEFAULT_PRODUCTION_ORIGIN;
+    }
+
+    if (!requestUrl) {
+        return undefined;
+    }
+
+    return new URL(requestUrl).origin;
+}
+
+function getAllowedRedirectUri(value: string | undefined) {
+    if (!value) {
+        return undefined;
+    }
+
+    if (process.env.NODE_ENV === "production" && isLocalhostUrl(value)) {
+        return undefined;
+    }
+
+    return value;
+}
+
+function getAllowedOrigin(value: string | undefined) {
+    if (!value) {
+        return undefined;
+    }
+
+    if (process.env.NODE_ENV === "production" && isLocalhostOrigin(value)) {
+        return undefined;
+    }
+
+    return value;
+}
+
+function normalizeOrigin(value: string) {
+    const withProtocol = /^https?:\/\//i.test(value)
+        ? value
+        : `https://${value}`;
+
+    return trimTrailingSlash(new URL(withProtocol).origin);
+}
+
+function isLocalhostUrl(value: string) {
+    try {
+        const url = new URL(value);
+
+        return isLocalhost(url.hostname);
+    } catch {
+        return false;
+    }
+}
+
+function isLocalhostOrigin(value: string) {
+    try {
+        const origin = normalizeOrigin(value);
+        const url = new URL(origin);
+
+        return isLocalhost(url.hostname);
+    } catch {
+        return false;
+    }
+}
+
+function isLocalhost(hostname: string) {
+    return (
+        hostname === "localhost" ||
+        hostname === "127.0.0.1" ||
+        hostname === "::1" ||
+        hostname === "[::1]"
+    );
 }
 
 function firstEnv(...names: string[]) {

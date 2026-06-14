@@ -5,6 +5,7 @@ import {
     OAUTH_STATE_COOKIE,
     authErrorRedirect,
     clearOAuthStateCookie,
+    createPublicAppUrl,
     decodeOAuthState,
     fetchCurrentUser,
     getAuthConfig,
@@ -81,7 +82,10 @@ export async function GET(request: NextRequest) {
 
     upsertOAuthUser(userResult.data);
 
-    const response = NextResponse.redirect(new URL(storedState.next, request.url));
+    const response = NextResponse.redirect(
+        createPublicAppUrl(storedState.next, request.url) ??
+        new URL(storedState.next, request.url),
+    );
     setTokenCookies(response, tokenResult.data);
     clearOAuthStateCookie(response);
 

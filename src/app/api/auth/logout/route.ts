@@ -4,6 +4,7 @@ import {
     ACCESS_TOKEN_COOKIE,
     REFRESH_TOKEN_COOKIE,
     clearAuthCookies,
+    createPublicAppUrl,
     getAuthConfig,
     revokeToken,
 } from "@/modules/discordAuth";
@@ -12,7 +13,9 @@ import type { AuthLogoutResponse } from "@/modules/discordAuthTypes";
 export async function GET(request: NextRequest) {
     await revokeExistingTokens(request);
 
-    const response = NextResponse.redirect(new URL("/", request.url));
+    const response = NextResponse.redirect(
+        createPublicAppUrl("/", request.url) ?? new URL("/", request.url),
+    );
     clearAuthCookies(response);
 
     return response;
