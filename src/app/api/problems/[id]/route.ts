@@ -1,10 +1,11 @@
 import { APIErrorResponse } from "@/modules/apiError";
 import { ADMIN_ID } from "@/modules/constants";
-import { getDBUserById, getProblemsDatabase, sortProblemsByDifficulty } from "@/modules/database";
+import { getDBUserById, getProblemsDatabase, recalculateScoresForProblemSolvers, sortProblemsByDifficulty } from "@/modules/database";
 import { MakeApiProblem } from "@/modules/makeApiType";
 import { normalizeProblemRuntimeFiles } from "@/modules/problemRuntimeFiles";
 import { DiscordSessionError, attachSessionCookies, getCurrentSession } from "@/modules/discordAuth";
 import { normalizeRequiredKeywords } from "@/modules/requiredKeywords";
+import { CompareTier } from "@/modules/tier";
 import { PATCHApiProblemsId } from "@/modules/zod";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -98,7 +99,12 @@ export async function PATCH(req: NextRequest, { params }: Params) {
         }
 
         database.get(originIndex).set(prob);
-        database.set(sortProblemsByDifficulty(database.value()));
+        const sortedProblems = sortProblemsByDifficulty(database.value());
+        database.set(sortedProblems);
+
+        if (CompareTier(origin.tier, prob.tier) !== 0) {
+            recalculateScoresForProblemSolvers(prob.id, sortedProblems);
+        }
 
         return attachSessionCookies(new NextResponse(null, { "status": 204 }), session);
     } catch (err) {

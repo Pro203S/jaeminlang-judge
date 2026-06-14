@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import Shadowly from 'shadowly';
 import type { OAuthUserResponse, OAuthUserResult } from './discordAuthTypes';
-import { CompareTier } from './tier';
+import { CompareTier, TierToScore } from './tier';
 
 const DATABASE_PATH = "./database.json";
 const PROBLEMS_PATH = "./problems.json";
@@ -32,6 +32,25 @@ export const getProblemsDatabase = () => new Shadowly<ProblemsDatabase>(PROBLEMS
 
 export function sortProblemsByDifficulty(problems: DBProblem[]): DBProblem[] {
     return [...problems].sort((a, b) => CompareTier(a.tier, b.tier) || a.id - b.id);
+}
+
+export function solvedProblemsToScore(problemIds: number[], problems: DBProblem[]): number {
+    const problemScoreById = new Map(problems.map((problem) => [problem.id, TierToScore(problem.tier)]));
+    return problemIds.reduce((score, problemId) => score + (problemScoreById.get(problemId) ?? 0), 0);
+}
+
+export function recalculateScoresForProblemSolvers(problemId: number, problems: DBProblem[]): void {
+    const users = getDatabase().get("users");
+
+    users.value().forEach((value, index) => {
+        const user = normalizeDBUser(value);
+        if (!user.problems.includes(problemId)) return;
+
+        users.get(index).set({
+            ...user,
+            "score": solvedProblemsToScore(user.problems, problems)
+        });
+    });
 }
 
 function createOAuthUserResult(user: OAuthUserResponse): OAuthUserResult {
