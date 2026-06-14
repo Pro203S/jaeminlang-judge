@@ -1303,13 +1303,13 @@
         "implement"
       ],
       "name": "재민랭의 신",
-      "description": "당신은 재민랭의 신이 되기 위해 이 문제에 도전합니다.\n채점 환경에는 godlib.jml 파일이 함께 놓입니다. godlib.jml을 불러오면 신탁(x, y, d) = x*x + y*d + 7 함수가 등록됩니다.\n\nN, A, B, C, D가 주어집니다. i가 1부터 N까지일 때 다음 값을 계산하세요.\nP_i = A*i*i + B*i + C\nQ_i = P_i*P_i + i*D + 7\nT_i = Q_i + i*D\nS_i = S_(i-1) + T_i, 단 S_0 = 0\n\n각 i마다 i, P_i, Q_i, S_i를 출력하세요.",
+      "description": "당신은 재민랭의 신이 되기 위해 이 문제에 도전합니다.\n채점 환경에는 godlib.jml 파일이 함께 놓입니다.\ngodlib.jml을 불러오면 함수(x, y, d) = x*x + y*d + 7 함수가 등록됩니다.\n** 무조건 팝콘 키워드를 활용해 함수를 불러와야합니다. **\n\nN, A, B, C, D가 주어집니다. i가 1부터 N까지일 때 다음 값을 계산하세요.\nP_i = A*i*i + B*i + C\nQ_i = P_i*P_i + i*D + 7\nT_i = Q_i + i*D\nS_i = S_(i-1) + T_i, 단 S_0 = 0\n\n각 i마다 i, P_i, Q_i, S_i를 출력하세요.",
       "input": {
         "description": "첫째 줄에 N, 둘째 줄에 A, 셋째 줄에 B, 넷째 줄에 C, 다섯째 줄에 D가 주어집니다. 모든 값은 자연수입니다.",
         "content": "3\n2\n3\n5\n4"
       },
       "output": {
-        "description": "1부터 N까지 각 줄에 i, P_i, Q_i, S_i를 공백으로 구분해 출력한 뒤 마지막 줄에 여친을 출력합니다.",
+        "description": "1부터 N까지 각 줄에 i, P_i, Q_i, S_i를 공백으로 구분해 출력합니다.",
         "content": "1 10 111 115\n2 19 376 499\n3 32 1043 1554"
       },
       "cases": [
@@ -1339,13 +1339,6 @@
         }
       ],
       "requireKeyword": [
-        "안산",
-        "재민",
-        "그램",
-        "러스트",
-        "엘릭서",
-        "음...",
-        "여친",
         "팝콘"
       ]
     }
