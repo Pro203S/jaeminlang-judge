@@ -98,7 +98,7 @@
 }
 
 .codeBlock code {
-    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    letter-spacing: 5%;
     white-space: pre;
 }
 

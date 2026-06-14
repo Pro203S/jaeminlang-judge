@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { cloneElement, isValidElement, type ReactNode } from "react";
 
 import css from "./styles.module.css";
 
@@ -123,7 +123,7 @@ function renderBlocks(content: string): ReactNode[] {
             index += 1;
         }
 
-        blocks.push(<p key={`p:${index}`}>{renderInline(paragraphLines.join(" "))}</p>);
+        blocks.push(<p key={`p:${index}`}>{renderInlineLines(paragraphLines)}</p>);
     }
 
     return blocks;
@@ -135,7 +135,7 @@ function renderHeading(level: number, text: string, key: string) {
 
     switch (level) {
         case 1:
-            return <h1 id={id} key={key}>{children}</h1>;
+            return <h1 id={id} key={key}># {children}</h1>;
         case 2:
             return <h2 id={id} key={key}>{children}</h2>;
         case 3:
@@ -195,6 +195,22 @@ function renderInline(text: string): ReactNode[] {
     return nodes;
 }
 
+function renderInlineLines(lines: string[]) {
+    const nodes: ReactNode[] = [];
+
+    lines.forEach((line, lineIndex) => {
+        if (lineIndex > 0) nodes.push(<br key={`br:${lineIndex}`} />);
+
+        renderInline(line).forEach((node, nodeIndex) => {
+            nodes.push(isValidElement(node)
+                ? cloneElement(node, { "key": `line:${lineIndex}:${nodeIndex}` })
+                : node);
+        });
+    });
+
+    return nodes;
+}
+
 function renderLink(label: string, href: string, key: string) {
     if (!isSafeLink(href)) return label;
 
@@ -227,7 +243,14 @@ function isSpecialBlockStart(lines: string[], index: number) {
 
 function isTableStart(lines: string[], index: number) {
     return lines[index]?.includes("|")
-        && /^\s*\|?\s*:?-{3,}:?\s*(\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(lines[index + 1] ?? "");
+        && isTableDelimiterRow(lines[index + 1] ?? "");
+}
+
+function isTableDelimiterRow(line: string) {
+    const cells = splitTableRow(line);
+
+    return cells.length >= 2
+        && cells.every((cell) => /^:?-+:?$/.test(cell));
 }
 
 function splitTableRow(line: string) {
