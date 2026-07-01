@@ -21,7 +21,11 @@
         }
       ],
       "requireKeyword": [],
-      "runtimeFiles": []
+      "runtimeFiles": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 4,
@@ -52,7 +56,11 @@
           "out": "qwer1234"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 7,
@@ -77,7 +85,11 @@
       "requireKeyword": [
         "그램"
       ],
-      "runtimeFiles": []
+      "runtimeFiles": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 5,
@@ -113,7 +125,11 @@
           "out": "25"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 6,
@@ -149,7 +165,11 @@
           "out": "27"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 9,
@@ -185,7 +205,11 @@
           "out": "80000"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 17,
@@ -221,7 +245,11 @@
           "out": "coffee #3"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 8,
@@ -257,7 +285,11 @@
           "out": "전재민"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 11,
@@ -297,7 +329,11 @@
           "out": "1021"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 12,
@@ -333,7 +369,11 @@
           "out": "8\n7\n6\n5\n4\n3\n2\n1"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 13,
@@ -370,7 +410,11 @@
           "out": "1 2\n2 4\n3 6\n4 8\n5 10\n6 12\n7 14"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 14,
@@ -407,7 +451,11 @@
           "out": "1\n3\n6\n10\n15\n21\n28\n36"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 15,
@@ -444,7 +492,11 @@
           "out": "6"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 16,
@@ -480,7 +532,11 @@
           "out": "2000"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 10,
@@ -522,7 +578,11 @@
         }
       ],
       "requireKeyword": [],
-      "runtimeFiles": []
+      "runtimeFiles": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 18,
@@ -559,7 +619,11 @@
           "out": "1 11"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 19,
@@ -596,7 +660,11 @@
           "out": "112200"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 20,
@@ -633,7 +701,11 @@
           "out": "1\n8\n15\n22\n29\n36"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 28,
@@ -669,7 +741,11 @@
           "out": "[1] admin-1"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 21,
@@ -706,7 +782,11 @@
           "out": "1 9\n2 18\n3 27\n4 36\n5 45\n6 54\n7 63\n8 72\n9 81"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 22,
@@ -742,7 +822,11 @@
           "out": "70"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 23,
@@ -778,7 +862,11 @@
           "out": "[3, 6, 30, 12, 15]"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 24,
@@ -815,7 +903,11 @@
           "out": "5900"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 25,
@@ -852,7 +944,11 @@
           "out": "156"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 26,
@@ -889,7 +985,11 @@
           "out": "1 6\n2 12\n3 18\n4 24"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 27,
@@ -926,7 +1026,11 @@
           "out": "2\n3 4\n4 5 6\n5 6 7 8\n6 7 8 9 10"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 29,
@@ -963,7 +1067,11 @@
           "out": "54"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 30,
@@ -1000,7 +1108,11 @@
           "out": "1 1 4\n1 2 6\n1 3 8\n1 4 10"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 31,
@@ -1037,7 +1149,11 @@
           "out": "1 8\n2 13\n3 18\n4 23"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 32,
@@ -1074,7 +1190,11 @@
           "out": "1 10 10\n2 21 31\n3 38 69\n4 61 130\n5 90 220"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 33,
@@ -1111,7 +1231,11 @@
           "out": "2 2 2\n3 4 7 9\n4 5 6 15 24\n5 6 7 8 26 50\n6 7 8 9 10 40 90"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 34,
@@ -1148,7 +1272,11 @@
           "out": "17\n38\n29"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 35,
@@ -1185,7 +1313,11 @@
           "out": "70"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 36,
@@ -1222,7 +1354,11 @@
           "out": "1 1 1\n2 2 3\n3 6 9\n4 24 33\n5 120 153\n6 720 873"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 37,
@@ -1259,7 +1395,11 @@
           "out": "1 7 7\n2 9 16\n3 13 29\n4 19 48\n5 27 75\n6 37 112"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 38,
@@ -1296,7 +1436,11 @@
           "out": "2 3\n3 5\n4 7\n5 9"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     },
     {
       "id": 39,
@@ -1357,7 +1501,11 @@
           "name": "godlib.jml",
           "content": "엘릭서,함수,x,y,d\n그램,result,x\n그램,result,*x\n그램,tmp,y\n그램,tmp,*d\n그램,result,+tmp\n그램,result,+7\n음...,result"
         }
-      ]
+      ],
+      "author": {
+        "id": "388653325161332736",
+        "displayName": "관리자"
+      }
     }
   ]
 }
