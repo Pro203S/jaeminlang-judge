@@ -1,30 +1,34 @@
-import { getProblemsDatabase, normalizeDBUser } from "./database";
+import { canManageProblem, normalizeDBProblem } from "./problemAuthor";
+import { getAllDBProblems, normalizeDBUser } from "./database";
 import { normalizeProblemRuntimeFiles } from "./problemRuntimeFiles";
 
 type MakeApiProblemOptions = {
     "savedCode"?: string;
     "includeCases"?: boolean;
     "includeRuntimeFiles"?: boolean;
+    "viewer"?: { id: string };
 };
 
 export function MakeApiProblem(value: DBProblem, options: MakeApiProblemOptions = {}): APIProblem {
+    const normalized = normalizeDBProblem(value);
     const problem: APIProblem = {
-        ...value,
-        "tags": value.tags ?? [],
-        "requireKeyword": value.requireKeyword ?? [],
-        "runtimeFiles": normalizeProblemRuntimeFiles(value.runtimeFiles ?? [])
+        ...normalized,
+        "tags": normalized.tags ?? [],
+        "requireKeyword": normalized.requireKeyword ?? [],
+        "runtimeFiles": normalizeProblemRuntimeFiles(normalized.runtimeFiles ?? [])
     };
 
     if (!options.includeCases) delete problem.cases;
     if (!options.includeRuntimeFiles) delete problem.runtimeFiles;
     if (options.savedCode !== undefined) problem.savedCode = options.savedCode;
+    if (options.viewer) problem.canManage = canManageProblem(normalized, options.viewer);
 
     return problem;
 }
 
 export function MakeApiUser(value: DBUser): APIUser {
     const user = normalizeDBUser(value);
-    const problems = getProblemsDatabase().get("problems").value();
+    const problems = getAllDBProblems();
     const profile = user.userData.ok ? user.userData.data.profile : undefined;
     const displayName = user.userData.ok
         ? user.userData.data.displayName

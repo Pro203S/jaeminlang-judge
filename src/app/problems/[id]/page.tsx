@@ -12,7 +12,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faPaperPlane, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import Loading from "@/components/loading";
 import { TierToScore } from "@/modules/tier";
-import { ADMIN_ID } from "@/modules/constants";
 
 const CONFETTI_PIECES = Array.from({ "length": 28 }, (_, index) => index);
 
@@ -91,6 +90,7 @@ export default function Page() {
                                 <span className={css.title}>{problem.name}</span>
                             </div>
                             {problem.description.split("\n").map((v, i) => <span className={css.desc} key={i}>{v}</span>)}
+                            <span className={css.desc}>만든 사람: {problem.author.displayName}</span>
                             <span className={css.desc} style={{ "marginTop": "15px" }}>이 문제를 풀면 {TierToScore(problem.tier)}점을 얻어요.</span>
                         </div>
                         {problem.requireKeyword.length > 0 && <div className={css.section}>
@@ -179,7 +179,7 @@ export default function Page() {
                             <span>뒤로가기</span>
                         </Button>
                         <div className={css.buttonGroup}>
-                            {user?.id === ADMIN_ID && <Button
+                            {problem.canManage && <Button
                                 className={css.submit}
                                 href={`/problems/${id}/edit`}
                             >

@@ -1,5 +1,5 @@
 import { APIErrorResponse } from "@/modules/apiError";
-import { getDatabase, getProblemsDatabase } from "@/modules/database";
+import { getDatabase, getDBProblemById } from "@/modules/database";
 import { decodeProxyAuthUser } from "@/modules/proxyAuth";
 import { POSTApiProblemsIdSubmit } from "@/modules/zod";
 import { NextRequest, NextResponse } from "next/server";
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest, { params }: Params) {
 
         const { id } = await params;
         const problemId = Number(id);
-        const problem = getProblemsDatabase().get("problems").find(v => v.id === problemId)?.value?.();
+        const problem = getDBProblemById(problemId);
 
         if (!problem) return NextResponse.json({
             "code": "not_found",

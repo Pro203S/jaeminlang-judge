@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faChevronDown, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import Dropdown, { DropdownItem } from "@/components/dropdown";
 import { animated, easings, useSpringValue } from "@react-spring/web";
-import { ADMIN_ID, AVAILABLE_TAGS, TAG_TO_STRING } from "@/modules/constants";
+import { AVAILABLE_TAGS, TAG_TO_STRING } from "@/modules/constants";
 import { AVAILABLE_TIERS, TierToString } from "@/modules/tier";
 import TierBadge from "@/components/tierbadge";
 import Link from "next/link";
@@ -129,7 +129,7 @@ export default function Page() {
                         <span>{selectedTier ? TierToString(selectedTier) : "난이도 선택"}</span>
                         <AnimatedFA icon={faChevronDown} style={{ "transform": tierArrowRotation.to(v => `rotate(${v}deg)`) }} />
                     </Dropdown>
-                    {user?.id === ADMIN_ID && <Button containerStyle={{ "marginLeft": "auto" }} href="/problems/make">
+                    {user && <Button containerStyle={{ "marginLeft": "auto" }} href="/problems/make">
                         <span style={{ "margin": "auto 0" }}>만들기</span>
                     </Button>}
                 </div>
@@ -146,6 +146,7 @@ export default function Page() {
                             <div className={css.texts}>
                                 <span className={css.title}>{v.name}</span>
                                 <span className={css.tags}>태그: {v.tags.map(TAG_TO_STRING).join(", ")}</span>
+                                <span className={css.tags}>만든 사람: {v.author.displayName}</span>
                             </div>
                             <FontAwesomeIcon className={css.icon} icon={faChevronRight} />
                         </Link>) :
