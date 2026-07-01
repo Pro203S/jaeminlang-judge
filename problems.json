@@ -282,7 +282,7 @@
       "cases": [
         {
           "in": "3\n4\n2",
-          "out": "342\n"
+          "out": "342"
         },
         {
           "in": "4\n4\n2",
@@ -297,7 +297,8 @@
           "out": "1021"
         }
       ],
-      "requireKeyword": []
+      "requireKeyword": [],
+      "runtimeFiles": []
     },
     {
       "id": 12,
@@ -560,6 +561,46 @@
         }
       ],
       "requireKeyword": []
+    },
+    {
+      "id": 40,
+      "tier": {
+        "category": "silver",
+        "stage": 3
+      },
+      "tags": [
+        "operate",
+        "inout",
+        "implement"
+      ],
+      "requireKeyword": [
+        "엘릭서"
+      ],
+      "name": "재민이의 비밀번호",
+      "description": "재민이는 친구들이 핸드폰을 뺏어 자꾸 선배님들께 장난을 치는 바람에 재민이의 이미지가 크게 떨어져버렸습니다.\n이에 따라 재민이는 핸드폰 비밀번호를 만들기로 결정합니다.\n\n재민이는 친구들이 쉽게 알아차리지 못하게 자신만의 함수를 만들어 비밀번호를 만들었습니다.\n입력 x, y가 주어질 때 입력 x를 함수 A에 넣은 값과 입력 y를 함수 B에 넣은 값을 더한 값을 출력하세요.\n\n함수 A(x) = x + 8 * x\n함수 B(x) = A(x) + 22",
+      "input": {
+        "description": "입력 A, B",
+        "content": "5\n8"
+      },
+      "output": {
+        "description": "재민이의 비밀번호",
+        "content": "139"
+      },
+      "cases": [
+        {
+          "in": "5\n8",
+          "out": "139"
+        },
+        {
+          "in": "1\n2",
+          "out": "49"
+        },
+        {
+          "in": "6\n10",
+          "out": "166"
+        }
+      ],
+      "runtimeFiles": []
     },
     {
       "id": 19,
