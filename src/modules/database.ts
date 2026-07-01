@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import Shadowly from 'shadowly';
 import type { OAuthUserResponse, OAuthUserResult } from './discordAuthTypes';
+import { normalizeDBProblem } from './problemAuthor';
 import { CompareTier, TierToScore } from './tier';
 
 const DATABASE_PATH = "./database.json";
@@ -34,6 +35,33 @@ export function sortProblemsByDifficulty(problems: DBProblem[]): DBProblem[] {
     return [...problems].sort((a, b) => CompareTier(a.tier, b.tier) || a.id - b.id);
 }
 
+export function getAllDBProblems(): DBProblem[] {
+    const problems = getProblemsDatabase().get("problems");
+    const values = problems.value();
+    const normalized = values.map((value) => normalizeDBProblem(value));
+
+    if (values.some((value) => !hasPersistedProblemAuthor(value))) {
+        problems.set(normalized);
+    }
+
+    return normalized;
+}
+
+export function getDBProblemById(id: number): DBProblem | undefined {
+    const problems = getProblemsDatabase().get("problems");
+    const problemIndex = problems.findIndex((value) => value.id === id);
+    if (problemIndex === -1) return undefined;
+
+    const problemNode = problems.get(problemIndex);
+    const normalized = normalizeDBProblem(problemNode.value());
+
+    if (!hasPersistedProblemAuthor(problemNode.value())) {
+        problemNode.set(normalized);
+    }
+
+    return normalized;
+}
+
 export function solvedProblemsToScore(problemIds: number[], problems: DBProblem[]): number {
     const problemScoreById = new Map(problems.map((problem) => [problem.id, TierToScore(problem.tier)]));
     return problemIds.reduce((score, problemId) => score + (problemScoreById.get(problemId) ?? 0), 0);
@@ -49,6 +77,30 @@ export function recalculateScoresForProblemSolvers(problemId: number, problems: 
         users.get(index).set({
             ...user,
             "score": solvedProblemsToScore(user.problems, problems)
+        });
+    });
+}
+
+export function removeProblemFromUsers(problemId: number, problems: DBProblem[]): void {
+    const problemKey = String(problemId);
+    const users = getDatabase().get("users");
+
+    users.value().forEach((value, index) => {
+        const user = normalizeDBUser(value);
+        const nextProblems = user.problems.filter((value) => value !== problemId);
+
+        if (nextProblems.length === user.problems.length && !(problemKey in user.drafts)) {
+            return;
+        }
+
+        const nextDrafts = { ...user.drafts };
+        delete nextDrafts[problemKey];
+
+        users.get(index).set({
+            ...user,
+            "problems": nextProblems,
+            "drafts": nextDrafts,
+            "score": solvedProblemsToScore(nextProblems, problems),
         });
     });
 }
@@ -131,4 +183,13 @@ export function normalizeDBUser(value: DBUser | LegacyDBUser): DBUser {
 
 function normalizeNumber(value: unknown) {
     return typeof value === "number" && Number.isFinite(value) ? value : 0;
+}
+
+function hasPersistedProblemAuthor(problem: DBProblem) {
+    const author = (problem as Partial<DBProblem>).author;
+
+    return typeof author?.id === "string"
+        && author.id.trim().length > 0
+        && typeof author.displayName === "string"
+        && author.displayName.trim().length > 0;
 }

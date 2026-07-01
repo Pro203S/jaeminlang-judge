@@ -1,6 +1,6 @@
 import { APIErrorResponse } from "@/modules/apiError";
-import { ADMIN_ID } from "@/modules/constants";
-import { getProblemsDatabase, sortProblemsByDifficulty } from "@/modules/database";
+import { createProblemAuthor } from "@/modules/problemAuthor";
+import { getAllDBProblems, getProblemsDatabase, sortProblemsByDifficulty } from "@/modules/database";
 import { MakeApiProblem } from "@/modules/makeApiType";
 import { normalizeProblemRuntimeFiles } from "@/modules/problemRuntimeFiles";
 import { decodeProxyAuthUser } from "@/modules/proxyAuth";
@@ -10,7 +10,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
     try {
-        const problems = getProblemsDatabase().get("problems").value();
+        const problems = getAllDBProblems();
         return NextResponse.json(sortProblemsByDifficulty(problems).map((problem) => MakeApiProblem(problem)));
     } catch (err) {
         const e = err as Error;
@@ -34,16 +34,13 @@ export async function POST(req: NextRequest) {
             "code": "unauthorized",
             "message": "로그인이 필요합니다."
         } satisfies APIErrorResponse, { "status": 401 });
-        if (user.id !== ADMIN_ID) return NextResponse.json({
-            "code": "forbidden",
-            "message": "관리자만 문제를 만들 수 있습니다."
-        }, { "status": 403 });
         
         const database = getProblemsDatabase().get("problems");
         const problems = database.value();
         const prob: DBProblem = {
             "id": Math.max(0, ...problems.map((problem) => problem.id)) + 1,
             ...parsed.data,
+            "author": createProblemAuthor(user),
             "requireKeyword": normalizeRequiredKeywords(parsed.data.requireKeyword),
             "runtimeFiles": normalizeProblemRuntimeFiles(parsed.data.runtimeFiles)
         };

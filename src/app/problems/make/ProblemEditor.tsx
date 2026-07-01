@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import InOutAnimation from "@/components/InOutAnimation";
 import Button from "@/components/button";
 import Loading from "@/components/loading";
-import { ADMIN_ID, AVAILABLE_TAGS } from "@/modules/constants";
+import { AVAILABLE_TAGS } from "@/modules/constants";
 import {
     getDuplicateProblemRuntimeFileNames,
     isProblemRuntimeFileName,
@@ -34,7 +34,7 @@ type EditableRuntimeFile = ProblemRuntimeFile & {
     "id": number;
 };
 
-type ProblemMutationPayload = Omit<DBProblem, "id" | "input" | "output"> & {
+type ProblemMutationPayload = Omit<DBProblem, "id" | "author" | "input" | "output"> & {
     "input"?: DBProblem["input"] | null;
     "output"?: DBProblem["output"] | null;
 };
@@ -112,12 +112,6 @@ export default function ProblemEditor(props: Props) {
                 return;
             }
 
-            if (me.data.id !== ADMIN_ID) {
-                alert("관리자만 문제를 관리할 수 있습니다.");
-                router.back();
-                return;
-            }
-
             setUser(me.data);
 
             if (mode === "edit" && problemId) {
@@ -126,6 +120,12 @@ export default function ProblemEditor(props: Props) {
 
                 if (!result.success) {
                     alert(result.data.message);
+                    router.back();
+                    return;
+                }
+
+                if (!result.data.canManage) {
+                    alert("작성자나 관리자만 문제를 관리할 수 있습니다.");
                     router.back();
                     return;
                 }

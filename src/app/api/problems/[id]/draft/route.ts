@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import z from "zod";
 
 import { APIErrorResponse } from "@/modules/apiError";
-import { createDefaultDBUser, getDatabase, getProblemsDatabase, normalizeDBUser } from "@/modules/database";
+import { createDefaultDBUser, getDatabase, getDBProblemById, normalizeDBUser } from "@/modules/database";
 import { decodeProxyAuthUser } from "@/modules/proxyAuth";
 
 type Params = { "params": Promise<{ id: string }> };
@@ -20,7 +20,7 @@ export async function POST(req: NextRequest, { params }: Params) {
         } satisfies APIErrorResponse, { "status": 400 });
 
         const problemId = Number((await params).id);
-        const problem = getProblemsDatabase().get("problems").find(v => v.id === problemId)?.value?.();
+        const problem = getDBProblemById(problemId);
         if (!problem) return NextResponse.json({
             "code": "not_found",
             "message": "문제를 찾지 못했습니다."

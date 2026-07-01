@@ -48,6 +48,7 @@ declare global {
         "tier": Tier,
         "tags": string[],
         "requireKeyword": string[],
+        "author": ProblemAuthor,
         "name": string,
         "description": string,
         "input"?: {
@@ -63,7 +64,8 @@ declare global {
             "out": string,
         }[],
         "runtimeFiles"?: ProblemRuntimeFile[],
-        "savedCode"?: string
+        "savedCode"?: string,
+        "canManage"?: boolean
     };
 
     //#region DB Type
@@ -82,11 +84,18 @@ declare global {
         "content": string
     };
 
+    type ProblemAuthor = {
+        "id": string,
+        "displayName": string,
+        "profile"?: string
+    };
+
     type DBProblem = {
         "id": number,
         "tier": Tier,
         "tags": string[],
         "requireKeyword": string[],
+        "author": ProblemAuthor,
         "name": string,
         "description": string,
         "input"?: {
